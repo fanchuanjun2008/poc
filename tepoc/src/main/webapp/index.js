@@ -24,6 +24,7 @@ require(['knockout', 'director',], function(ko) {
     window.ko=ko;
     tepoc_ctx="/tepoc";
     window.ctx = "/uitemplate_web";
+    window.ctxfilemng = '/iuap-saas-filesystem-service/';
 
     $(function() {
         $('#menu,#nav-zone').find("a[href*='#']").each(function(e) {
@@ -124,6 +125,26 @@ require(['knockout', 'director',], function(ko) {
             }
 		 }) ;
 	})  
+	// 加载条
+window.onLoading = function () {
+	var centerContent = '<i class="fa fa-cloud u-loader-centerContent"></i>';
+	var opt1 = {
+		hasback : true,
+		hasDesc : true,// 是否含有加载内容描述
+		centerContent : centerContent
+	};
+	u.showLoader(opt1);
+}
+
+// 关闭加载条
+window.onCloseLoading = function () {
+	u.hideLoader();
+}
+//给图片地址加上http:头
+window.imgsrc_tans = function(src){
+	return "http://"+src;
+}
+
     
     function initPage(p, id) {
         var module = p;

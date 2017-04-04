@@ -4,6 +4,7 @@ require.config({
 		text: "vendor/requirejs/text",
 		css: "vendor/requirejs/css",
 		jquery: "vendor/jquery/jquery-1.11.2",
+		ajaxfileupload: "vendor/jquery/ajaxfileupload",
 		bootstrap: 'vendor/bootstrap/js/bootstrap',
 		knockout: "vendor/knockout/knockout-3.2.0.debug",
 		uui: "vendor/uui/js/u",
@@ -14,6 +15,9 @@ require.config({
 		pages:"pages",
 		scrollbarmin:"vendor/jquery.mCustomScrollbar.concat",
 		'refComp': "/uitemplate_web/static/js/uiref/refComp",
+		'ossupload': "/iuap-saas-filesystem-service/resources/js/ossupload",
+		'interfaceFile': "/iuap-saas-filesystem-service/resources/js/interface.file",
+		'interfaceFileImpl': "/iuap-saas-filesystem-service/resources/js/interface.file.impl",
 		'iReferComp':"pages/tools/iReferComp",
 	},
 	shim: {

@@ -1,8 +1,8 @@
 define(['text!pages/busilog/busilog.html','pages/busilog/meta','css!pages/busilog/busilog.css','uuigrid'],function(html){
 	var init=function(element){
-		var listUrl = ctx+'/busilog/list';
-		var delUrl = ctx+'/busilog/del/';
-		var saveUrl = ctx+'/busilog/save';
+		var listUrl = tepoc_ctx+'/busilog/list';
+		var delUrl = tepoc_ctx+'/busilog/del/';
+		var saveUrl = tepoc_ctx+'/busilog/save';
 		
 		var viewModel = {
 				/* 数据模型 */

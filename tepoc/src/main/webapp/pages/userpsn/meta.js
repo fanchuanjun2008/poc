@@ -129,4 +129,11 @@ var metaSearch = {
         search_vstatus: {} //国补申报状态
     }
 };
+var metaUserFile ={
+		meta: {
+			id:{},
+			url: {}, //图片url
+			filename: {} //图片
+	    }
+};
 //end userjob meta
