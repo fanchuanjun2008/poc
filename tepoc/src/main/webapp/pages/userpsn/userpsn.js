@@ -1177,6 +1177,7 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
 
 
         $(element).html(template);
+        window.vm = viewModel;
         var app = u.createApp({
             el: '#content',
             model: viewModel
