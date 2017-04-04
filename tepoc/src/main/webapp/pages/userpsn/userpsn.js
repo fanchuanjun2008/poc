@@ -1,28 +1,29 @@
-define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn/meta', 'css!pages/userpsn/userpsn.css', 'uuitree', 'uuigrid', 'config/sys_const'], function(iReferComp,refComp,template) {
+define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn/meta', 'css!pages/userpsn/userpsn.css', 'uuitree', 'uuigrid', 'config/sys_const','ajaxfileupload','ossupload','interfaceFile','interfaceFileImpl'], function(iReferComp,refComp,template) {
 
-    //开始初始页面基础数据
+    // 开始初始页面基础数据
     var init = function(element, params) {
         var viewModel = {
-            draw: 1, //页数(第几页)
-            childdraw: 1, //子表角色页号
-            deptchilddraw: 1, //子表部门页号
-            filechilddraw: 1, //子表图片页号
+            draw: 1, // 页数(第几页)
+            childdraw: 1, // 子表角色页号
+            deptchilddraw: 1, // 子表部门页号
+            filechilddraw: 1, // 子表图片页号
             pageSize: 5, // 主表分页
-            childPageSize: 5, //子表角色分页
-            deptchildPageSize: 5, //子表部门分页
-            filechildPageSize: 5, //子表图片分页
+            childPageSize: 5, // 子表角色分页
+            deptchildPageSize: 5, // 子表部门分页
+            filechildPageSize: 5, // 子表图片分页
             searchURL: tepoc_ctx + '/UserPsn/list',
-            addURL: tepoc_ctx + "/UserPsn/add",
-            updateURL: tepoc_ctx + "/UserPsn/update",
+            addURL: tepoc_ctx + "/UserPsn/savecard",//新增和修改，后台统一处理，主表pk来判断：为空是新增，否则为修改；子表通过status来判断：默认是0不操作，1表示修改，2表示新增，3表示删除
+            updateURL: tepoc_ctx + "/UserPsn/savecard",
             delURL: tepoc_ctx + "/UserPsn/delBatch",
             formStatus: _CONST.FORM_STATUS_ADD,
             UserPsnDa: new u.DataTable(metaDt), // 主表显示
             UserPsnFormDa: new u.DataTable(metaDt), // 主表编辑
-            UserRoleFormDa: new u.DataTable(metaUserRole), //子表角色
+            UserRoleFormDa: new u.DataTable(metaUserRole), // 子表角色
             UserDeptFormDa: new u.DataTable(metaUserDept), // 子表部门
-            UserFileFormDa: new u.DataTable(metaUserDept), // 子表图片 // lyk备注：创建对应datatable
-            searchData: new u.DataTable(metaSearch), //查询用
-            addRefDa: new u.DataTable({ //子表新增用
+            UserFileFormDa: new u.DataTable(metaUserFile), // 子表图片 //
+															// lyk备注：创建对应datatable
+            searchData: new u.DataTable(metaSearch), // 查询用
+            addRefDa: new u.DataTable({ // 子表新增用
                 meta: {
                     'role': {},
                     'dept': {}
@@ -52,31 +53,66 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
             }],
 
             event: {
+            	ex_export: function(){
+// var dats = [];
+// var pks = ""
+// var row = viewModel.gridVehicleData.getSelectedRows();
+// if(row==null || row.length==0){
+// u.messageDialog({msg:"请选择要导出的数据",title:"提示", btnText:"OK"});
+// return
+// }
+// for(var i=0;i<row.length;i++){
+// var pkItem = row[i].getValue("pk_countrysubsidy_items");
+// dats.push(row[i].getSimpleData());
+// if(pks.length==0){
+// pks = pkItem;
+// }else{
+// pks = pks+","+pkItem;
+// }
+// }
+            		 var form = $("<form>");   // 定义一个form表单
+                     form.attr('style', 'display:none');   // 在form表单中添加查询参数
+                     form.attr('target', '');
+                     form.attr('method', 'post');
+                     form.attr('action', tepoc_ctx+"/UserPsn/excelExport");
+
+                     var input1 = $('<input>');
+                     input1.attr('type', 'hidden');
+// input1.attr('name', 'pkVehicleIds');
+// input1.attr('value', pks);
+                     $('#user-mdlayout').append(form);  // 将表单放置在web中
+                     form.append(input1);   // 将查询参数控件提交到表单上
+                     form.submit();
+            	},
                 /**
-                 * 点击展开或隐藏查询列表
-                 */
+				 * 点击展开或隐藏查询列表
+				 */
                 showSearchClick: function() {
                     $('#showSearch').toggleClass('hide');
                 },
                 /**
-                 * 执行查询
-                 */
+				 * 执行查询
+				 */
                 search: function() {
                     viewModel.draw = 1;
                     viewModel.event.initUerList();
                 },
                 /**
-                 * 清空
-                 */
+				 * 清空
+				 */
                 cleanSearch: function() {
                     $(element).find('.form-search').find('input').val('');
                 },
                 /**
-                 * 参照增加点击确定的监听公共方法
-                 * @param  {[type]} name 输入框的ID
-                 * @param  {[type]} url  参照对应的后台url
-                 * @param  {[type]} fun  参照点击之后的function调用
-                 */
+				 * 参照增加点击确定的监听公共方法
+				 * 
+				 * @param {[type]}
+				 *            name 输入框的ID
+				 * @param {[type]}
+				 *            url 参照对应的后台url
+				 * @param {[type]}
+				 *            fun 参照点击之后的function调用
+				 */
                 initRefer: function(name, url, fun) {
                     var $that = $('#' + name);
                     var refcont = $('#refContainer' + name);
@@ -91,8 +127,10 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                         isPOPMode: true,
                         contentId: 'refContainer' + name,
                         dom: $that,
-//                        pageUrl: '/iform_web/static/js/ref/refDList.js', // lyk备注：对应js路径修改 联系范传军确定对应的url
-                        pageUrl: '/uitemplate_web/static/js/ref/refDList.js', // lyk备注：对应js路径修改 联系范传军确定对应的url
+// pageUrl: '/iform_web/static/js/ref/refDList.js', // lyk备注：对应js路径修改
+// 联系范传军确定对应的url
+                        pageUrl: '/uitemplate_web/static/js/ref/refDList.js', // lyk备注：对应js路径修改
+																				// 联系范传军确定对应的url
                         setVal: function(data) {
                             fun.call(this, data);
 
@@ -121,10 +159,11 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                 },
 
                 /**
-                 * 子表角色新建参照增加点击确定的监听（初始调用）
-                 */
+				 * 子表角色新建参照增加点击确定的监听（初始调用）
+				 */
                 initRoleAdd: function() {
-                    viewModel.event.initRefer('roleAddRef', 'http://127.0.0.1:8090/tepoc/ref/roleref/', function(data) { // lyk备注：参照请求url 联系范传军确定
+                    viewModel.event.initRefer('roleAddRef', 'http://127.0.0.1:8090/tepoc/ref/roleref/', function(data) { // lyk备注：参照请求url
+																															// 联系范传军确定
                         if (data && data.length > 0) {
                             var dataArr = [];
                             $.each(data, function(index, _data) {
@@ -142,16 +181,17 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     })
                 },
                 /**
-                 * 子表角色新建点击触发参照
-                 */
+				 * 子表角色新建点击触发参照
+				 */
                 addUserRole: function() {
                     $('#roleAddRef').trigger("click.refer");
                 },
                 /**
-                 * 子表部门新建参照增加点击确定的监听（初始调用）
-                 */
+				 * 子表部门新建参照增加点击确定的监听（初始调用）
+				 */
                 initDeptAdd: function() {
-                    viewModel.event.initRefer('deptAddRef', 'url------', function(data) { // lyk备注：参照请求url 联系范传军确定
+                    viewModel.event.initRefer('deptAddRef', 'url------', function(data) { // lyk备注：参照请求url
+																							// 联系范传军确定
                         if (data && data.length > 0) {
                             var dataArr = [];
                             $.each(data, function(index, _data) {
@@ -167,16 +207,17 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     })
                 },
                 /**
-                 * 子表部门新建点击触发参照
-                 */
+				 * 子表部门新建点击触发参照
+				 */
                 addUserDept: function() {
                     $('#deptAddRef').trigger("click.refer");
                 },
                 /**
-                 * 子表部门编辑参照增加点击确定的监听（初始调用）
-                 */
+				 * 子表部门编辑参照增加点击确定的监听（初始调用）
+				 */
                 initDeptEdit: function() {
-                    viewModel.event.initRefer('deptAddRef1', 'url-----', function(data) { // lyk备注：参照请求url 联系范传军确定
+                    viewModel.event.initRefer('deptAddRef1', 'url-----', function(data) { // lyk备注：参照请求url
+																							// 联系范传军确定
                         if (data && data.length > 0) {
                             var dataArr = [];
                             $.each(data, function(index, _data) {
@@ -194,8 +235,8 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     })
                 },
                 /**
-                 * 子表部门新建点击触发参照
-                 */
+				 * 子表部门新建点击触发参照
+				 */
                 editUserDept: function() {
                     var userJobs = viewModel.UserDeptFormDa.getSimpleData({
                         type: 'select'
@@ -210,14 +251,153 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                         $('#deptAddRef1').trigger("click.refer");
                     }
                 },
+              // 打开附件上传界面
+        		onOpenUploadWin : function(){
+        			window.countrysubsid_md = u.dialog({id:'countrysubsid_testDialg3',content:"#countrysubsid_dialog_uploadfile",hasCloseMenu:true});
+        			$('.sub-list1-new').css('display','inline-block');
+        		},
+        		// 上传附件
+        		onFileUpload : function(){
+        			// 获取表单
+        			var pk = viewModel.UserPsnFormDa.getValue("pk_user");
+        			var par = {
+        					 fileElementId: "countrysubsidybatch_id",  // 【必填】文件上传空间的id属性
+																		// <input
+																		// type="file"
+																		// id="id_file"
+																		// name="file"
+																		// />,可以修改，主要看你使用的
+																		// id是什么
+        					 filepath: pk,   // 【必填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
+        					 groupname: "COUNTRYSUBSIDY",// 【必填】分組名称,未来会提供树节点
+        					 permission: "read", // 【选填】 read是可读=公有
+													// private=私有
+													// 当这个参数不传的时候会默认private
+        					 url: true,          // 【选填】是否返回附件的连接地址，并且会存储到数据库
+        					 thumbnail :  "100w",// 【选填】缩略图--可调节大小，和url参数配合使用，不会存储到数据库
+        					 cross_url : window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+															// 时候必填
+        					 }
+        			 var f = new interface_file();
+        			 f.filesystem_upload(par,viewModel.event.fileUploadCallback);
+        			 onLoading();
+        		},
+        		// 上传文件回传信息
+        		fileUploadCallback : function(data){
+        			 onCloseLoading();
+        			 if(null == data){
+        				 u.messageDialog({msg:"上传图片不能超过1M，请优化后再上传！",title:"提示", btnText:"OK"});
+        			 }else{
+        				 if(1 == data.status){// 上传成功状态
+        					 viewModel.UserPsnFormDa.addSimpleData(data.data);
+        					 u.messageDialog({msg:"上传成功！",title:"提示", btnText:"OK"});
+        				 }else{// error 或者加載js錯誤
+        					 u.messageDialog({msg:"上传失败！"+data.message,title:"提示", btnText:"OK"});
+        				 }
+        			 }
+        		 },
+        		 fileQuery : function(){
+// var main = row.getSimpleData();
+        			var pk = viewModel.UserPsnFormDa.getValue("pk_user");
+        			 var par = {
+        				     // 建议一定要有条件否则会返回所有值
+        					 filepath: pk, // 【选填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
+        					 groupname: "COUNTRYSUBSIDY",// 【选填】[分組名称,未来会提供树节点]
+        					 cross_url : window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+															// 时候必填
+        				}
+        			 var f = new interface_file();
+        			 f.filesystem_query(par,viewModel.event.fileQueryCallBack);
+        		 },
+        		 fileQueryCallBack : function(data){
+        			 if(1 == data.status){// 上传成功状态
+        				 viewModel.UserFileFormDa.setSimpleData(data.data);
+        			 }else{
+        				 // 没有查询到数据，可以不用提醒
+        				 if("没有查询到相关数据" != data.message){
+        					 u.messageDialog({msg:"查询失败"+data.message,title:"提示", btnText:"OK"});
+        				 }else{
+        					 viewModel.UserFileFormDa.removeAllRows();
+        				 }
+        			 }
+        		 },
+        		 // 附件删除
+        		 fileDelete : function(){
+        			 var row = viewModel.UserFileFormDa.getSelectedRows();
+        			 if(row==null || row.length==0){
+        				 u.messageDialog({msg:"请选择要删除的附件",title:"提示", btnText:"OK"});
+        				 return
+        			 }else if(row.length>1){
+        				 u.messageDialog({msg:"每次只能删除一个附件",title:"提示", btnText:"OK"});
+        				 return
+        			 }
+        			 for(var i=0;i<row.length;i++){
+        				 var pk = row[i].getValue("id");
+        				 var par = {
+        		        	 id:pk,// 【必填】表的id
+        		        	 cross_url : window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+															// 时候必填
+        				 }
+        				 var f = new interface_file();
+        				 f.filesystem_delete(par,viewModel.fileDeleteCallBack);
+        			 }
+        		 },
+        		 // 附件删除回调
+        		 fileDeleteCallBack : function(data){
+        			 if(1 == data.status){// 上传成功状态
+        				 viewModel.fileQuery();
+        			 }else{
+        				 u.messageDialog({msg:"删除失败"+data.message,title:"提示", btnText:"OK"});
+        			 }
+        		 },
+        		 // 下载
+        		 fileDownload : function(){
+        			 var row = viewModel.UserPsnFormDa.getSelectedRows();
+        			 if(row==null || row.length==0){
+        				 u.messageDialog({msg:"请选择要下载的附件",title:"提示", btnText:"OK"});
+        				 return
+        			 }else if(row.length>1){
+        				 u.messageDialog({msg:"每次只能下载一个附件",title:"提示", btnText:"OK"});
+        				 return
+        			 }
+        			 for(var i=0;i<row.length;i++){
+        				 var pk = row[i].getValue("id");
+        				 var form = $("<form>");   // 定义一个form表单
+        				 form.attr('style', 'display:none');   // 在form表单中添加查询参数
+        				 form.attr('target', '');
+        				 form.attr('enctype', 'multipart/form-data');
+        				 form.attr('method', 'post');
+        				 form.attr('action', window.ctxfilemng+"file/download?permission=read&id="+pk);
+        				 $('#countrysubsidy-mdlayout').append(form);  // 将表单放置在web中
+        				 form.submit();
+        			 }
+        		 },
+        		 // 查看
+        		 fileView : function(){
+        			 var row = viewModel.UserPsnFormDa.getSelectedRows();
+        			 if(row==null || row.length==0){
+        				 u.messageDialog({msg:"请选择要下载的附件",title:"提示", btnText:"OK"});
+        				 return
+        			 }else if(row.length>1){
+        				 u.messageDialog({msg:"每次只能查看一个附件",title:"提示", btnText:"OK"});
+        				 return
+        			 }
+        			 for(var i=0;i<row.length;i++){
+        				 var url = row[i].getValue("url");
+        				 if(!url.startsWith("http://")){
+        					 url = "http://"+url;
+        				 }
+        				 parent.open(url);
+        			 }
+        		 },
 
 
 
 
 
                 /**
-                 * 主页查询方法（初始调用）
-                 */
+				 * 主页查询方法（初始调用）
+				 */
                 initUerList: function() {
                     var jsonData = {
                         pageIndex: viewModel.draw - 1,
@@ -278,12 +458,12 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                             }
                         }
                     });
-                    //end ajax
+                    // end ajax
                 },
 
                 /**
-                 * 子表角色查询方法
-                 */
+				 * 子表角色查询方法
+				 */
                 getUserJobList: function() {
                     var userId = viewModel.UserPsnFormDa.getValue("pk_user");
                     var jsonData = {
@@ -310,13 +490,13 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                                         });
                                         var totleCount = res.detailMsg.data.totalElements;
                                         var totlePage = res.detailMsg.data.totalPages;
-                                        viewModel.child_card_pcomp.update({ //卡片页子表的分页信息
+                                        viewModel.child_card_pcomp.update({ // 卡片页子表的分页信息
                                             totalPages: totlePage,
                                             pageSize: viewModel.childPageSize,
                                             currentPage: viewModel.childdraw,
                                             totalCount: totleCount
                                         });
-                                        if (totleCount > viewModel.childPageSize) { //根据总条数，来判断是否显示子表的分页层
+                                        if (totleCount > viewModel.childPageSize) { // 根据总条数，来判断是否显示子表的分页层
                                             $('#child_card_pagination').show();
                                         } else {
                                             $('#child_card_pagination').hide();
@@ -346,8 +526,8 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                 },
 
                 /**
-                 * 子表部门查询方法
-                 */
+				 * 子表部门查询方法
+				 */
                 getUserDeptList: function() {
                     var userId = viewModel.UserPsnFormDa.getValue("pk_user");
                     var jsonData = {
@@ -357,6 +537,9 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                         sortDirection: "asc"
                     };
                     jsonData['search_fk_id_userrole'] = userId;
+                    jsonData = {
+                    		
+                    }
                     $.ajax({
                         type: 'GET',
                         url: tepoc_ctx + '/UserDept/list',
@@ -378,13 +561,13 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                                         });
                                         var totleCount = res.detailMsg.data.totalElements;
                                         var totlePage = res.detailMsg.data.totalPages;
-                                        viewModel.child_dept_card_pcomp.update({ //卡片页子表的分页信息
+                                        viewModel.child_dept_card_pcomp.update({ // 卡片页子表的分页信息
                                             totalPages: totlePage,
                                             pageSize: viewModel.deptpageSize,
                                             currentPage: viewModel.deptchilddraw,
                                             totalCount: totleCount
                                         });
-                                        if (totleCount > viewModel.deptpageSize) { //根据总条数，来判断是否显示子表的分页层
+                                        if (totleCount > viewModel.deptpageSize) { // 根据总条数，来判断是否显示子表的分页层
                                             $('#child_dept_card_pagination').show();
                                         } else {
                                             $('#child_dept_card_pagination').hide();
@@ -413,8 +596,78 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     });
                 },
                 /**
-                 *
-                 */
+				 * 子表活动照片查询方法
+				 */
+                getUserDeptList: function() {
+                    var userId = viewModel.UserPsnFormDa.getValue("pk_user");
+                    var jsonData = {
+                        pageIndex: 0,
+                        pageSize: viewModel.deptpageSize,
+                        sortField: "ts",
+                        sortDirection: "asc"
+                    };
+                    jsonData['search_fk_id_userrole'] = userId;
+                    jsonData = {
+                    		
+                    }
+                    $.ajax({
+                        type: 'GET',
+                        url: tepoc_ctx + '/UserDept/list',
+                        datatype: 'json',
+                        data: jsonData,
+                        contentType: 'application/json;charset=utf-8',
+                        success: function(res) {
+                            if (res) {
+                                if (res.success == 'success') {
+                                    if (res.detailMsg.data) {
+                                        viewModel.UserDeptFormDa.removeAllRows();
+                                        viewModel.UserDeptFormDa.clear();
+                                        viewModel.UserDeptFormDa.setSimpleData(res.detailMsg.data.content, {
+                                            unSelect: true
+                                        });
+
+                                        viewModel.UserDeptFormDa.setSimpleData(res.detailMsg.data.content, {
+                                            unSelect: true
+                                        });
+                                        var totleCount = res.detailMsg.data.totalElements;
+                                        var totlePage = res.detailMsg.data.totalPages;
+                                        viewModel.child_dept_card_pcomp.update({ // 卡片页子表的分页信息
+                                            totalPages: totlePage,
+                                            pageSize: viewModel.deptpageSize,
+                                            currentPage: viewModel.deptchilddraw,
+                                            totalCount: totleCount
+                                        });
+                                        if (totleCount > viewModel.deptpageSize) { // 根据总条数，来判断是否显示子表的分页层
+                                            $('#child_dept_card_pagination').show();
+                                        } else {
+                                            $('#child_dept_card_pagination').hide();
+                                        }
+
+                                    }
+                                } else {
+                                    var msg = "";
+                                    for (var key in res.message) {
+                                        msg += res.message[key] + "<br/>";
+                                    }
+                                    u.messageDialog({
+                                        msg: msg,
+                                        title: '请求错误',
+                                        btnText: '确定'
+                                    });
+                                }
+                            } else {
+                                u.messageDialog({
+                                    msg: '后台返回数据格式有误，请联系管理员',
+                                    title: '数据错误',
+                                    btnText: '确定'
+                                });
+                            }
+                        }
+                    });
+                },
+                /**
+				 * 
+				 */
                 initPagination: function() {
                   var paginationDiv = $(element).find('#pagination')[0];
                   viewModel.comps = new u.pagination({
@@ -435,8 +688,8 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     viewModel.event.sizeChange();
                 },
                 /**
-                 * 初始化分页标签的监听
-                 */
+				 * 初始化分页标签的监听
+				 */
                 pageChange: function() {
                     viewModel.comps.on('pageChange', function(pageIndex) {
                         viewModel.draw = pageIndex + 1;
@@ -453,7 +706,7 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                 },
                 sizeChange: function() {
                     viewModel.comps.on('sizeChange', function(arg) {
-                        //数据库分页
+                        // 数据库分页
                         viewModel.pageSize = parseInt(arg);
                         viewModel.draw = 1;
                         viewModel.event.initUerList();
@@ -475,13 +728,13 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
 
 
                 /**
-                 * 头部新建按钮操作
-                 */
+				 * 头部新建按钮操作
+				 */
                 addClick: function() {
                     viewModel.formStatus = _CONST.FORM_STATUS_ADD;
                     window.deptSearch = true;
                     window.fileSearch = true;
-                    //只显示返回和保存按钮
+                    // 只显示返回和保存按钮
                     viewModel.event.userCardBtn();
                     viewModel.event.clearDa(viewModel.UserPsnFormDa);
                     viewModel.UserPsnFormDa.createEmptyRow();
@@ -489,14 +742,14 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     viewModel.event.clearDa(viewModel.UserRoleFormDa);
                     viewModel.event.clearDa(viewModel.UserDeptFormDa);
                     viewModel.event.clearDa(viewModel.UserFileFormDa);
-                    //设置业务操作逻辑
+                    // 设置业务操作逻辑
                     $(".u-button-pa").removeClass('hide');
-                    //显示操作卡片
+                    // 显示操作卡片
                     viewModel.md.dGo('addPage');
                 },
                 /**
-                 * 头部编辑按钮操作
-                 */
+				 * 头部编辑按钮操作
+				 */
                 editClick: function() {
                     viewModel.formStatus = _CONST.FORM_STATUS_EDIT;
                     window.deptSearch = false;
@@ -518,9 +771,9 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                         });
                         return;
                     }
-                    //只显示返回和保存按钮
+                    // 只显示返回和保存按钮
                     viewModel.event.userCardBtn();
-                    //获取选取行数据
+                    // 获取选取行数据
                     viewModel.UserPsnDa.setRowSelect(selectArray);
                     viewModel.event.clearDa(viewModel.UserPsnFormDa);
                     viewModel.event.clearDa(viewModel.UserRoleFormDa);
@@ -536,12 +789,12 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     viewModel.UserRoleFormDa.setEnable(true);
                     $(".u-button-pa,.padding-bottom-5>button").removeClass('hide');
 
-                    //显示操作卡片
+                    // 显示操作卡片
                     viewModel.md.dGo('addPage');
                 },
                 /**
-                 * 头部查阅按钮操作
-                 */
+				 * 头部查阅按钮操作
+				 */
                 showClick: function() {
                     viewModel.formStatus = _CONST.FORM_STATUS_EDIT;
                     window.deptSearch = false;
@@ -563,9 +816,9 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                         });
                         return;
                     }
-                    //只显示返回和保存按钮
+                    // 只显示返回和保存按钮
                     viewModel.event.userCardBtn();
-                    //获取选取行数据
+                    // 获取选取行数据
                     viewModel.UserPsnDa.setRowSelect(selectArray);
                     viewModel.event.clearDa(viewModel.UserPsnFormDa);
                     viewModel.event.clearDa(viewModel.UserRoleFormDa);
@@ -581,14 +834,14 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     viewModel.UserRoleFormDa.setEnable(false);
                     $(".u-button-pa,.padding-bottom-5>button").addClass('hide');
 
-                    //显示操作卡片
+                    // 显示操作卡片
                     viewModel.md.dGo('addPage');
                 },
 
 
                 /**
-                 * 头部删除按钮操作
-                 */
+				 * 头部删除按钮操作
+				 */
                 delRow: function() {
                     var selectArray = viewModel.UserPsnDa.selectedIndices();
                     if (selectArray.length < 1) {
@@ -609,8 +862,8 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     });
                 },
                 /**
-                 * 删除核心方法
-                 */
+				 * 删除核心方法
+				 */
                 delConfirm: function() {
                     var jsonDel = viewModel.UserPsnDa.getSimpleData({
                         type: 'select'
@@ -644,18 +897,18 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                 },
 
                 /**
-                 * 返回操作
-                 */
+				 * 返回操作
+				 */
                 goBack: function() {
-                    //只显示新增编辑删除按钮
+                    // 只显示新增编辑删除按钮
                     viewModel.event.userListBtn();
                     viewModel.md.dBack();
                     viewModel.event.initUerList();
-                    //                    $('#child_list_pagination').hide(); //隐藏子表的分页层
+                    // $('#child_list_pagination').hide(); //隐藏子表的分页层
                 },
                 /**
-                 * 保存按钮操作
-                 */
+				 * 保存按钮操作
+				 */
                 saveClick: function() {
                     // compsValidate是验证输入格式。
                     if (!app.compsValidate($(element).find('#user-form')[0])) {
@@ -674,11 +927,57 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     if (viewModel.formStatus === _CONST.FORM_STATUS_EDIT) {
                         sendurl = viewModel.updateURL;
                     }
+                    jsondata={
+                    		"pk_user":"29b3ae05-4d66-4681-8279-7a61fa3abe6e",
+                    			username:"黄油",
+                    			sex:"0",
+                    			status:'2',//默认是0不操作，1表示修改，2表示新增，3表示删除
+                    			idcard:"3333",
+                    			edution:"大学",
+                    			email:"100005656@qq.com",
+                    			id_userrole:[
+                    			{
+                    			pk_user_role:"944b6460-15df-4e08-befa-c539d84e8c2c",
+                    			rolecode:"test00000",
+                    			rolename:"dept00000",
+                    			status:"1"
+                    			},
+                    			{
+                    			pk_user_role:"24da8d1f-a5cb-45ba-a14a-ab0a093b4d5e",
+                    			rolecode:"test2",
+                    			rolename:"dept2",
+                    			status:"3"
+                    			},
+                    			{
+                        			rolecode:"test33333",
+                        			rolename:"dept3333",
+                        			status:"2"
+                        			}],
+                    			id_userdept:[
+                    			{
+                    			pk_user_dept:"9cbec5e7-30fa-48de-a63d-e6d8715569f4",
+                    			pk_dept:"dept00000",
+                    			deptcode:"test00000",
+                    			deptname:"dept00000",
+                    			status:"1"
+                    			},{
+                    			pk_user_dept:"e7593675-1b9d-44bd-bb01-8ab98c52f46e",
+                    			pk_dept:"dept2",
+                    			deptcode:"test2",
+                    			deptname:"dept2",
+                    			status:"3"},
+                    			{
+                        			pk_dept:"dept3333",
+                        			deptcode:"test3333",
+                        			deptname:"dept3333",
+                        			status:"2"}]
+
+                    }
                     $.ajax({
                         type: "post",
                         url: sendurl,
                         contentType: 'application/json;charset=utf-8',
-                        data: JSON.stringify(jsondata), //将对象序列化成JSON字符串
+                        data: JSON.stringify(jsondata), // 将对象序列化成JSON字符串
                         success: function(res) {
                             if (res) {
                                 if (res.success == 'success') {
@@ -714,8 +1013,8 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                 },
 
                 /**
-                 * 子表角色删除操作
-                 */
+				 * 子表角色删除操作
+				 */
                 delUserJob: function() {
                     var userJobs = viewModel.UserRoleFormDa.getSimpleData({
                         type: 'select'
@@ -766,8 +1065,8 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
 
                 },
                 /**
-                 * 子表部门删除操作
-                 */
+				 * 子表部门删除操作
+				 */
                 delUserDept: function() {
                     var userJobs = viewModel.UserDeptFormDa.getSimpleData({
                         type: 'select'
@@ -796,10 +1095,12 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                                 success: function(res) {
                                     if (res) {
                                         if (res.success == 'success') {
-                                            /* u.showMessage({
-                                                 msg: "<i class=\"fa fa-check-circle margin-r-5\"></i>删除成功",
-                                                 position: "center"
-                                             })*/
+                                            /*
+											 * u.showMessage({ msg: "<i
+											 * class=\"fa fa-check-circle
+											 * margin-r-5\"></i>删除成功",
+											 * position: "center" })
+											 */
                                             viewModel.UserRoleFormDa.removeRows(index);
                                         } else {
                                             u.messageDialog({
@@ -823,8 +1124,8 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                 },
 
                 /**
-                 * 主页数据行选中处理
-                 */
+				 * 主页数据行选中处理
+				 */
                 rowClick: function(row, e) {
                     var ri = e.target.parentNode.getAttribute('rowindex')
                     if (ri != null) {
@@ -836,26 +1137,26 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     }));
                 },
                 /**
-                 *  主页查询之后处理显示，基于KO
-                 */
+				 * 主页查询之后处理显示，基于KO
+				 */
                 afterAdd: function(element, index, data) {
                     if (element.nodeType === 1) {
                         u.compMgr.updateComp(element);
                     }
                 },
-                /**20161205修改最外层框架按钮组的显示与隐藏 */
-                userListBtn: function() { //显示user_list_button_2
+                /** 20161205修改最外层框架按钮组的显示与隐藏 */
+                userListBtn: function() { // 显示user_list_button_2
                     $('#user_list_button_2').parent('.u-mdlayout-btn').removeClass('hide');
                     $('.form-search').removeClass('hide');
                     $('#user_card_button').parent('.u-mdlayout-btn').addClass('hide');
 
                 },
-                userCardBtn: function() { //显示user_card_button
+                userCardBtn: function() { // 显示user_card_button
                     $('#user_list_button_2').parent('.u-mdlayout-btn').addClass('hide');
                     $('.form-search').addClass('hide');
                     $('#user_card_button').parent('.u-mdlayout-btn').removeClass('hide');
                 },
-                /**判断对象的值是否为空 */
+                /** 判断对象的值是否为空 */
                 isEmpty: function(obj) {
                     if (obj.value == undefined || obj.value == '' || obj.value.length == 0) {
                         return true;
@@ -863,20 +1164,19 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                         return false;
                     }
                 },
-                /**清除 datatable的数据  */
+                /** 清除 datatable的数据 */
                 clearDa: function(da) {
                     da.removeAllRows();
                     da.clear();
                 },
 
-            } // end  event
+            } // end event
 
         };
-        //end viewModel
+        // end viewModel
 
 
         $(element).html(template);
-        window.vm = viewModel;
         var app = u.createApp({
             el: '#content',
             model: viewModel
@@ -887,30 +1187,31 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
         viewModel.event.initUerList();
         viewModel.event.initPagination();
 
-        /** 处理角色和部门的新增 begin **/
+        /** 处理角色和部门的新增 begin * */
         viewModel.addRefDa.createEmptyRow();
         viewModel.addRefDa.setRowSelect(0);
         viewModel.event.initRoleAdd();
         viewModel.event.initDeptEdit();
         viewModel.event.initDeptAdd();
-        /** 处理角色和部门的新增 end **/
+        /** 处理角色和部门的新增 end * */
+        
         /**
-         * 添加切换页签的处理，保证后2个页签只有切换的时候才会执行查询
-         * @type {[type]}
-         */
-        $('.u-tabs')[0]['u.Tabs'].on('tabchange', function(obj) {
-            if (obj.tabDom == $('#tab_dept')[0]) {
+		 * 添加切换页签的处理，保证后2个页签只有切换的时候才会执行查询
+		 * 
+		 * @type {[type]}
+		 */
+        $('.u-tabs__tab-bar>a').on('click', function(obj) {
+        	var $this = $(this);
+            if ($this.attr('id') == 'tab_dept') {
                 // 切换到管理部门页签
                 if (!window.deptSearch) {
-                    alert('1')
                     viewModel.event.getUserDeptList();
                     window.deptSearch = true;
                 }
 
-            } else if (obj.tabDom == $('#tab_file')[0]) {
+            } else if ($this.attr('id') == 'tab_file') {
                 if (!window.fileSearch) {
-                    alert('2')
-                    viewModel.event.getUserFileList(); //修改为查询file
+                    viewModel.event.fileQuery(); // 修改为查询file
                     window.fileSearch = true;
                 }
             }
@@ -970,7 +1271,7 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
         }
         ref();
 
-    } //end init
+    } // end init
     
    
 
@@ -979,7 +1280,7 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
         'template': template,
         init: function(params, arg) {
             init(params, arg);
-            /*回车搜索*/
+            /* 回车搜索 */
             $('.search-enter').keydown(function(e) {
                 if (e.keyCode == 13) {
                     $('#user-action-search').trigger('click');
@@ -989,4 +1290,4 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
         }
     }
 });
-//end define
+// end define

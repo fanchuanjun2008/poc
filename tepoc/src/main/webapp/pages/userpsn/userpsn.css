@@ -282,5 +282,6 @@ span.u-form-control-info.uf.uf-exclamationsign {
 }
 
 .border{
+	padding:4px;
 border-bottom: 1px solid #cecece;
 }
