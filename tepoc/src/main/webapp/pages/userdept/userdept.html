@@ -1,0 +1,112 @@
+<div class="list-panel" id="manager">
+    <div class="common-header-1" >
+      <div class="u-col-4 padding-right-0" style="float:right">
+         <div class="u-button-group margin-0" style="float:right;">
+            <button class="u-button u-button-primary "
+                    id="addButton" data-bind="click: event.addClick">新增
+            </button>             
+            <button class="u-button u-button-primary "
+                    id="editButton" data-bind="click: event.editClick">编辑
+            </button>         
+            <button class="u-button u-button-primary" id="delButton" data-bind="click: event.delClick">删除</button>
+         </div> 
+         </div>     
+        <div class="u-col-4" style="float:right;text-align:center;">
+             <span>管辖部门</span>
+        </div>
+          
+    </div>
+    <div class="common-header-2" >
+         <div class="pull-left">
+            <div id="searchdiv" class="u-input-group u-has-feedback ">
+                <input type="text" class="u-form-control sm input_enter" id="search"
+> 
+                       <span class="u-form-control-feedback uf uf-zoom"
+                    id="searchBtn" data-bind="click: event.searchClick"></span>
+            </div>
+        </div>
+    </div>
+    <!--table-->
+    <div class="main-container cartable-container">
+        <div class="hr-table ">
+            <div class="u-table b-table width-full"
+                 u-meta='{"id":"gridcardtable","type":"grid","data":"dt1","columnWidth":"150px"}'>
+										<div options='{"field":"pk_dept_name","dataType":"String","title":"部门主键","editType":"event.addUserDept_selectDept","editOptions":{"validType":"string","required":true} }'></div>
+                                        <div options='{"field":"deptcode","dataType":"String","title":"部门编码","editType":"string"}'></div>
+                                        <div options='{"field":"deptname","dataType":"String","title":"部门名称","editType":"string"}'></div>
+            </div>
+        </div>
+        <div id='pagination' class='pagination u-pagination pagination-sm'></div>
+    </div>
+</div>
+
+<!-编辑-->
+<div class="" id="editPage" style="background: #fff; display: none;">
+    <div class="u-msg-title">新增</div>
+    <div class="u-msg-content " id="edit2">
+        <div class=" system-row u-row margin-top-20">
+            <div class="u-col-2 ">
+                <label for="code" class="u-input-label right">部门主键:</label>
+            </div>
+            
+ 	        <div class="u-col-md-4 u-combo u-label-floating" u-meta='{"type":"u-text","data":"dtnew","field":"pk_dept_name","onlySelect":true}'>
+	           <div class="u-input-group u-has-feedback">
+	                <span class="u-form-control-feedback fa fa-list-ul"
+	                      data-bind="click:event.selectDept_UserDept"></span>
+	                <input class="u-form-control" readonly="readonly"/>
+	            </div>
+	        </div>              
+            <div class="u-col-2 right-col">
+                <label class="u-input-label right">部门编码:</label>
+            </div>
+			<div class="u-col-4 ">
+                <input type="text" id="code"
+                       class="u-form-control padding-left-15"
+                       u-meta='{"type":"string","data":"dtnew","field":"deptcode"}'>
+            </div>
+        </div>
+        <div class=" system-row u-row margin-top-20">
+            <div class="u-col-2 ">
+                <label for="code" class="u-input-label right">部门名称:</label>
+            </div>
+            
+ 			<div class="u-col-4 ">
+				<div class="u-input-group-before padding-left-10 "
+                     style="color: red;">*
+                </div>   
+                <input type="text" id="code"
+                       class="u-form-control padding-left-15"
+                       u-meta='{"type":"string","data":"dtnew","field":"deptname"}'>
+            </div>
+    </div>
+    <div class=" u-msg-footer ">
+        <div class="pull-right">
+            <button type="button" class="u-button u-button-white editCancel margin-right-15 "
+                    id="editCancel" data-bind="click: event.saveCancelClick">取消
+            </button>
+            <button type="button"
+                    class="u-button raised u-button-primary margin-right-10" id="editOk" data-bind="click: event.saveOkClick">保存
+            </button>
+            
+        </div>
+    </div>
+</div>
+
+<!-- 树展示的弹出层  -->
+<div id="tree-deptForUserDept" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"deptForUserDeptTree","data":"refDeptDa","type":"tree","idField":"pk_dept","pidField":"parentid","nameField":"name","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_DeptToUserDept" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>

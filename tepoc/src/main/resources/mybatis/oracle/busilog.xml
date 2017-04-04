@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yonyou.iuap.tepoc.repository.TeBusilogMapper">
+	<resultMap id="BaseResultMap" type="com.yonyou.iuap.tepoc.entity.TeBusilogVO">
+		<id column="id" property="id"/>
+		<result column="clientip" property="clientip"/>
+		<result column="operuser" property="operuser"/>
+		<result column="logcategory" property="logcategory"/>
+		<result column="logcontent" property="logcontent"/>
+		<result column="sysid" property="sysid"/>
+		<result column="tenantid" property="tenantid"/>
+		<result column="logdate" property="logdate"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,clientip,operuser,logcategory,logcontent,sysid,tenantid,logdate
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from busilog
+		where id = #pk
+	</select>
+
+	<select id="selectAllByPage" resultMap="BaseResultMap"
+		resultType="java.util.List">
+		SELECT
+		<include refid="Base_Column_List" />
+		from busilog where 1=1
+		<if test="search != null">
+			<if
+				test="search.searchMap.searchParam!=null and search.searchMap.searchParam!='' ">
+				and 
+			</if>
+		</if>
+		<if test="page != null">
+			<if test="page.sort!=null">
+				order by
+				<foreach collection="page.sort" item="item" separator=" ">
+					${item.property} ${item.direction}
+				</foreach>
+			</if>
+		</if>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from busilog
+		where id = #pk
+	</delete>
+
+	<delete id="batchDeleteByPrimaryKey" parameterType="java.util.List">
+		delete from busilog
+		where
+		id in
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+		#{item.id}
+		</foreach>
+	</delete>
+
+	<insert id="insert" parameterType="com.yonyou.iuap.tepoc.entity.TeBusilogVO">
+		insert into busilog (
+		id,clientip,operuser,logcategory,logcontent,sysid,tenantid,logdate
+		)
+		values (
+		#{id},
+		#{clientip},
+		#{operuser},
+		#{logcategory},
+		#{logcontent},
+		#{sysid},
+		#{tenantid},
+		#{logdate}
+		)
+	</insert>
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into busilog (
+		id,clientip,operuser,logcategory,logcontent,sysid,tenantid,logdate
+		)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+		#{item.id},
+		#{item.clientip},
+		#{item.operuser},
+		#{item.logcategory},
+		#{item.logcontent},
+		#{item.sysid},
+		#{item.tenantid},
+		#{item.logdate}
+			)
+		</foreach>
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.yonyou.iuap.tepoc.entity.TeBusilogVO">
+		insert into busilog
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="clientip != null">
+				clientip,
+			</if>
+			<if test="operuser != null">
+				operuser,
+			</if>
+			<if test="logcategory != null">
+				logcategory,
+			</if>
+			<if test="logcontent != null">
+				logcontent,
+			</if>
+			<if test="sysid != null">
+				sysid,
+			</if>
+			<if test="tenantid != null">
+				tenantid,
+			</if>
+			<if test="logdate != null">
+				logdate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="clientip != null">
+				#{clientip},
+			</if>
+			<if test="operuser != null">
+				#{operuser},
+			</if>
+			<if test="logcategory != null">
+				#{logcategory},
+			</if>
+			<if test="logcontent != null">
+				#{logcontent},
+			</if>
+			<if test="sysid != null">
+				#{sysid},
+			</if>
+			<if test="tenantid != null">
+				#{tenantid},
+			</if>
+			<if test="logdate != null">
+				#{logdate},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.yonyou.iuap.tepoc.entity.TeBusilogVO">
+		update busilog
+		<set>
+			<if test="id != null">
+				id = #{id},
+			</if>
+			<if test="clientip != null">
+				clientip = #{clientip},
+			</if>
+			<if test="operuser != null">
+				operuser = #{operuser},
+			</if>
+			<if test="logcategory != null">
+				logcategory = #{logcategory},
+			</if>
+			<if test="logcontent != null">
+				logcontent = #{logcontent},
+			</if>
+			<if test="sysid != null">
+				sysid = #{sysid},
+			</if>
+			<if test="tenantid != null">
+				tenantid = #{tenantid},
+			</if>
+			<if test="logdate != null">
+				logdate = #{logdate},
+			</if>
+		</set>
+		where id = #pk 
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.yonyou.iuap.tepoc.entity.TeBusilogVO">
+		update busilog
+		set
+				clientip = #{clientip},
+				operuser = #{operuser},
+				logcategory = #{logcategory},
+				logcontent = #{logcontent},
+				sysid = #{sysid},
+				tenantid = #{tenantid},
+				logdate = #{logdate}
+		where id = #{id}
+	</update>
+
+	<update id="batchUpdate" parameterType="java.util.List">
+	begin 
+		<foreach collection="list" item="item" index="index" open=""
+			close="" separator=";">
+			update busilog
+			<set>
+				clientip = #{item.clientip},
+				operuser = #{item.operuser},
+				logcategory = #{item.logcategory},
+				logcontent = #{item.logcontent},
+				sysid = #{item.sysid},
+				tenantid = #{item.tenantid},
+				logdate = #{item.logdate}
+			</set>
+			where id = #{item.id} 
+		</foreach>
+		;end;
+	</update>
+</mapper>

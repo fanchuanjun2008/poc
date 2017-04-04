@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><component conRouterType="曼哈顿直角" createIndustry="0" createTime="2017-03-31 16:21:23" creator="" description="" displayName="user_dept" fromSourceBmf="true" gencodestyle="标准样式" help="" id="826d67d7-1f2b-410e-be95-5a681308c2b1" industry="0" industryChanged="false" industryIncrease="false" industryName="0" isSource="false" isbizmodel="false" mainEntity="a4166dcd-c7f7-4f82-a5cb-6b398f61fa49" metaType=".bmf" modifier="" modifyIndustry="0" modifyTime="2017-03-31 20:37:42" name="user_dept" namespace="tepoc" ownModule="tepoc" preLoad="false" programcode="0" resModuleName="user_dept" resid="" version="4" versionType="0">
+    <celllist>
+        <entity accessorClassName="nc.md.model.access.javamap.POJOStyle" bizItfImpClassName="" componentID="826d67d7-1f2b-410e-be95-5a681308c2b1" createIndustry="0" createTime="2017-03-31 16:21:39" creator="" czlist="" description="" displayName="管辖部门" fullClassName="com.yonyou.tepoc.user_dept.UserDept" height="100" help="" id="a4166dcd-c7f7-4f82-a5cb-6b398f61fa49" industryChanged="false" isAuthen="true" isCreateSQL="true" isExtendBean="false" isPrimary="true" isSource="true" keyAttributeId="de3cb9bb-064c-4efb-b7a1-00aab49828a0" modInfoClassName="" modifier="" modifyIndustry="0" modifyTime="2017-03-31 20:39:13" name="UserDept" resid="" stereoType="" tableName="user_dept" userDefClassName="" versionType="0" visibility="public" width="100" x="172" y="93">
+            <attributelist>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="a4166dcd-c7f7-4f82-a5cb-6b398f61fa49" createIndustry="0" dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" defaultValue="" description="" displayName="主键" dynamic="false" dynamicTable="" fieldName="pk_user_dept" fieldType="char" fixedLength="false" forLocale="false" help="" id="de3cb9bb-064c-4efb-b7a1-00aab49828a0" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="true" isNullable="false" isReadOnly="false" isShare="false" isSource="true" length="36" maxValue="" minValue="" modifyIndustry="0" name="pk_user_dept" notSerialize="false" precise="" refModelName="" resid="" sequence="0" typeDisplayName="ID" typeName="ID" versionType="0" visibility="public"/>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="a4166dcd-c7f7-4f82-a5cb-6b398f61fa49" createIndustry="0" dataType="17ffb644-c70c-48de-a47f-c5b53f75460f" dataTypeStyle="REF" dbtype="" defaultValue="~" description="" displayName="部门主键" dynamic="false" dynamicTable="" fieldName="pk_dept" fieldType="varchar" fixedLength="false" forLocale="false" help="" id="90996160-893d-4539-b3dc-903f3ce34a7f" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="false" isNullable="true" isReadOnly="false" isShare="false" isSource="true" length="36" maxValue="" minValue="" modifyIndustry="0" name="pk_dept" notSerialize="false" precise="" refModelName="" resid="" sequence="1" typeDisplayName="部门" typeName="dept" versionType="0" visibility="public"/>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="a4166dcd-c7f7-4f82-a5cb-6b398f61fa49" createIndustry="0" dataType="BS000010000100001001" dataTypeStyle="SINGLE" dbtype="varchar" defaultValue="" description="" displayName="部门编码" dynamic="false" dynamicTable="" fieldName="deptcode" fieldType="varchar" fixedLength="false" forLocale="false" help="" id="5149419a-1f40-4a75-9452-b720feea9cc3" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="false" isNullable="true" isReadOnly="false" isShare="false" isSource="true" length="50" maxValue="" minValue="" modifyIndustry="0" name="deptcode" notSerialize="false" precise="" refModelName="" resid="" sequence="2" typeDisplayName="String" typeName="String" versionType="0" visibility="public"/>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="a4166dcd-c7f7-4f82-a5cb-6b398f61fa49" createIndustry="0" dataType="BS000010000100001001" dataTypeStyle="SINGLE" dbtype="varchar" defaultValue="" description="" displayName="部门名称" dynamic="false" dynamicTable="" fieldName="deptname" fieldType="varchar" fixedLength="false" forLocale="false" help="" id="9d9824a2-aa0b-4d9c-b775-487240e8fe4b" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="false" isNullable="true" isReadOnly="false" isShare="false" isSource="true" length="50" maxValue="" minValue="" modifyIndustry="0" name="deptname" notSerialize="false" precise="" refModelName="" resid="" sequence="3" typeDisplayName="String" typeName="String" versionType="0" visibility="public"/>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="a4166dcd-c7f7-4f82-a5cb-6b398f61fa49" createIndustry="0" dataType="BS000010000100001001" dataTypeStyle="SINGLE" dbtype="varchar" defaultValue="" description="" displayName="id_UserDept" dynamic="false" dynamicTable="" fieldName="fk_id_userdept" fieldType="varchar" fixedLength="false" forLocale="false" help="" id="15957a32-b10e-40a9-8055-b39c381a5e41" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="false" isNullable="true" isReadOnly="false" isShare="false" isSource="true" length="36" maxValue="" minValue="" modifyIndustry="0" name="fk_id_userdept" notSerialize="false" precise="" refModelName="" resid="" sequence="4" typeDisplayName="String" typeName="String" versionType="0" visibility="public"/>
+            </attributelist>
+            <operationlist/>
+            <busiitfs/>
+            <busimaps/>
+            <canzhaolist/>
+            <accessor classFullname="nc.md.model.access.javamap.POJOStyle" displayName="POJO" name="pojo">
+                <properties/>
+            </accessor>
+        </entity>
+    </celllist>
+    <connectlist/>
+    <refdepends>
+        <dependfile entityid="17ffb644-c70c-48de-a47f-c5b53f75460f"/>
+    </refdepends>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

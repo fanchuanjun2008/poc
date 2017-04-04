@@ -1,0 +1,95 @@
+<div class="u-mdlayout " id="dicttype-mdlayout">
+    <div class="u-mdlayout-btn u-row">
+        <div id="dicttype_list_button_2" class="u-col-4 user-actions">
+            <div class=" u-button-group margin-0 padding-0">
+                <button class="u-button u-button-primary u-button-sm" id="user-action-add"
+                        data-bind="click: event.addClick">增加
+                </button>
+                <button class="u-button u-button-primary u-button-sm" id="user-action-edit"
+                        data-bind="click: event.saveClick">保存
+                </button>
+                <button class="u-button u-button-primary u-button-sm" id="user-action-del"
+                        data-bind="click: event.delRow">删除
+                </button>
+            </div>
+        </div>
+        <div class="u-col-4  center-title">
+            <span>部门</span>
+        </div>
+    </div>
+    <div class=" form-search " style="z-index:0;">
+        <div class="u-panel-heading  u-collapse-updown" u-data-toggle="collapse" href="#condition-row-dic">
+            <span class="u-panel-title padding-5 padding-left-15">快速查询
+            <span class="u-link u-right u-input-label sm">
+                 <span>展开</span>
+                 <a>
+                     <i class="uf uf-aadown"></i>
+                 </a>
+             </span>
+            </span>
+        </div>
+        <div class="u-row  u-panel-body  collapse" id="condition-row-dic">
+            <div class="u-col-6 u-col-sm-12">
+            </div>
+            <div class="u-col-6 u-col-sm-12">
+                <div class=" padding-top-2">
+                    <button class="u-button  u-button-primary raised gray-btn u-button-pa margin-right-20"
+                            id="user-action-search" data-bind="click: event.search">搜索
+                    </button>
+                    <button class="u-button u-button-primary raised gray-btn u-button-pa" id="user-action-cleanSearch"
+                            data-bind="click: event.cleanSearch">清空
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="u-mdlayout-detail ">
+        <!-- list -->
+        <div class="u-mdlayout-page u-navlayout-fixed-header current" id="list">
+            <div class="u-mdlayout-page-section">
+                <div class="user-page-content">
+                    <div class="user-datagrid ">
+                        <div class="table-container">
+                            <div type="text" id="dept"
+                                 u-meta='{"id":"grid_dept","data":"deptDa","type":"grid","editable":true,"multiSelect":true,"editType":"default","columnWidth":"150px"}'>
+                                        <div options='{"field":"orgid","dataType":"String","title":"组织ID","editType":"string"}'></div>
+                                        <div options='{"field":"deptcode","dataType":"String","title":"编码","editType":"string"}'></div>
+                                        <div options='{"field":"deptname","dataType":"String","title":"名称","editType":"string"}'></div>
+										<div options='{"field":"parentid_name","dataType":"String","title":"上级ID","editType":"event.adddept_selectDept","editOptions":{"validType":"string","required":true} }'></div>
+										<div options='{"field":"depttype","dataType":"String","title":"部门类型","editType":"combo","editOptions":{"id":"depttype","type":"combo","datasource":"dept_depttype"},"renderType":"comboRender"}'></div>
+                                        <div options='{"field":"createdate","dataType":"String","title":"部门成立时间","editType":"string"}'></div>
+										<div options='{"field":"shortname","dataType":"String","title":"简称","editType":"combo","editOptions":{"id":"shortname","type":"combo","datasource":"dept_shortname"},"renderType":"comboRender"}'></div>
+                                        <div options='{"field":"creator","dataType":"String","title":"创建人","editType":"string"}'></div>
+                                        <div options='{"field":"creationtime","dataType":"String","title":"创建时间","editType":"string"}'></div>
+                                        <div options='{"field":"deptcanceldate","dataType":"String","title":"部门撤销日期","editType":"string"}'></div>
+                            </div>
+                            <div id='pagination' class='pagination u-pagination pagination-sm '
+                                 u-meta='{"type":"pagination","data":"deptDa","pageChange":"event.pageChange","sizeChange":"event.sizeChange"}'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end list -->
+    </div>
+</div>
+
+<!-- 树展示的弹出层  -->
+<div id="tree-deptFordept" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"deptFordeptTree","data":"refDeptDa","type":"tree","idField":"pk_dept","pidField":"parentid","nameField":"name","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_DeptTodept" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>

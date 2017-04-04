@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><component conRouterType="曼哈顿直角" createIndustry="0" createTime="2017-03-31 14:55:22" creator="" description="" displayName="role" fromSourceBmf="true" gencodestyle="标准样式" help="" id="76e76a74-c7dc-4238-8144-bb41b1a96555" industry="0" industryChanged="false" industryIncrease="false" industryName="0" isSource="false" isbizmodel="false" mainEntity="f1e4ed45-c6b7-4bd4-a8ee-847b152124c6" metaType=".bmf" modifier="" modifyIndustry="0" modifyTime="2017-03-31 14:55:25" name="role" namespace="tepoc" ownModule="tepoc" preLoad="false" programcode="0" resModuleName="role" resid="" version="1" versionType="0">
+    <celllist>
+        <entity accessorClassName="nc.md.model.access.javamap.POJOStyle" bizItfImpClassName="" componentID="76e76a74-c7dc-4238-8144-bb41b1a96555" createIndustry="0" createTime="2017-03-31 14:55:24" creator="" czlist="" description="" displayName="角色" fullClassName="com.yonyou.tepoc.role.Role" height="100" help="" id="f1e4ed45-c6b7-4bd4-a8ee-847b152124c6" industryChanged="false" isAuthen="true" isCreateSQL="true" isExtendBean="false" isPrimary="true" isSource="true" keyAttributeId="c9f8a353-8b13-45c5-b07c-0fe14d90fe42" modInfoClassName="" modifier="" modifyIndustry="0" modifyTime="2017-03-31 14:57:43" name="Role" resid="" stereoType="" tableName="role" userDefClassName="" versionType="0" visibility="public" width="100" x="199" y="65">
+            <attributelist>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="f1e4ed45-c6b7-4bd4-a8ee-847b152124c6" createIndustry="0" dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" defaultValue="" description="" displayName="主键" dynamic="false" dynamicTable="" fieldName="pk_role" fieldType="char" fixedLength="false" forLocale="false" help="" id="c9f8a353-8b13-45c5-b07c-0fe14d90fe42" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="true" isNullable="false" isReadOnly="false" isShare="false" isSource="true" length="36" maxValue="" minValue="" modifyIndustry="0" name="pk_role" notSerialize="false" precise="" refModelName="" resid="" sequence="0" typeDisplayName="ID" typeName="ID" versionType="0" visibility="public"/>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="f1e4ed45-c6b7-4bd4-a8ee-847b152124c6" createIndustry="0" dataType="BS000010000100001001" dataTypeStyle="SINGLE" dbtype="varchar" defaultValue="" description="" displayName="角色编码" dynamic="false" dynamicTable="" fieldName="rolecode" fieldType="varchar" fixedLength="false" forLocale="false" help="" id="e328a0a7-5d12-4b9c-a322-687f60b875d2" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="false" isNullable="true" isReadOnly="false" isShare="false" isSource="true" length="50" maxValue="" minValue="" modifyIndustry="0" name="rolecode" notSerialize="false" precise="" refModelName="" resid="" sequence="1" typeDisplayName="String" typeName="String" versionType="0" visibility="public"/>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="f1e4ed45-c6b7-4bd4-a8ee-847b152124c6" createIndustry="0" dataType="BS000010000100001001" dataTypeStyle="SINGLE" dbtype="varchar" defaultValue="" description="" displayName="角色名称" dynamic="false" dynamicTable="" fieldName="rolename" fieldType="varchar" fixedLength="false" forLocale="false" help="" id="dee7230d-4d8f-4c0d-9c83-25ebc7bc8272" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="false" isNullable="true" isReadOnly="false" isShare="false" isSource="true" length="50" maxValue="" minValue="" modifyIndustry="0" name="rolename" notSerialize="false" precise="" refModelName="" resid="" sequence="2" typeDisplayName="String" typeName="String" versionType="0" visibility="public"/>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="f1e4ed45-c6b7-4bd4-a8ee-847b152124c6" createIndustry="0" dataType="BS000010000100001001" dataTypeStyle="SINGLE" dbtype="varchar" defaultValue="" description="" displayName="角色类型" dynamic="false" dynamicTable="" fieldName="roletype" fieldType="varchar" fixedLength="false" forLocale="false" help="" id="e0035917-bff5-4ab9-a277-89b2f4ed589a" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="false" isNullable="true" isReadOnly="false" isShare="false" isSource="true" length="50" maxValue="" minValue="" modifyIndustry="0" name="roletype" notSerialize="false" precise="" refModelName="" resid="" sequence="3" typeDisplayName="String" typeName="String" versionType="0" visibility="public"/>
+            </attributelist>
+            <operationlist/>
+            <busiitfs/>
+            <busimaps/>
+            <canzhaolist/>
+            <accessor classFullname="nc.md.model.access.javamap.POJOStyle" displayName="POJO" name="pojo">
+                <properties/>
+            </accessor>
+        </entity>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>
