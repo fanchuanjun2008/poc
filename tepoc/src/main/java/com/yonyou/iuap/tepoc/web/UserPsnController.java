@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,12 +16,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springside.modules.web.Servlets;
 
 import com.yonyou.iuap.example.entity.meta.Dept;
 import com.yonyou.iuap.example.entity.meta.EnumVo;
@@ -28,8 +34,6 @@ import com.yonyou.iuap.example.entity.meta.Org;
 import com.yonyou.iuap.example.entity.meta.Sex;
 import com.yonyou.iuap.example.utils.EnumUtils;
 import com.yonyou.iuap.example.web.BaseController;
-import com.yonyou.iuap.mvc.annotation.FrontModelExchange;
-import com.yonyou.iuap.mvc.type.SearchParams;
 import com.yonyou.iuap.persistence.bs.dao.DAOException;
 import com.yonyou.iuap.persistence.vo.pub.BusinessException;
 import com.yonyou.iuap.tepoc.common.utils.ExcelWriterPoiWriter;
@@ -108,6 +112,13 @@ public class UserPsnController extends BaseController {
 		UserPsnVO result = service.merge(entity);
 		return result;
 	}
+    
+    @RequestMapping(value = "/savecard", method = RequestMethod.POST)
+    @ResponseBody
+    public UserPsnVO saveUserPsn(@RequestBody UserPsnVO entity) throws DAOException {
+		UserPsnVO result = service.merge(entity);
+		return result;
+	}
 
     /**
      * 前端传入参数，查询数据，列表展示
@@ -116,12 +127,18 @@ public class UserPsnController extends BaseController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public Object list(PageRequest pageRequest, @FrontModelExchange(modelType = UserPsnVO.class) SearchParams searchParams) {
+    public Object list(@RequestParam(value = "page", defaultValue = "0") int pageNumber,
+			@RequestParam(value = "page.size", defaultValue = "10") int pageSize,
+			@RequestParam(value = "sortType", defaultValue = "auto") String sortType,
+			Model model, ServletRequest request) {
         logger.debug("execute data search.");
-        Page<UserPsnVO> page = service.selectAllByPage(searchParams.getSearchMap(), pageRequest);
+        Map<String, Object> searchParams = new HashMap<String, Object>();
+		searchParams = Servlets.getParametersStartingWith(request, "search_");
+		PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto");
+        Page<UserPsnVO> page = service.selectAllByPage(searchParams, pageRequest);
         return buildSuccess(page);
     }
-
+    
     /**
      * 增加主子表数据保存，传入json数据
      * 
@@ -243,6 +260,26 @@ public class UserPsnController extends BaseController {
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}
+	}
+	
+	/**
+	 * 创建请求分页
+	 * @param pageNumber
+	 * @param pagzSize
+	 * @param sortType
+	 * @return
+	 */
+	private PageRequest buildPageRequest(int pageNumber, int pagzSize,
+			String sortType) {
+		Sort sort = null;
+		if ("auto".equals(sortType)) {
+			sort = new Sort(Direction.DESC, "ts");
+		} else if ("creationtime".equals(sortType)) {
+			sort = new Sort(Direction.DESC, "ts");
+		} else if ("pk_projectapply".equals(sortType)) {
+			sort = new Sort(Direction.ASC, "ts");
+		}
+		return new PageRequest(pageNumber, pagzSize, sort);
 	}
     
 }
