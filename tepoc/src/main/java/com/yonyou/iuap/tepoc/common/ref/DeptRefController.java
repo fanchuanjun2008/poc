@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,9 @@ public class DeptRefController extends AbstractTreeGridRefModel/* implements IRe
 	public List<Map<String, String>> blobRefClassSearch(@RequestBody RefViewModelVO paramRefViewModelVO) {
 		Map<String, Object> searchParams = new HashMap<String, Object>();
 		String condition =  paramRefViewModelVO.getContent();//获取查询条件
-		searchParams.put("condition", condition);
+		if(condition!=null || !StringUtils.isEmpty(condition)){
+			searchParams.put("condition", condition);			
+		}
 		RefClientPageInfo refClientPageInfo = paramRefViewModelVO.getRefClientPageInfo();
 		int currPageIndex = refClientPageInfo.getCurrPageIndex();
 		PageRequest pageRequest = new PageRequest(currPageIndex, Constant.pagesize, new Sort(Direction.ASC, "ts"));
@@ -109,7 +112,9 @@ public class DeptRefController extends AbstractTreeGridRefModel/* implements IRe
 		
 		Map<String, Object> searchParams = new HashMap<String, Object>();
 		String condition = paramRefViewModelVO.getContent();// 获取查询条件
-		searchParams.put("condition", condition);
+		if(condition!=null || !StringUtils.isEmpty(condition)){
+			searchParams.put("condition", condition);			
+		}
 		RefClientPageInfo refClientPageInfo = paramRefViewModelVO.getRefClientPageInfo();
 		int currPageIndex = refClientPageInfo.getCurrPageIndex();
 		PageRequest pageRequest = new PageRequest(currPageIndex, Constant.pagesize, new Sort(Direction.ASC, "ts"));
