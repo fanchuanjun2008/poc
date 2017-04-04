@@ -1,8 +1,8 @@
 define(['text!pages/role/role.html','pages/role/meta','css!pages/role/role.css','uuitree','uuigrid'],function(html){
 	var init=function(element){
-		var listUrl = ctx+'/Role/list';
-		var delUrl = ctx+'/Role/del/';
-		var saveUrl = ctx+'/Role/save';
+		var listUrl = tepoc_ctx+'/Role/list';
+		var delUrl = tepoc_ctx+'/Role/del/';
+		var saveUrl = tepoc_ctx+'/Role/save';
 		
 		var viewModel = {
 				/* 数据模型 */

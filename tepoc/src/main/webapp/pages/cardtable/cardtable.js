@@ -3,14 +3,14 @@ define(['text!pages/cardtable/cardtable.html','css!pages/cardtable/cardtable','p
 
 
 		//元数据持久化方式
-		//var listUrl = ctx+'/cardtablemeta/list';
-		//var delUrl = ctx+'/cardtablemeta/del/';
-		//var saveUrl = ctx+'/cardtablemeta/save';
+		//var listUrl = tepoc_ctx+'/cardtablemeta/list';
+		//var delUrl = tepoc_ctx+'/cardtablemeta/del/';
+		//var saveUrl = tepoc_ctx+'/cardtablemeta/save';
 
 		//mybtais持久化方式
-		var listUrl = ctx+'/cardtable/list';
-		var delUrl = ctx+'/cardtable/del/';
-		var saveUrl = ctx+'/cardtable/save';
+		var listUrl = tepoc_ctx+'/cardtable/list';
+		var delUrl = tepoc_ctx+'/cardtable/del/';
+		var saveUrl = tepoc_ctx+'/cardtable/save';
 		var viewModel = {
 				app:{},
 				/* 数据模型 */

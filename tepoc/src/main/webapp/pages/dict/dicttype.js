@@ -28,7 +28,7 @@ define(['text!pages/dict/dicttype.html', 'pages/dict/dictmeta', 'css!pages/dict/
                         });
                         viewModel.dictTypeDa.addParams(queryData);
                         app.serverEvent().addDataTable("dictTypeDa").fire({
-                            url: ctx + viewModel.listurl,
+                            url: tepoc_ctx + viewModel.listurl,
                             success: function (data) {
 
                             }
@@ -52,7 +52,7 @@ define(['text!pages/dict/dicttype.html', 'pages/dict/dictmeta', 'css!pages/dict/
                     });
                     viewModel.dictTypeDa.addParams(queryData);
                     app.serverEvent().addDataTable("dictTypeDa").fire({
-                        url: ctx + viewModel.listurl,
+                        url: tepoc_ctx + viewModel.listurl,
                         success: function (data) {
 
                         }
@@ -63,7 +63,7 @@ define(['text!pages/dict/dicttype.html', 'pages/dict/dictmeta', 'css!pages/dict/
                 },
                 addClick: function () {
                     app.serverEvent().addDataTable("dictTypeDa").fire({
-                        url: ctx + viewModel.addurl,
+                        url: tepoc_ctx + viewModel.addurl,
                     })
                 },
                 getRowData: function (rows) {  //rows 表示行数据对象
@@ -81,7 +81,7 @@ define(['text!pages/dict/dicttype.html', 'pages/dict/dictmeta', 'css!pages/dict/
                     }
 
                     app.serverEvent().addDataTable("dictTypeDa", 'change').fire({
-                        url: ctx + viewModel.saveurl,
+                        url: tepoc_ctx + viewModel.saveurl,
                         success: function (data) {
                             u.showMessage({msg: '操作完成'})
                         }
@@ -98,7 +98,7 @@ define(['text!pages/dict/dicttype.html', 'pages/dict/dictmeta', 'css!pages/dict/
                         title: '警告',
                         onOk: function () {
                             app.serverEvent().addDataTable("dictTypeDa", 'allSelect').fire({
-                                url: ctx + viewModel.delurl,
+                                url: tepoc_ctx + viewModel.delurl,
                                 success: function (data) {
                                     /* u.showMessage({msg: '操作完成'})*/
                                 }

@@ -6,10 +6,10 @@ define(['text!pages/user/user.html', 'pages/user/usermeta','css!pages/user/user'
         var viewModel = {
             draw: 1,//页数(第几页)
             pageSize: 5,
-            searchURL: ctx + '/sysUser/list',
-            addURL: ctx + "/sysUser/add",
-            updateURL: ctx + "/sysUser/update",
-            delURL: ctx + "/sysUser/delBatch",
+            searchURL: tepoc_ctx + '/sysUser/list',
+            addURL: tepoc_ctx + "/sysUser/add",
+            updateURL: tepoc_ctx + "/sysUser/update",
+            delURL: tepoc_ctx + "/sysUser/delBatch",
             formStatus: _CONST.FORM_STATUS_ADD, //
             userDa: new u.DataTable(userMetaDt),
             userFormDa: new u.DataTable(userMetaDt),
@@ -361,7 +361,7 @@ define(['text!pages/user/user.html', 'pages/user/usermeta','css!pages/user/user'
                 selectOrg: function () {
                     var treeSet = this.treeSetting;
                     var title = '请选择所属组织';
-                    var url = ctx + '/sysUser/sysOrg/listall';
+                    var url = tepoc_ctx + '/sysUser/sysOrg/listall';
                     viewModel.event.showTreeDiv(null, url, title, this.treeSetting);
                 },
 
@@ -463,7 +463,7 @@ define(['text!pages/user/user.html', 'pages/user/usermeta','css!pages/user/user'
                     jsonData['search_userid'] = userId;
                     $.ajax({
                         type: 'GET',
-                        url: ctx + '/sysUserJob/list',
+                        url: tepoc_ctx + '/sysUserJob/list',
                         datatype: 'json',
                         data: jsonData,
                         contentType: 'application/json;charset=utf-8',
@@ -550,7 +550,7 @@ define(['text!pages/user/user.html', 'pages/user/usermeta','css!pages/user/user'
                         }
                         $.ajax({
                             type: "post",
-                            url: ctx + "/sysUserJob/del",
+                            url: tepoc_ctx + "/sysUserJob/del",
                             contentType: 'application/json;charset=utf-8',
                             data: JSON.stringify(jsonDel[0]),
                             success: function (res) {
@@ -603,7 +603,7 @@ define(['text!pages/user/user.html', 'pages/user/usermeta','css!pages/user/user'
                     u.on(ele.querySelector('#addUserJob_selectOrg'), 'click', function () {
                         $.ajax({
                             type: "GET",
-                            url: ctx + '/sysUser/sysOrg/listall',
+                            url: tepoc_ctx + '/sysUser/sysOrg/listall',
                             contentType: 'application/json;charset=utf-8',
                             dataType: 'json',
                             success: function (res) {
@@ -666,7 +666,7 @@ define(['text!pages/user/user.html', 'pages/user/usermeta','css!pages/user/user'
                 showDeptDiv: function () {
                     $.ajax({
                         type: "GET",
-                        url: ctx + '/sysUserJob/dept/listall',
+                        url: tepoc_ctx + '/sysUserJob/dept/listall',
                         contentType: 'application/json;charset=utf-8',
                         dataType: 'json',
                         success: function (res) {
@@ -691,7 +691,7 @@ define(['text!pages/user/user.html', 'pages/user/usermeta','css!pages/user/user'
                 	 $.ajax({
                          type: "GET",
                          async : false,
-                         url: ctx + '/sysUser/loadEnum',
+                         url: tepoc_ctx + '/sysUser/loadEnum',
                          contentType: 'application/json;charset=utf-8',
                          dataType: 'json',
                          success: function (res) {

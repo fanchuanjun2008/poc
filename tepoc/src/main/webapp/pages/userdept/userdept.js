@@ -1,8 +1,8 @@
 define(['text!pages/userdept/userdept.html','pages/userdept/meta','css!pages/userdept/userdept.css','uuitree','uuigrid'],function(html){
 	var init=function(element){
-		var listUrl = ctx+'/UserDept/list';
-		var delUrl = ctx+'/UserDept/del/';
-		var saveUrl = ctx+'/UserDept/save';
+		var listUrl = tepoc_ctx+'/UserDept/list';
+		var delUrl = tepoc_ctx+'/UserDept/del/';
+		var saveUrl = tepoc_ctx+'/UserDept/save';
 		
 		var viewModel = {
 				/* 数据模型 */
@@ -194,7 +194,7 @@ define(['text!pages/userdept/userdept.html','pages/userdept/meta','css!pages/use
                 selectDept_UserDept: function () {
                     var treeSet = this.treeSetting;
                     var title = '请选择参照值';
-                    var url = ctx + '/UserDept/Dept/listall';
+                    var url = tepoc_ctx + '/UserDept/Dept/listall';
                     viewModel.event.showDeptTreeDiv_UserDept(null, url, title, this.treeSetting);
                 },
                 

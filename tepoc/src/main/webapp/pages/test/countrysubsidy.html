@@ -1,0 +1,1187 @@
+<div class="u-mdlayout" id="countrysubsidy-mdlayout">
+	<div class="u-mdlayout-master" style="display:none"></div>
+
+	<div class="u-mdlayout-detail" style="overflow-y: auto">
+		<!--列表界面-->
+		<div class="u-mdlayout-page u-navlayout-fixed-header current" id="countrysubsidy_list">
+			<div class="u-mdlayout-page-section">
+				<div class="u-container-fluid u-widget-bg example">
+					<div class="u-row">
+						<div class="btnBox pull-left mb-5">
+							<button class="u-button raised primary" id="table-add" data-bind="click: addClick,visible: addFunShow"><i class="icon uf uf-plus">新增</i></button>
+							<button class="u-button raised primary" id="table-edit" data-bind="click: editClick,visible: editFunShow"><i class="icon uf uf-pencil-s">修改</i></button>
+							<button class="u-button raised primary" id="table-del" data-bind="click: delClick,visible: delFunShow"><i class="icon uf uf-close-bold">删除</i></button>
+							<!-- <button class="u-button raised primary" id="table-finish" data-bind="click: finishClick,visible: finishFunShow">完结</button> -->
+							<!-- <button class="u-button raised primary" id="table-unfinish" data-bind="click: unFinishClick,visible: unFinishFunShow">撤销完结</button> -->
+							<button class="u-button raised primary" id="table-unfinish" data-bind="click: onDownload">导出</button>
+						</div>
+					</div>
+
+					<h5 data-bind="click: showSearchClick">查询条件</h5>
+					<!--查询-->
+					<div id="showSearch" class="search-section">
+
+						<div class="u-row">
+							<div class="u-col-2 u-col-sm-4">
+								<label class="u-input-label right">姓名</label>
+							</div>
+							<div class="u-col-2 u-col-sm-8">
+								<input type="text" class="u-form-control u-input-write" u-meta='{"id":"search_name","name":"国补申报单号","type":"string","data":"searchData","field":"search_name"}'>
+							</div>
+
+							<div class="u-col-2 u-col-sm-4">
+								<label class="u-input-label right">性别</label>
+							</div>
+							<div class="u-col-2 u-col-sm-4" style="padding:0px !important">
+								<div class="u-datepicke input-group fx-datepicker" u-meta='{"id":"search_birthdate_start","name":"申报日期从","data":"searchData","field":"search_birthdate_start","type":"u-datetime","format":"YYYY-MM-DD"}'>
+									<input type="text" class="u-input" />
+									<span class="input-group-addon">
+	                					<span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+
+							<div class="u-col-2 u-col-sm-4">
+								<label class="u-input-label right">专业</label>
+							</div>
+							<div class="u-col-2 u-col-sm-4" style="padding:0px !important">
+								<div class="u-datepicke input-group fx-datepicker" u-meta='{"id":"search_birthdate_end","name":"申报日期至","data":"searchData","field":"search_birthdate_end","type":"u-datetime","format":"YYYY-MM-DD"}'>
+									<input type="text" class="u-input" />
+									<span class="input-group-addon">
+	                					<span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="u-row">
+							<div class="u-col-2 u-col-sm-4">
+								<label class="u-input-label right">入职时间</label>
+							</div>
+							<div class="u-col-2 u-col-sm-8">
+								<input type="text" class="u-form-control u-input-write" u-meta='{"id":"search_vvehicleseries","name":"车系","type":"string","data":"searchData","field":"search_vvehicleseries"}'>
+							</div>
+
+							<!-- <div class="u-col-2 u-col-sm-4">
+								<label class="u-input-label right">超期回款从：</label>
+							</div>
+							<div class="u-col-2 u-col-sm-4" style="padding:0px !important">
+								<div class="u-datepicke input-group fx-datepicker" u-meta='{"id":"search_doverduedate_start","name":"超期回款从","data":"searchData","field":"search_doverduedate_start","type":"u-datetime","format":"YYYY-MM-DD"}'>
+									<input type="text" class="u-input" />
+									<span class="input-group-addon">
+	                					<span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+
+							<div class="u-col-2 u-col-sm-4">
+								<label class="u-input-label right">超期回款至：</label>
+							</div>
+							<div class="u-col-2 u-col-sm-4" style="padding:0px !important">
+								<div class="u-datepicke input-group fx-datepicker" u-meta='{"id":"search_doverduedate_end","name":"超期回款至","data":"searchData","field":"search_doverduedate_end","type":"u-datetime","format":"YYYY-MM-DD"}'>
+									<input type="text" class="u-input" />
+									<span class="input-group-addon">
+	                					<span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</div> -->
+						</div>
+
+						<div class="u-row">
+							<div class="btnBox pull-right mb-5">
+								<button class="u-button raised primary" id="table-search" data-bind="click: searchClick">查询</button>
+								<button class="u-button raised primary" data-bind="">清空</button>
+							</div>
+						</div>
+					</div>
+					<h5>数据列表</h5>
+					<div class="u-row">
+						<div class="u-col-12">
+							<div class="u-widget">
+								<div class="u-widget-body">
+									<div class="table-responsive">
+										<table class="u-table" style="width:100%;">
+											<thead>
+												<tr>
+													<th>
+														<label class="u-checkbox only-style" data-bind="click: listData.toggleAllSelect.bind(listData), css:{'is-checked': listData.allSelected()}" style="height:20px">
+														<input id="checkInput" type="checkbox" class="u-checkbox-input">
+														<span class="u-checkbox-label"></span>
+													</label>
+													</th>
+													<th>姓名</th>
+													<th>性别</th>
+													<th>出生日期</th>
+													<th>邮箱</th>
+													<th>手机</th>
+													<th>学历</th>
+													<th>专业</th>
+													<th>入职时间</th>
+													<th>所属公司</th>
+													<th>部门</th>
+													<th>状态</th>
+													<th>创建时间</th>
+													<th>创建人</th>
+													<th>修改时间</th>
+													<th>修改人</th>
+												</tr>
+											</thead>
+											<tbody data-bind="foreach:{data:listData.rows(),as:'row', afterAdd: afterAdd}">
+												<tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'id': $index()}">
+													<td class="checkbox1"><label class="u-checkbox only-style u-checkbox-floatl" data-bind="click: row.multiSelect, css:{'is-checked': row.selected()}" style="height:20px">
+														<input type="checkbox" class="u-checkbox-input">
+														<span class="u-checkbox-label"></span> </label></td>
+													<td><a href="javascript:;" data-bind="click:$parent.showClick.bind($data, $index())"><span data-bind="text:row.ref('name')"></span></a></td>
+													<td data-bind="text: row.ref('sex')"></td>
+													<td data-bind="text: row.ref('birthdate')"></td>
+													<td data-bind="text: row.ref('email')"></td>
+													<td data-bind="text: row.ref('phone')"></td>
+													<td data-bind="text: row.ref('educate')"></td>
+													<td data-bind="text: row.ref('profession')"></td>
+													<td data-bind="text: row.ref('entryTime')"></td>
+													<td data-bind="text: comToName(row.getSimpleData().company)"></td>
+													<td data-bind="text: comToName(row.getSimpleData().depart)"></td>
+													<td data-bind="text: comToName(row.getSimpleData().vstatus)"></td>
+													<td data-bind="text: u.dateRender(row.ref('creationtime'))"></td>
+													<td data-bind="text: row.ref('creator')"></td>
+													<td data-bind="text: u.dateRender(row.ref('modifiedtime'))"></td>
+													<td data-bind="text: row.ref('modifier')"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id='pagination' class='u-pagination pagination' u-meta='{"type":"pagination","data":"listData","pageChange":"pageChangeFunc","sizeChange":"sizeChangeFunc"}'></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--新增界面-->
+		<div class="u-mdlayout-page u-navlayout-fixed-header" id="countrysubsidy_new">
+			<div class="u-mdlayout-page-section">
+				<div class="u-container-fluid u-widget-bg example">
+					<div class="u-row">
+						<div class="u-col-12" style="padding-bottom:15px;">
+							<div class="u-widget mtb-1015" style="background-color:transparent;">
+								<button class="u-button raised primary" data-bind="click:onSaveClick">保存</button>
+								<button class="u-button raised primary" data-bind="click:onBackClick">返回</button>
+							</div>
+						</div>
+					</div>
+					<div class="search-section">
+						<div class="u-row">
+							<div class="u-col-12 clear_pd_0">
+								<div class="u-widget">
+									<div class="u-widget-body form-container">
+										<div class="image-box">
+											<img src="../../static/images/a0.jpg" />
+											<div class="upload-btn">
+												<button class="u-button u-button-primary">上传照片</button>
+												<input class="file-btn" type="file" />
+											</div>
+
+										</div>
+										<div class="u-container-fluid input-team">
+
+											<div class="u-row">
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">姓名</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8">
+													<input type="text" class="u-input" u-meta='{"id":"name","name":"企业申报单号","type":"string","data":"cardData","field":"name"}'>
+												</div>
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">性别</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8">
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<input type="text" class="u-form-control u-input-write" u-meta='{"id":"sex","name":"企业申报文号","type":"string","data":"cardData","field":"sex"}'>
+												</div>
+
+
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">身份证</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8">
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<div class="input-group deptref" u-meta='{"refCode":"dept","type":"uiRefer", "data":"cardData", "field":"phone"}'>
+														<input id="testRefMuGridTree2" class="u-form-control u-input" type="text" data-bind="enable: false">
+														<!--<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: false"></span>-->
+													</div>
+												</div>
+
+											</div>
+
+											<div class="u-row">
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">出生日期</label>
+												</div>
+												<div class="u-col-2 u-col-sm-4" style="padding:0px !important">
+													<div class="u-datepicke input-group fx-datepicker" u-meta='{"id":"birthdate","name":"录入日期","data":"cardData","field":"birthdate","type":"u-datetime","format":"YYYY-MM-DD"}'>
+														<div class="u-input-group-before " style="color: red;">*</div>
+														<input type="text" class="u-form-control u-input" />
+														<span class="input-group-addon">
+					                    					<span class="glyphicon glyphicon-calendar"></span>
+														</span>
+													</div>
+												</div>
+
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">邮箱</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8">
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<input type="text" class="u-form-control u-input-write" u-meta='{"id":"profession","name":"政府批文文号","type":"string","data":"cardData","field":"profession"}'>
+												</div>
+
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">手机</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8">
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<div class="input-group vdeclarelegalref" u-meta='{"refCode":"user","name":"申报法人","type":"uiRefer", "data":"cardData", "field":"educate"}'>
+														<input id="testRefMuGridTree3" class="u-form-control u-input" type="text" data-bind="enable: false">
+														<!--<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: false"></span>-->
+													</div>
+												</div>
+
+											</div>
+
+											<div class="u-row">
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">学历</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8">
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<div class="input-group vdeclarecityref" id="countrysubsidy_city_add" u-meta='{"refCode":"city","name":"申报城市","type":"uiRefer", "data":"cardData", "field":"entryTime"}'>
+														<input id="testRefMuGridTree4" class="u-form-control u-input" type="text" data-bind="enable: true">
+														<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: true"></span>
+													</div>
+												</div>
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">专业</label>
+												</div>
+												<div class="u-combo u-col-2 u-col-sm-8" u-meta='{"id":"company","name":"资料是否齐全","type":"u-combobox","data":"cardData","datasource":"yesORno","field":"company"}'>
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<input class="u-form-control u-input" readonly/>
+													<span class="u-form-control-feedback fa fa-caret-down demoe-icon-btn refer"></span>
+												</div>
+
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">入职时间</label>
+												</div>
+												<div class="u-combo u-col-2 u-col-sm-8" u-meta='{"id":"depart","name":"资料是否审核","type":"u-combobox","data":"cardData","datasource":"yesORno","field":"depart"}'>
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<input class="u-form-control u-input" readonly/>
+													<span class="u-form-control-feedback fa fa-caret-down demoe-icon-btn refer"></span>
+												</div>
+											</div>
+											<div class="u-row">
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">所属公司</label>
+												</div>
+												<div class="u-combo u-col-2 u-col-sm-8" u-meta='{"id":"depart","name":"资料是否审核","type":"u-combobox","data":"cardData","datasource":"yesORno","field":"depart"}'>
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<input class="u-form-control u-input" readonly/>
+													<span class="u-form-control-feedback fa fa-caret-down demoe-icon-btn refer"></span>
+												</div>
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">部门</label>
+												</div>
+												<div class="u-combo u-col-2 u-col-sm-8" u-meta='{"id":"depart","name":"资料是否审核","type":"u-combobox","data":"cardData","datasource":"yesORno","field":"depart"}'>
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<input class="u-form-control u-input" readonly/>
+													<span class="u-form-control-feedback fa fa-caret-down demoe-icon-btn refer"></span>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 子表修改 start -->
+					<div class="u-tabs u-tab-inner-left">
+						<div class="u-tabs__tab-bar">
+							<a href="#tab-panel-1" class="u-tabs__tab is-active">所属角色</a>
+							<a href="#tab-panel-2" class="u-tabs__tab">管辖部门</a>
+							<a href="#tab-panel-add_file" class="u-tabs__tab">活动照片</a>
+						</div>
+						<div class="u-tabs__panel is-active" id="tab-panel-1" style="float:clear;">
+							<div class="u-widget mtb-1015" style="background-color:transparent;margin: 10px 0 10px 0;">
+								<!--<button class="u-button raised primary" data-bind="click:onVehiAddClick">新增</button>-->
+								<button class="u-button raised primary">新增</button>
+								<button class="u-button raised primary" data-bind="click:onVehiDelClick">删除</button>
+							</div>
+							<div class="u-row">
+								<div class="u-col-12">
+									<div class="u-widget">
+										<div class="u-widget-body">
+											<div class="table-responsive">
+												<table class="u-table" style="width:100%;">
+													<thead>
+														<tr>
+															<th>
+																<label class="u-checkbox only-style" data-bind="click: gridVehicleData.toggleAllSelect.bind(gridVehicleData), css:{'is-checked': gridVehicleData.allSelected()}" style="height:20px">
+																<input id="checkInput" type="checkbox" class="u-checkbox-input">
+																<span class="u-checkbox-label"></span>
+															</label>
+															</th>
+															<th>序号</th>
+															<th>角色编码</th>
+															<th>角色名称</th>
+															<th>角色类型</th>
+															<th>车辆种类</th>
+															<th>车辆用途</th>
+															<th>车辆型号</th>
+															<th>VIN</th>
+															<th>车辆牌照</th>
+															<th>申请补贴标准</th>
+															<th>累计回款金额</th>
+															<th>未回款金额</th>
+															<th>购买价格</th>
+															<th>发票号</th>
+															<th>发票年</th>
+															<th>发票月</th>
+															<th>发票日</th>
+															<th>行驶证年</th>
+															<th>行驶证月</th>
+															<th>行驶证日</th>
+															<th>应回款日期</th>
+															<th>申报时间</th>
+															<th>审批节点</th>
+															<th>未申报状态</th>
+															<th>未申报说明</th>
+															<th>超期回款日期</th>
+															<th>申报状态</th>
+															<th>创建时间</th>
+															<th>创建人</th>
+															<th>修改时间</th>
+															<th>修改人</th>
+														</tr>
+													</thead>
+													<tbody data-bind="foreach:{data:gridVehicleData.rows(),as:'row', afterAdd: afterAdd}">
+														<tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'id': $index()}">
+															<td class="checkbox1"><label class="u-checkbox only-style u-checkbox-floatl" data-bind="click: row.multiSelect, css:{'is-checked': row.selected()}" style="height:20px">
+															<input type="checkbox" class="u-checkbox-input">
+															<span class="u-checkbox-label"></span> </label></td>
+															<td data-bind="text: comToName(row.getSimpleData().viscommercial)"></td>
+															<td data-bind="text: row.ref('vbuydomain')"></td>
+															<td data-bind="text: row.ref('vbuycity')"></td>
+															<td data-bind="text: row.ref('vrundept')"></td>
+															<td data-bind="text: row.ref('vvehiclekind')"></td>
+															<td data-bind="text: row.ref('vvehiclepurpose')"></td>
+															<td data-bind="text: row.ref('vvehiclemodel')"></td>
+															<td data-bind="text: row.ref('vvin')"></td>
+															<td data-bind="text: row.ref('vlicense')"></td>
+															<td data-bind="text: row.ref('nsubsidystandard')"></td>
+															<td data-bind="text: row.ref('ntotalback')"></td>
+															<td data-bind="text: row.ref('nnotback')"></td>
+															<td data-bind="text: row.ref('npurchaseprice')"></td>
+															<td data-bind="text: row.ref('vinvoiceno')"></td>
+															<td data-bind="text: row.ref('ninvoiceyear')"></td>
+															<td data-bind="text: row.ref('ninvoicemonth')"></td>
+															<td data-bind="text: row.ref('ninvoiceday')"></td>
+															<td data-bind="text: row.ref('ndlicenseyear')"></td>
+															<td data-bind="text: row.ref('ndlicensemonth')"></td>
+															<td data-bind="text: row.ref('ndlicenseday')"></td>
+															<td data-bind="text: row.ref('dmustbackdate')"></td>
+															<td data-bind="text: row.ref('ddeclaredate')"></td>
+															<td data-bind="text: row.ref('vapprovepoint')"></td>
+															<td data-bind="text: comToName(row.getSimpleData().vnotdeclarestatus)"></td>
+															<td data-bind="text: row.ref('vnotdeclarecomments')"></td>
+															<td data-bind="text: row.ref('doverduedate')"></td>
+															<td data-bind="text: comToName(row.getSimpleData().vdeclarestatus)"></td>
+															<td data-bind="text: u.dateRender(row.ref('creationtime'))"></td>
+															<td data-bind="text: row.ref('creator')"></td>
+															<td data-bind="text: u.dateRender(row.ref('modifiedtime'))"></td>
+															<td data-bind="text: row.ref('modifier')"></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id='pagination111' class='u-pagination pagination' u-meta='{"type":"pagination","data":"gridVehicleData","pageChange":"pageChangeItemFunc","sizeChange":"sizeChangeItemFunc"}'></div>
+							</div>
+						</div>
+						<div class="u-tabs__panel" id="tab-panel-2">
+							<div class="u-widget mtb-1015" style="background-color:transparent;margin: 10px 0 10px 0;">
+								<button class="u-button raised primary">新增</button>
+								<button class="u-button raised primary">编辑</button>
+								<button class="u-button raised primary">删除</button>
+							</div>
+							<div class="u-row">
+								<div class="u-col-12">
+									<div class="u-widget">
+										<div class="u-widget-body">
+											<div class="table-responsive">
+												<table class="u-table" style="width:100%;">
+													<thead>
+														<tr>
+															<th>序号</th>
+															<th>部门编码</th>
+															<th>部门名称</th>
+															<th>申请补贴标准</th>
+															<th>应回款日期</th>
+															<th>实际回款金额</th>
+															<th>实际回款日期</th>
+															<th>创建时间</th>
+															<th>创建人</th>
+															<th>修改时间</th>
+															<th>修改人</th>
+														</tr>
+													</thead>
+													<tbody data-bind="foreach:{data:gridFundbackData.rows(),as:'row', afterAdd: afterAdd}">
+														<tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'id': $index()}">
+															<td data-bind="text: row.ref('vvin')"></td>
+															<td data-bind="text: row.ref('vvehicleseries')"></td>
+															<td data-bind="text: row.ref('vsaledept')"></td>
+															<td data-bind="text: row.ref('nsubsidystandard')"></td>
+															<td data-bind="text: row.ref('dmustbackdate')"></td>
+															<td data-bind="text: row.ref('nfactback')"></td>
+															<td data-bind="text: row.ref('dfactbackdate')"></td>
+															<td data-bind="text: u.dateRender(row.ref('creationtime'))"></td>
+															<td data-bind="text: row.ref('creator')"></td>
+															<td data-bind="text: u.dateRender(row.ref('modifiedtime'))"></td>
+															<td data-bind="text: row.ref('modifier')"></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id='pagination222' class='u-pagination pagination' u-meta='{"type":"pagination","data":"gridFundbackData","pageChange":"pageChangeFundFunc","sizeChange":"sizeChangeFundFunc"}'></div>
+							</div>
+						</div>
+						<div class="u-tabs__panel" id="tab-panel-add_file">
+							<div class="u-widget mtb-5" style="background-color:transparent;margin: 10px 0 10px 0;">
+								<button class="u-button raised primary">上传</button>
+								<button class="u-button raised primary">编辑</button>
+								<button class="u-button raised primary">删除</button>
+								<!--<button class="u-button raised primary" data-bind="click:fileView">查看</button>-->
+							</div>
+							<div class="u-row">
+								<div class="u-col-2">
+									<label class="u-radio" for="option-1">
+									    <input type="radio" id="option-1" class="u-radio-button" name="options" value="1">
+										<img src="../../static/images/a0.jpg" />
+
+									    <span class="u-radio-label">First</span>
+									</label>
+								</div>
+								<div class="u-col-2">
+									<label class="u-radio" for="option-2">
+										<input type="radio" id="option-2" class="u-radio-button" name="options" value="1">
+										<img src="../../static/images/a0.jpg" />
+
+										<span class="u-radio-label">First</span>
+									</label>
+								</div>
+								<div class="u-col-2">
+									<label class="u-radio" for="option-3">
+										<input type="radio" id="option-3" class="u-radio-button" name="options" value="1">
+										<img src="../../static/images/a0.jpg" />
+
+										<span class="u-radio-label">First</span>
+									</label>
+								</div>
+								<div class="u-col-2">
+									<label class="u-radio" for="option-4">
+										<input type="radio" id="option-4" class="u-radio-button" name="options" value="1">
+										<img src="../../static/images/a0.jpg" />
+
+										<span class="u-radio-label">First</span>
+									</label>
+								</div>
+								<div class="u-col-2">
+									<label class="u-radio" for="option-5">
+										<input type="radio" id="option-5" class="u-radio-button" name="options" value="1">
+										<img src="../../static/images/a0.jpg" />
+
+										<span class="u-radio-label">First</span>
+									</label>
+								</div>
+								<div class="u-col-2">
+									<label class="u-radio" for="option-6">
+										<input type="radio" id="option-6" class="u-radio-button" name="options" value="1">
+										<img src="../../static/images/a0.jpg" />
+
+										<span class="u-radio-label">First</span>
+									</label>
+								</div>
+								<!-- <div class="u-col-4">
+									<img src="../../static/images/a0.jpg" />
+								</div>
+								<div class="u-col-4">
+									<img src="../../static/images/a0.jpg" />
+								</div>
+								<div class="u-col-4">
+									<img src="../../static/images/a0.jpg" />
+								</div> -->
+							</div>
+
+						</div>
+					</div>
+					<!-- 子表修改 end -->
+				</div>
+			</div>
+		</div>
+		<!--修改界面-->
+		<div class="u-mdlayout-page u-navlayout-fixed-header" id="countrysubsidy_edit">
+			<div class="u-mdlayout-page-section">
+				<div class="u-container-fluid u-widget-bg example">
+					<div class="u-row">
+						<div class="u-col-12" style="padding-bottom:15px;">
+							<div class="u-widget mtb-1015" style="background-color:transparent; background-color:transparent;">
+								<button class="u-button raised primary" data-bind="click:onUpdateClick">保存</button>
+								<button class="u-button raised primary" data-bind="click: onBackClick">返回</button>
+							</div>
+						</div>
+					</div>
+					<div class="search-section">
+						<div class="u-row">
+							<div class="u-col-12">
+								<div class="u-widget">
+									<div class="u-widget-body form-container">
+
+										<div class="image-box">
+											<img src="../../static/images/a0.jpg" />
+											<div class="upload-btn">
+												<button class="u-button u-button-primary">上传照片</a>
+												<input class="file-btn" type="file" />
+											</div>
+
+										</div>
+										<div class="u-container-fluid input-team">
+											<div class="u-row">
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">姓名</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 ">
+													<input type="text" class="u-input u-input-readonly" data-bind="enable: false" u-meta='{"id":"name","name":"企业申报单号","type":"string","data":"cardData","field":"name"}'>
+												</div>
+
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">性别</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 ">
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<input type="text" class="u-form-control u-input-write" u-meta='{"id":"sex","name":"企业申报文号","type":"string","data":"cardData","field":"sex"}'>
+												</div>
+
+
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">身份证</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 ">
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<div class="input-group ref deptref" u-meta='{"refCode":"dept","type":"uiRefer", "data":"cardData", "field":"phone"}'>
+														<input id="testRefMuGridTree2" class="u-form-control u-input" type="text" data-bind="enable: false">
+														<!--<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: false"></span>-->
+													</div>
+												</div>
+											</div>
+											<div class="u-row">
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">出生日期</label>
+												</div>
+												<div class="u-col-2 u-col-sm-4" style="padding:0px !important">
+													<div class="u-datepicke input-group fx-datepicker" u-meta='{"id":"birthdate","name":"录入日期","data":"cardData","field":"birthdate","type":"u-datetime","format":"YYYY-MM-DD"}'>
+														<div class="u-input-group-before " style="color: red;">*</div>
+														<input type="text" class="u-form-control u-input " />
+														<span class="input-group-addon">
+		                    								<span class="glyphicon glyphicon-calendar"></span>
+														</span>
+													</div>
+												</div>
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">邮箱</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 ">
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<input type="text" class="u-form-control u-input-write" u-meta='{"id":"profession","name":"政府批文文号","type":"string","data":"cardData","field":"profession"}'>
+												</div>
+
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">手机</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 ">
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<div class="input-group vdeclarelegalref" u-meta='{"refCode":"user","type":"uiRefer", "data":"cardData", "field":"educate"}'>
+														<input id="testRefMuGridTree3" class="u-form-control u-input" type="text" data-bind="enable: false">
+														<!--<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: false"></span>-->
+													</div>
+												</div>
+											</div>
+											<div class="u-row">
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">学历</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 ">
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<div class="input-group vdeclarecityref" id="countrysubsidy_city_edit" u-meta='{"refCode":"city","name":"申报城市","type":"uiRefer", "data":"cardData", "field":"entryTime"}'>
+														<input id="testRefMuGridTree4" class="u-form-control u-input" type="text" data-bind="enable: true">
+														<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: true"></span>
+													</div>
+												</div>
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">专业</label>
+												</div>
+												<div class="u-combo u-col-2 u-col-sm-8 " u-meta='{"id":"company","name":"资料是否齐全","type":"u-combobox","data":"cardData","datasource":"yesORno","field":"company"}'>
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<input class="u-form-control u-input" />
+													<span class="u-form-control-feedback fa fa-caret-down demoe-icon-btn refer"></span>
+												</div>
+
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">入职时间</label>
+												</div>
+												<div class="u-combo u-col-2 u-col-sm-8 " u-meta='{"id":"depart","name":"资料是否审核","type":"u-combobox","data":"cardData","datasource":"yesORno","field":"depart"}'>
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<input class="u-form-control u-input" readonly/>
+													<span class="u-form-control-feedback fa fa-caret-down demoe-icon-btn refer"></span>
+												</div>
+											</div>
+											<div class="u-row">
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">所属公司</label>
+												</div>
+												<div class="u-combo u-col-2 u-col-sm-8" u-meta='{"id":"depart","name":"资料是否审核","type":"u-combobox","data":"cardData","datasource":"yesORno","field":"depart"}'>
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<input class="u-form-control u-input" readonly/>
+													<span class="u-form-control-feedback fa fa-caret-down demoe-icon-btn refer"></span>
+												</div>
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">部门</label>
+												</div>
+												<div class="u-combo u-col-2 u-col-sm-8" u-meta='{"id":"depart","name":"资料是否审核","type":"u-combobox","data":"cardData","datasource":"yesORno","field":"depart"}'>
+													<div class="u-input-group-before " style="color: red;">*</div>
+													<input class="u-form-control u-input" readonly/>
+													<span class="u-form-control-feedback fa fa-caret-down demoe-icon-btn refer"></span>
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<!-- 子表修改 start -->
+									<div class="u-tabs u-tab-inner-left">
+										<div class="u-tabs__tab-bar">
+											<a href="#tab-panel-3" class="u-tabs__tab is-active">所属角色</a>
+											<a href="#tab-panel-4" class="u-tabs__tab">管辖部门</a>
+											<a href="#tab-panel-edit_file" class="u-tabs__tab">活动照片</a>
+										</div>
+										<div class="u-tabs__panel is-active" id="tab-panel-3" style="float:clear;">
+											<div class="u-widget mtb-1015" style="background-color:transparent;margin: 10px 0 10px 0;">
+												<!--<button class="u-button raised primary" data-bind="click:onVehiAddClick">新增</button>-->
+												<button class="u-button raised primary">新增</button>
+												<button class="u-button raised primary">删除</button>
+											</div>
+											<div class="u-row">
+												<div class="u-col-12">
+													<div class="u-widget">
+														<div class="u-widget-body">
+															<div class="table-responsive">
+																<table class="u-table" style="width:100%;">
+																	<thead>
+																		<tr>
+																			<th>
+																				<label class="u-checkbox only-style" data-bind="click: gridVehicleData.toggleAllSelect.bind(gridVehicleData), css:{'is-checked': gridVehicleData.allSelected()}" style="height:20px">
+																				<input id="checkInput" type="checkbox" class="u-checkbox-input">
+																				<span class="u-checkbox-label"></span>
+																			</label>
+																			</th>
+																			<th>序号</th>
+																			<th>角色编码</th>
+																			<th>角色名称</th>
+																			<th>角色类型</th>
+																			<th>车辆种类</th>
+																			<th>车辆用途</th>
+																			<th>车辆型号</th>
+																			<th>VIN</th>
+																			<th>车辆牌照</th>
+																			<th>申请补贴标准</th>
+																			<th>累计回款金额</th>
+																			<th>未回款金额</th>
+																			<th>购买价格</th>
+																			<th>发票号</th>
+																			<th>发票年</th>
+																			<th>发票月</th>
+																			<th>发票日</th>
+																			<th>行驶证年</th>
+																			<th>行驶证月</th>
+																			<th>行驶证日</th>
+																			<th>应回款日期</th>
+																			<th>申报时间</th>
+																			<th>审批节点</th>
+																			<th>未申报状态</th>
+																			<th>未申报说明</th>
+																			<th>超期回款日期</th>
+																			<th>申报状态</th>
+																			<th>创建时间</th>
+																			<th>创建人</th>
+																			<th>修改时间</th>
+																			<th>修改人</th>
+																		</tr>
+																	</thead>
+																	<tbody data-bind="foreach:{data:gridVehicleData.rows(),as:'row', afterAdd: afterAdd}">
+																		<tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'id': $index()}">
+																			<td class="checkbox1"><label class="u-checkbox only-style u-checkbox-floatl" data-bind="click: row.multiSelect, css:{'is-checked': row.selected()}" style="height:20px">
+																			<input type="checkbox" class="u-checkbox-input">
+																			<span class="u-checkbox-label"></span> </label></td>
+																			<td data-bind="text: comToName(row.getSimpleData().viscommercial)"></td>
+																			<td data-bind="text: row.ref('vbuydomain')"></td>
+																			<td data-bind="text: row.ref('vbuycity')"></td>
+																			<td data-bind="text: row.ref('vrundept')"></td>
+																			<td data-bind="text: row.ref('vvehiclekind')"></td>
+																			<td data-bind="text: row.ref('vvehiclepurpose')"></td>
+																			<td data-bind="text: row.ref('vvehiclemodel')"></td>
+																			<td data-bind="text: row.ref('vvin')"></td>
+																			<td data-bind="text: row.ref('vlicense')"></td>
+																			<td data-bind="text: row.ref('nsubsidystandard')"></td>
+																			<td data-bind="text: row.ref('ntotalback')"></td>
+																			<td data-bind="text: row.ref('nnotback')"></td>
+																			<td data-bind="text: row.ref('npurchaseprice')"></td>
+																			<td data-bind="text: row.ref('vinvoiceno')"></td>
+																			<td data-bind="text: row.ref('ninvoiceyear')"></td>
+																			<td data-bind="text: row.ref('ninvoicemonth')"></td>
+																			<td data-bind="text: row.ref('ninvoiceday')"></td>
+																			<td data-bind="text: row.ref('ndlicenseyear')"></td>
+																			<td data-bind="text: row.ref('ndlicensemonth')"></td>
+																			<td data-bind="text: row.ref('ndlicenseday')"></td>
+																			<td data-bind="text: row.ref('dmustbackdate')"></td>
+																			<td data-bind="text: row.ref('ddeclaredate')"></td>
+																			<td data-bind="text: row.ref('vapprovepoint')"></td>
+																			<td data-bind="text: comToName(row.getSimpleData().vnotdeclarestatus)"></td>
+																			<td data-bind="text: row.ref('vnotdeclarecomments')"></td>
+																			<td data-bind="text: row.ref('doverduedate')"></td>
+																			<td data-bind="text: comToName(row.getSimpleData().vdeclarestatus)"></td>
+																			<td data-bind="text: u.dateRender(row.ref('creationtime'))"></td>
+																			<td data-bind="text: row.ref('creator')"></td>
+																			<td data-bind="text: u.dateRender(row.ref('modifiedtime'))"></td>
+																			<td data-bind="text: row.ref('modifier')"></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div id='pagination33' class='u-pagination pagination' u-meta='{"type":"pagination","data":"gridVehicleData","pageChange":"pageChangeItemFunc","sizeChange":"sizeChangeItemFunc"}'></div>
+											</div>
+										</div>
+										<div class="u-tabs__panel" id="tab-panel-4">
+											<div class="u-widget mtb-1015" style="background-color:transparent;margin: 10px 0 10px 0;">
+												<button class="u-button raised primary">新增</button>
+												<button class="u-button raised primary">编辑</button>
+												<button class="u-button raised primary">删除</button>
+											</div>
+											<div class="u-row">
+												<div class="u-col-12">
+													<div class="u-widget">
+														<div class="u-widget-body">
+															<div class="table-responsive">
+																<table class="u-table" style="width:100%;">
+																	<thead>
+																		<tr>
+																			<th>序号</th>
+																			<th>部门编码</th>
+																			<th>部门名称</th>
+																			<th>申请补贴标准</th>
+																			<th>应回款日期</th>
+																			<th>实际回款金额</th>
+																			<th>实际回款日期</th>
+																			<th>创建时间</th>
+																			<th>创建人</th>
+																			<th>修改时间</th>
+																			<th>修改人</th>
+																		</tr>
+																	</thead>
+																	<tbody data-bind="foreach:{data:gridFundbackData.rows(),as:'row', afterAdd: afterAdd}">
+																		<tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'id': $index()}">
+																			<td data-bind="text: row.ref('vvin')"></td>
+																			<td data-bind="text: row.ref('vvehicleseries')"></td>
+																			<td data-bind="text: row.ref('vsaledept')"></td>
+																			<td data-bind="text: row.ref('nsubsidystandard')"></td>
+																			<td data-bind="text: row.ref('dmustbackdate')"></td>
+																			<td data-bind="text: row.ref('nfactback')"></td>
+																			<td data-bind="text: row.ref('dfactbackdate')"></td>
+																			<td data-bind="text: u.dateRender(row.ref('creationtime'))"></td>
+																			<td data-bind="text: row.ref('creator')"></td>
+																			<td data-bind="text: u.dateRender(row.ref('modifiedtime'))"></td>
+																			<td data-bind="text: row.ref('modifier')"></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div id='pagination66' class='u-pagination pagination' u-meta='{"type":"pagination","data":"gridFundbackData","pageChange":"pageChangeFundFunc","sizeChange":"sizeChangeFundFunc"}'></div>
+											</div>
+										</div>
+										<div class="u-tabs__panel" id="tab-panel-edit_file">
+											<div class="u-widget mtb-5" style="background-color:transparent;margin: 10px 0 10px 0;">
+												<button class="u-button raised primary">新增</button>
+												<button class="u-button raised primary">编辑</button>
+												<button class="u-button raised primary">删除</button>
+											</div>
+											<div class="u-row">
+												<div class="u-col-12">
+													<div class="u-widget">
+														<div class="u-widget-body">
+															<table class="u-table" style="width:100%;">
+																<thead>
+																	<tr>
+																		<th>选择</th>
+																		<th>文件名称</th>
+																		<th>文件大小</th>
+																		<th>上传时间</th>
+																	</tr>
+																</thead>
+																<tbody data-bind="foreach:{data:fileData.rows(),as:'row', afterAdd: afterAdd}">
+																	<tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'id': $index()}">
+																		<td class="checkbox1"><label class="u-checkbox only-style u-checkbox-floatl" data-bind="click: row.multiSelect, css:{'is-checked': row.selected()}" style="height:20px">
+																			<input type="checkbox" class="u-checkbox-input">
+																			<span class="u-checkbox-label"></span> </label></td>
+																		<td data-bind="text: row.ref('filename')"></td>
+																		<td data-bind="text: row.ref('filesize')"></td>
+																		<td data-bind="text: row.ref('uploadtime')"></td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<!-- 子表修改 end -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 查看界面 -->
+		<div class="u-mdlayout-page u-navlayout-fixed-header" id="countrysubsidy_view">
+			<div class="u-mdlayout-page-section">
+				<div class="u-container-fluid u-widget-bg example">
+					<div class="u-row">
+						<div class="u-col-12" style="padding-bottom:20px;padding-top:5px;">
+							<div class="u-widget mtb-1015" style="background-color:transparent; background-color:transparent;margin: -6px 0 -6px 0;">
+								<button class="u-button raised primary" data-bind="click: onBackClick">返回</button>
+							</div>
+						</div>
+					</div>
+					<div class="u-row">
+						<div class="u-col-12">
+							<div class="u-widget">
+								<div class="search-section">
+									<div class="u-widget-body form-container">
+										<div class="image-box">
+											<img src="../../static/images/a0.jpg" />
+											<div class="upload-btn">
+												<a>上传照片</a>
+												<input class="file-btn" type="file" />
+											</div>
+
+										</div>
+										<div class="u-container-fluid input-team">
+											<div class="u-row">
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">姓名</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 m-b-md">
+													<span data-bind="text:cardData.ref('name')"></span>
+												</div>
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">性别</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 m-b-md">
+													<span data-bind="text:cardData.ref('sex')"></span>
+												</div>
+
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">身份证</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 m-b-md">
+													<span data-bind="text:cardData.ref('phone')"></span>
+												</div>
+											</div>
+
+											<div class="u-row">
+
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">出生日期</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 m-b-md">
+													<span data-bind="text:cardData.ref('birthdate')"></span>
+												</div>
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">邮箱</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 m-b-md">
+													<span data-bind="text:cardData.ref('profession')"></span>
+												</div>
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">手机</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 m-b-md">
+													<span data-bind="text:cardData.ref('educate')"></span>
+												</div>
+											</div>
+											<div class="u-row">
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">学历</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 m-b-md">
+													<span data-bind="text:cardData.ref('entryTime')"></span>
+												</div>
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">专业</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 m-b-md">
+													<span data-bind="text:comToName(cardData.ref('company')())"></span>
+												</div>
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">入职时间</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 m-b-md">
+													<span data-bind="text:comToName(cardData.ref('depart')())"></span>
+												</div>
+											</div>
+											<div class="u-row">
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">所属公司</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 m-b-md">
+													<span data-bind="text:cardData.ref('entryTime')"></span>
+												</div>
+												<div class="u-col-2 u-col-sm-4">
+													<label class="u-input-label right">部门</label>
+												</div>
+												<div class="u-col-2 u-col-sm-8 m-b-md">
+													<span data-bind="text:comToName(cardData.ref('company')())"></span>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="u-row">
+						<div class="u-col-12" style="padding-top:10px;">
+							<div class="u-widget">
+								<div class="u-widget-body form-container">
+									<!-- 子表修改 start -->
+									<div class="u-tabs u-tab-inner-left">
+										<div class="u-tabs__tab-bar">
+											<a href="#tab-panel-5" class="u-tabs__tab is-active">所属角色</a>
+											<a href="#tab-panel-6" class="u-tabs__tab">管辖部门</a>
+											<a href="#tab-panel-view_file" class="u-tabs__tab">活动照片</a>
+										</div>
+
+										<div class="u-tabs__panel is-active" id="tab-panel-5" style="float:clear;">
+											<div class="u-widget mtb-1015" style="background-color:transparent;margin: 10px 0 10px 0;">
+												<!--<button class="u-button raised primary" data-bind="click:onVehiAddClick">新增</button>-->
+												<button class="u-button raised primary">新增</button>
+												<button class="u-button raised primary" data-bind="">删除</button>
+											</div>
+
+											<div class="u-row">
+												<div class="u-col-12">
+													<div class="u-widget">
+														<div class="u-widget-body">
+															<div class="table-responsive">
+																<table class="u-table" style="width:100%;">
+																	<thead>
+																		<tr>
+																			<th>序号</th>
+																			<th>角色编码</th>
+																			<th>角色名称</th>
+																			<th>角色类型</th>
+																			<th>车辆种类</th>
+																			<th>车辆用途</th>
+																			<th>车辆型号</th>
+																			<th>VIN</th>
+																			<th>车辆牌照</th>
+																			<th>申请补贴标准</th>
+																			<th>累计回款金额</th>
+																			<th>未回款金额</th>
+																			<th>购买价格</th>
+																			<th>发票号</th>
+																			<th>发票年</th>
+																			<th>发票月</th>
+																			<th>发票日</th>
+																			<th>行驶证年</th>
+																			<th>行驶证月</th>
+																			<th>行驶证日</th>
+																			<th>应回款日期</th>
+																			<th>申报时间</th>
+																			<th>审批节点</th>
+																			<th>未申报状态</th>
+																			<th>未申报说明</th>
+																			<th>超期回款日期</th>
+																			<th>申报状态</th>
+																			<th>创建时间</th>
+																			<th>创建人</th>
+																			<th>修改时间</th>
+																			<th>修改人</th>
+																		</tr>
+																	</thead>
+																	<tbody data-bind="foreach:{data:gridVehicleData.rows(),as:'row', afterAdd: afterAdd}">
+																		<tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'id': $index()}">
+																			<td data-bind="text: comToName(row.getSimpleData().viscommercial)"></td>
+																			<td data-bind="text: row.ref('vbuydomain')"></td>
+																			<td data-bind="text: row.ref('vbuycity')"></td>
+																			<td data-bind="text: row.ref('vrundept')"></td>
+																			<td data-bind="text: row.ref('vvehiclekind')"></td>
+																			<td data-bind="text: row.ref('vvehiclepurpose')"></td>
+																			<td data-bind="text: row.ref('vvehiclemodel')"></td>
+																			<td data-bind="text: row.ref('vvin')"></td>
+																			<td data-bind="text: row.ref('vlicense')"></td>
+																			<td data-bind="text: row.ref('nsubsidystandard')"></td>
+																			<td data-bind="text: row.ref('ntotalback')"></td>
+																			<td data-bind="text: row.ref('nnotback')"></td>
+																			<td data-bind="text: row.ref('npurchaseprice')"></td>
+																			<td data-bind="text: row.ref('vinvoiceno')"></td>
+																			<td data-bind="text: row.ref('ninvoiceyear')"></td>
+																			<td data-bind="text: row.ref('ninvoicemonth')"></td>
+																			<td data-bind="text: row.ref('ninvoiceday')"></td>
+																			<td data-bind="text: row.ref('ndlicenseyear')"></td>
+																			<td data-bind="text: row.ref('ndlicensemonth')"></td>
+																			<td data-bind="text: row.ref('ndlicenseday')"></td>
+																			<td data-bind="text: row.ref('dmustbackdate')"></td>
+																			<td data-bind="text: row.ref('ddeclaredate')"></td>
+																			<td data-bind="text: row.ref('vapprovepoint')"></td>
+																			<td data-bind="text: row.ref('vnotdeclarestatus')"></td>
+																			<td data-bind="text: row.ref('vnotdeclarecomments')"></td>
+																			<td data-bind="text: row.ref('doverduedate')"></td>
+																			<td data-bind="text: row.ref('vdeclarestatus')"></td>
+																			<td data-bind="text: u.dateRender(row.ref('creationtime'))"></td>
+																			<td data-bind="text: row.ref('creator')"></td>
+																			<td data-bind="text: u.dateRender(row.ref('modifiedtime'))"></td>
+																			<td data-bind="text: row.ref('modifier')"></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div id='pagination2' class='u-pagination pagination' u-meta='{"type":"pagination","data":"gridVehicleData","pageChange":"pageChangeItemFunc","sizeChange":"sizeChangeItemFunc"}'></div>
+											</div>
+										</div>
+										<div class="u-tabs__panel" id="tab-panel-6">
+											<div class="u-widget mtb-1015" style="background-color:transparent;margin: 10px 0 10px 0;">
+												<button class="u-button raised primary">新增</button>
+												<button class="u-button raised primary">编辑</button>
+												<button class="u-button raised primary">删除</button>
+											</div>
+
+											<div class="u-row">
+												<div class="u-col-12">
+													<div class="u-widget">
+														<div class="u-widget-body">
+															<div class="table-responsive">
+																<table class="u-table" style="width:100%;">
+																	<thead>
+																		<tr>
+																			<th>序号</th>
+																			<th>部门编码</th>
+																			<th>部门名称</th>
+																			<th>申请补贴标准</th>
+																			<th>应回款日期</th>
+																			<th>实际回款金额</th>
+																			<th>实际回款日期</th>
+																			<th>创建时间</th>
+																			<th>创建人</th>
+																			<th>修改时间</th>
+																			<th>修改人</th>
+																		</tr>
+																	</thead>
+																	<tbody data-bind="foreach:{data:gridFundbackData.rows(),as:'row', afterAdd: afterAdd}">
+																		<tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'id': $index()}">
+																			<td data-bind="text: row.ref('vvin')"></td>
+																			<td data-bind="text: row.ref('vvehicleseries')"></td>
+																			<td data-bind="text: row.ref('vsaledept')"></td>
+																			<td data-bind="text: row.ref('nsubsidystandard')"></td>
+																			<td data-bind="text: row.ref('dmustbackdate')"></td>
+																			<td data-bind="text: row.ref('nfactback')"></td>
+																			<td data-bind="text: row.ref('dfactbackdate')"></td>
+																			<td data-bind="text: u.dateRender(row.ref('creationtime'))"></td>
+																			<td data-bind="text: row.ref('creator')"></td>
+																			<td data-bind="text: u.dateRender(row.ref('modifiedtime'))"></td>
+																			<td data-bind="text: row.ref('modifier')"></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div id='pagination4' class='u-pagination pagination' u-meta='{"type":"pagination","data":"gridFundbackData","pageChange":"pageChangeFundFunc","sizeChange":"sizeChangeFundFunc"}'></div>
+											</div>
+										</div>
+										<div class="u-tabs__panel" id="tab-panel-view_file">
+											<div class="u-widget mtb-5" style="background-color:transparent;margin: 10px 0 10px 0;">
+												<button class="u-button raised primary">上传</button>
+												<button class="u-button raised primary">编辑</button>
+												<button class="u-button raised primary">删除</button>
+											</div>
+											<div class="u-row">
+												<div class="u-col-12">
+													<div class="u-widget">
+														<div class="u-widget-body">
+															<table class="u-table" style="width:100%;">
+																<thead>
+																	<tr>
+																		<th>选择</th>
+																		<th>文件名称</th>
+																		<th>文件大小</th>
+																		<th>上传时间</th>
+																	</tr>
+																</thead>
+																<tbody data-bind="foreach:{data:fileData.rows(),as:'row', afterAdd: afterAdd}">
+																	<tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'id': $index()}">
+																		<td class="checkbox1"><label class="u-checkbox only-style u-checkbox-floatl" data-bind="click: row.multiSelect, css:{'is-checked': row.selected()}" style="height:20px">
+																			<input type="checkbox" class="u-checkbox-input">
+																			<span class="u-checkbox-label"></span> </label></td>
+																		<td data-bind="text: row.ref('filename')"></td>
+																		<td data-bind="text: row.ref('filesize')"></td>
+																		<td data-bind="text: row.ref('uploadtime')"></td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 子表修改 end -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 查看子表END -->
+				</div>
+			</div>
+		</div>
+
+		<!-- 界面结束 -->
+	</div>
+
+</div>
