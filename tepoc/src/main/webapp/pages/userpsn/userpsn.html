@@ -312,11 +312,11 @@
 									<div class="u-form-group">
 										<label>所属公司</label>
 										<!--  lyk备注：参照换成新的uiref的方式 -->
-										<!-- <div class="input-group deptref" u-meta='{"refCode":"compref","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
-											<input id="testRefMuGridTree2" class="u-form-control u-input" type="text" data-bind="enable: false">
-											
-										</div> -->
-										<input id="compref" type="text" u-meta='{"refCode":"compref","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}' style="display:none;">
+										<div id="corpref" class="input-group" u-meta='{"refCode":"corpref","name":"所属部门","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
+											<input id="testRefMuGridTree2" class="u-form-control u-input" type="text" data-bind="enable: true">
+											<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: true"></span>
+										</div>
+										<!-- <input id="corpref" type="text" u-meta='{"refCode":"corpref","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}' style="display:none;"> -->
 										<!-- <div class="u-combo"
 										u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"pk_corp_name","onlySelect":true}'>
 											<div class="u-input-group u-has-feedback">

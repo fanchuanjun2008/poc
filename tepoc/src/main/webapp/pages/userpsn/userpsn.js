@@ -1,4 +1,4 @@
-define(['refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn/meta', 'css!pages/userpsn/userpsn.css', 'uuitree', 'uuigrid', 'config/sys_const'], function( refComp,template) {
+define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn/meta', 'css!pages/userpsn/userpsn.css', 'uuitree', 'uuigrid', 'config/sys_const'], function(iReferComp,refComp,template) {
 
     //开始初始页面基础数据
     var init = function(element, params) {
@@ -876,6 +876,7 @@ define(['refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn/meta', 'css!
 
 
         $(element).html(template);
+        window.vm = viewModel;
         var app = u.createApp({
             el: '#content',
             model: viewModel
@@ -915,22 +916,22 @@ define(['refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn/meta', 'css!
             }
         })
         //初始化参照
-//        var ref = function () {
-//        	var refid;
-//        	var dom;
-//    		 var pk='';
-//
-//    		 $('.deptref').each(function(i,val){
-//    		     	var $that=$(this);
-//    		     	dom = $that;
-//    				var options = {
-//    						refCode:"dept",
-//    						selectedVals:pk,
-//    						isMultiSelectedEnabled:false
-//    				};
-//    				refComp.initRefComp($that,options);
-//    				refid ='#refContainer' + $that.attr('id');
-//    		 	});
+        var ref = function () {
+        	var refid;
+        	var dom;
+    		 var pk='';
+
+    		 $('#corpref').each(function(i,val){
+    		     	var $that=$(this);
+    		     	dom = $that;
+    				var options = {
+    						refCode:"corpref",
+    						selectedVals:pk,
+    						isMultiSelectedEnabled:false
+    				};
+    				refComp.initRefComp($that,options);
+    				refid ='#refContainer' + $that.attr('id');
+    		 	});
 //    		 $('.educateref').each(function(i,val){
 //    		     	var $that=$(this);
 //    		     	dom = $that;
@@ -964,10 +965,10 @@ define(['refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn/meta', 'css!
 //    				refComp.initRefComp($that,options);
 //    				refid ='#refContainer' + $that.attr('id');
 //    		 	});
-//    		 var $input=dom.find('input');
-//    		 $input.val(name);
-//        }
-//        ref();
+    		 var $input=dom.find('input');
+    		 $input.val(name);
+        }
+        ref();
 
     } //end init
     
