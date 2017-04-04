@@ -23,7 +23,7 @@ require(['knockout', 'director',], function(ko) {
     window.router = Router();
     window.ko=ko;
     tepoc_ctx="/tepoc";
-    window.ctx = "/tepoc";
+    window.ctx = "/uitemplate_web";
 
     $(function() {
         $('#menu,#nav-zone').find("a[href*='#']").each(function(e) {
