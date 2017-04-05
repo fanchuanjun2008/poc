@@ -91,7 +91,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 	}else{
                 		return ''
                 	}	
-                }
+                },
                 ex_export: function() {
                     // var dats = [];
                     // var pks = ""
