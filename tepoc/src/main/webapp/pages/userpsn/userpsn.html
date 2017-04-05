@@ -16,7 +16,7 @@
 			<!-- <button class="u-button raised primary" id="table-finish" data-bind="click: finishClick,visible: finishFunShow">完结</button> -->
 			<!-- <button class="u-button raised primary" id="table-unfinish" data-bind="click: unFinishClick,visible: unFinishFunShow">撤销完结</button> -->
 			<button class="u-button raised primary" id="table-unfinish" data-bind="click: event.ex_export">
-				导出
+				<i class="icon uf uf-files-o">导出</i>
 			</button>
 			<!-- <button class="u-button raised primary" id="table-unfinish" data-bind="click: event.onDownload">
 			返回
@@ -39,13 +39,15 @@
 	<div class="u-mdlayout-btn u-row hide ">
 		<div id="user_card_button">
 			<div class="u-col-4  ufBack padding-bottom-5" data-bind="click:event.goBack">
-				<a><i class="uf uf-aaleft"></i>返回</a>
+				<button type="button" class="u-button u-button-primary u-button-pa" style="" >
+					返回
+				</button>
 			</div>
 			<div class="u-col-4 padding-bottom-5 " style="text-align:center;">
 				<span>人员信息</span>
 			</div>
 			<div class="u-col-4 padding-bottom-5">
-				<button type="button" class=" u-button u-button-primary u-button-sm" style="float:right;" data-bind="click:event.saveClick">
+				<button type="button" class="u-button u-button-primary u-button-pa" style="float:right;" data-bind="click:event.saveClick">
 					保存
 				</button>
 			</div>
@@ -101,10 +103,10 @@
 			<div class="u-row">
 				<div class="u-col-3 u-col-sm-12 pull-right">
 					<div class=" padding-top-2 ">
-						<button class="u-button u-button-primary raised gray-btn u-button-pa margin-right-20" id="user-action-search" data-bind="click: event.search">
+						<button class="u-button raised primary" id="user-action-search" data-bind="click: event.search">
 							查询
 						</button>
-						<button class="u-button u-button-primary  raised gray-btn u-button-pa " id="user-action-cleanSearch" data-bind="click: event.cleanSearch">
+						<button class="u-button raised primary" id="user-action-cleanSearch" data-bind="click: event.cleanSearch">
 							清空
 						</button>
 					</div>
@@ -146,14 +148,16 @@
 										<input type="checkbox" class="u-checkbox-input">
 										<span class="u-checkbox-label"></span> </label></td>
 									<td data-bind="text: row.ref('username')"></td>
-									<!-- <td data-bind="text: $parent.event.changeUserPsnsex(row.ref('sex'))"></td> -->
-									<td data-bind="text: row.ref('sex')"></td>
+									<td data-bind="text: $parent.event.changeUserPsnsex(row.ref('sex'))"></td>
+									<!-- <td data-bind="text: row.ref('sex')"></td> -->
 									<!-- <td data-bind="text: row.ref('idcard')"></td> -->
 									<td data-bind="text: row.ref('brithdate')"></td>
 									<td data-bind="text: row.ref('email')"></td>
 									<td data-bind="text: row.ref('telphone')"></td>
-									<td data-bind="text: row.ref('edution')"></td>
-									<td data-bind="text: row.ref('major')"></td>
+									<!-- <td data-bind="text: row.ref('edution')"></td> -->
+									<td data-bind="text: $parent.event.changeUseEdu(row.ref('edution'))"></td>
+									<td data-bind="text: $parent.event.changeUseMajor(row.ref('major'))"></td>
+									<!-- <td data-bind="text: row.ref('major')"></td> -->
 									<td data-bind="text: row.ref('work_date')"></td>
 									<td data-bind="text: row.ref('pk_corp_name')"></td>
 									<td data-bind="text: row.ref('pk_dept_name')"></td>
@@ -197,9 +201,7 @@
 						【张三】于2017年3月27日14点05分新建【用户管理】单据
 					</div>
 					<div class="u-col-2 u-col-sm-12">
-						<a href="#busilog/busilog" class="u-button primary">
-							日志
-						</a>
+						<a href="#busilog/busilog" class="u-button primary"> 日志 </a>
 						<button class="u-button primary">
 							传阅
 						</button>
@@ -208,12 +210,11 @@
 				<div class="u-container-fluid">
 					<div class="search-content">
 						<div class="image-box">
-							<img src="../../static/a0.jpg" />
+							<img id="infouser_img" src="" />
 							<div class="upload-btn">
-								<button class="u-button u-button-primary">
+								<button class="u-button u-button-primary" data-bind="click:event.onOpenInfoUploadWin">
 									上传照片
 								</button>
-								<input class="file-btn" type="file" />
 							</div>
 
 						</div>
@@ -223,7 +224,10 @@
 									<label>用户名</label>
 
 									<div class="u-input-group u-has-feedback" u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"username"}'>
-										<input type="text" class="u-form-control" placeholder="">
+										<div class="u-input-group-before" style="color: red;">
+												*
+											</div>
+											<input type="text" class="u-form-control" placeholder="">
 									</div>
 								</div>
 							</div>
@@ -247,7 +251,10 @@
 									<label>身份证</label>
 
 									<div class="u-input-group u-has-feedback" u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"idcard","validType":"idcard"}'>
-										<input type="text" class="u-form-control" placeholder="">
+										<div class="u-input-group-before" style="color: red;">
+												*
+											</div>
+											<input type="text" class="u-form-control" placeholder="">
 									</div>
 								</div>
 							</div>
@@ -256,7 +263,10 @@
 									<label>出生日期</label>
 
 									<div class="u-input-group u-has-feedback" u-meta='{"type":"u-date","data":"UserPsnFormDa","field":"brithdate"}'>
-										<input type="text" class="u-form-control" placeholder="">
+										<div class="u-input-group-before" style="color: red;">
+												*
+											</div>
+											<input type="text" class="u-form-control" placeholder="">
 									</div>
 								</div>
 							</div>
@@ -310,29 +320,33 @@
 								</div>
 							</div>
 							<div class="u-col-md-4">
-									<div class="u-form-group">
-										<label>所属公司</label>
-										<!--  lyk备注：参照换成新的uiref的方式 -->
-										<div id="corpref" class="input-group" u-meta='{"refCode":"corpref","name":"所属部门","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
-											<input id="testRefMuGridTree2" class="u-form-control u-input" type="text" data-bind="enable: true">
-											<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: true"></span>
-										</div>
-										<!-- <input id="corpref" type="text" u-meta='{"refCode":"corpref","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}' style="display:none;"> -->
-										<!-- <div class="u-combo"
-										u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"pk_corp_name","onlySelect":true}'>
-											<div class="u-input-group u-has-feedback">
-												<span class="u-form-control-feedback fa fa-list-ul"
-												data-bind="click:event.selectOrg_UserPsn"></span>
-												<input class="u-form-control" readonly="readonly"/>
-											</div>
-										</div> -->
+								<div class="u-form-group">
+									<label>所属公司</label>
+									<!--  lyk备注：参照换成新的uiref的方式 -->
+									<div id="corpref" class="u-input-group u-has-feedback" u-meta='{"refCode":"corpref","name":"所属公司","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
+										<input class="u-form-control" />
+										<span class="u-form-control-feedback fa fa-search refer" data-role="combo-button"></span>
+									</div>
+									<!-- <input id="corpref" type="text" u-meta='{"refCode":"corpref","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}' style="display:none;"> -->
+									<!-- <div class="u-combo"
+									u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"pk_corp_name","onlySelect":true}'>
+									<div class="u-input-group u-has-feedback">
+									<span class="u-form-control-feedback fa fa-list-ul"
+									data-bind="click:event.selectOrg_UserPsn"></span>
+									<input class="u-form-control" readonly="readonly"/>
+									</div>
+									</div> -->
 								</div>
 							</div>
 							<div class="u-col-md-4">
 								<div class="u-form-group">
 									<label>部门</label>
 									<!-- lyk备注：参照换成新的uiref的方式 -->
-									<input id="roleAddRef" type="text" u-meta='{"refCode":"dept","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_dept_name"}' style="display:none;">
+									<div id="deptref" class="u-input-group u-has-feedback" u-meta='{"refCode":"deptref","name":"所属公司","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
+										<input class="u-form-control" />
+										<span class="u-form-control-feedback fa fa-search refer" data-role="combo-button"></span>
+
+									</div>
 									<!-- <div class="u-combo" u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"pk_dept_name","onlySelect":true}'>
 									<div class="u-input-group u-has-feedback">
 									<span class="u-form-control-feedback fa fa-list-ul" data-bind="click:event.selectDept_UserPsn"></span>
@@ -355,7 +369,7 @@
 					</div>
 					<div class="u-tabs u-tab-inner-left">
 						<div class="u-tabs__tab-bar">
-							<a href="#tab-panel-1" class="u-tabs__tab is-active">所属角色</a>
+							<a href="#tab-panel-1" class="u-tabs__tab is-active" id="tab_role">所属角色</a>
 							<a href="#tab-panel-2" class="u-tabs__tab" id="tab_dept">管辖部门</a>
 							<a href="#tab-panel-add_file" class="u-tabs__tab" id="tab_file">活动照片</a>
 						</div>
@@ -364,8 +378,12 @@
 								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-addUserJob" data-bind="click: event.addUserRole">
 									新建
 								</button>
-								<input id="roleAddRef" type="text" u-meta='{"refCode":"roleref","type":"uiRefer", "data":"addRefDa", "field":"role"}' style="display:none;">
-
+								<div style="display: none;">
+									<div id="rolerefadd" class="input-group" u-meta='{"refCode":"roleref","name":"所属角色","type":"uiRefer", "data":"addRefDa", "field":"role"}'>
+										<input id="testRefMuGridTree2"  class="u-form-control u-input" type="text" data-bind="enable: true">
+										<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: true"></span>
+									</div>
+								</div>
 								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-delUserJob" data-bind="click: event.delUserJob">
 									删除
 								</button>
@@ -389,12 +407,22 @@
 								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-addUserDept" data-bind="click: event.addUserDept">
 									新建
 								</button>
-								<input id="deptAddRef" type="text" u-meta='{"refCode":"dept","type":"uiRefer", "data":"addRefDa", "field":"dept"}' style="display:none;">
+								<div style="display: none;">
+									<div id="deptAddRef" class="input-group" u-meta='{"refCode":"deptref","name":"所属角色","type":"uiRefer", "data":"addRefDa", "field":"dept"}'>
+										<input id="testRefMuGridTree21"  class="u-form-control u-input" type="text" data-bind="enable: true">
+										<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: true"></span>
+									</div>
+								</div>
 
 								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-editUseDept" data-bind="click: event.editUserDept">
 									编辑
 								</button>
-								<input id="deptAddRef1" type="text" u-meta='{"refCode":"dept","type":"uiRefer", "data":"addRefDa", "field":"dept"}' style="display:none;">
+								<div style="display: none;">
+									<div id="deptAddRef1" class="input-group" u-meta='{"refCode":"deptref","name":"所属角色","type":"uiRefer", "data":"addRefDa", "field":"deptedit"}'>
+										<input id="testRefMuGridTree212"  class="u-form-control u-input" type="text" data-bind="enable: true">
+										<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: true"></span>
+									</div>
+								</div>
 								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-delUserDept" data-bind="click: event.delUserDept">
 									删除
 								</button>
@@ -413,20 +441,21 @@
 						</div>
 						<div class="u-tabs__panel" id="tab-panel-add_file">
 							<div class="u-widget mtb-1015" style="background-color:transparent;margin: 10px 0 10px 0;">
-								<button class="u-button u-button-primary u-button-pa" id="" data-bind="click: event.onOpenUploadWin">
+								<button class="u-button u-button-primary u-button-pa" name="addfile" data-bind="click: event.onOpenUploadWin">
 									增加
 								</button>
-								<input id="roleAddRef" type="text" u-meta='{"refCode":"role","type":"uiRefer", "data":"addRefDa", "field":"role"}' style="display:none;">
-
-								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-delUserJob" data-bind="click: event.delUserJob">
+								<button class="u-button u-button-primary u-button-pa" name="editfile" data-bind="click: event.onOpenUploadWin">
+									编辑
+								</button>
+								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-delUserJob" data-bind="click: event.fileDelete">
 									删除
 								</button>
 							</div>
 							<div class="u-row" data-bind="foreach:{data:UserFileFormDa.rows(),as:'row'}">
 								<div class="u-col-2">
-									<label class="u-radio" for="option-1">
-										<input type="radio" id="option-1" class="u-radio-button" name="options" value="1">
-										<span data-bind="text: row.ref('id')" style="display: none;"></span> <img data-bind="attr:{src: imgsrc_tans(row.ref('url')())}" /> <span class="u-radio-label" data-bind="text: row.ref('filename')"></span> </label>
+									<label class="u-radio" data-bind="attr:{'for': 'option-' +$index()},click:$parent.event.fileselect">
+										<input type="radio" data-bind="attr:{'id': 'option-' +$index(),'value':row.ref('id')}" class="u-radio-button" name="options" >
+										<img data-bind="attr:{src: imgsrc_tans(row.ref('url')())}" /> <span class="u-radio-label" data-bind="text: row.ref('filename')"></span></label>
 								</div>
 							</div>
 
@@ -458,21 +487,19 @@
 
 	</div>
 </div>
-<div id="countrysubsid_dialog_uploadfile" style="display: none;">
+<div id="countrysubsid_dialog_uploadfileinfo" style="display: none;">
 	<div class="u-msg-title">
-		<h4>附件上传</h4>
+		<h4>个人照片上传</h4>
 	</div>
 	<div class="u-msg-content">
 		<div class="u-row">
 			<div class="u-col-12" style="margin-bottom: 20px;">
 				<div class="u-widget">
 					<div class="menu">
-						<button class="u-button raised primary sub-list1-new" data-bind="click:event.onFileUpload" data-upgraded=",u.Button" style="display: inline-block;">
+						<button class="u-button raised primary sub-list1-new" data-bind="click:event.onInfoFileUpload" data-upgraded=",u.Button" style="display: inline-block;">
 							上传<span class="u-button-container"><span class="u-ripple is-animating" style="width: 158px; height: 158px; transform: translate(-50%, -50%) translate(48px, 13px);"></span></span>
 						</button>
-						<button class="u-button raised  sub-list1-cancel" data-bind="click:event.onCloseFileWindow" data-upgraded=",u.Button">
-							取消<span class="u-button-container"><span class="u-ripple is-animating" style="width: 156.506px; height: 156.506px; transform: translate(-50%, -50%) translate(49px, 15px);"></span></span>
-						</button>
+
 					</div>
 				</div>
 			</div>
@@ -483,7 +510,40 @@
 					<div class="form">
 						<div class="u-col-3 u-col-xs-4 u-col-sm-4 u-col-md-3" style=" width: 330px; padding-left: 0px; ">
 							<div class="u-text u-label-floating-always is-upgraded" data-upgraded=",u.Text">
-								<input class="u-input" type="file" name="addfile" id="countrysubsidybatch_id" multiple="multiple">
+								<input class="u-input" accept="image/*"  type="file" name="addfile" id="infofile_id" multiple="multiple">
+								<label class="u-label" for="sample1" style="display:none;">选择附件</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="countrysubsid_dialog_uploadfile" style="display: none;">
+	<div class="u-msg-title">
+		<h4>附件上传</h4>
+	</div>
+	<div class="u-msg-content">
+		<div class="u-row">
+			<div class="u-col-12" style="margin-bottom: 20px;">
+				<div class="u-widget">
+					<div class="menu">
+						<button class="u-button raised primary sub-list2-new" data-bind="click:event.onFileUpload" data-upgraded=",u.Button" style="display: inline-block;">
+							上传<span class="u-button-container"><span class="u-ripple is-animating" style="width: 158px; height: 158px; transform: translate(-50%, -50%) translate(48px, 13px);"></span></span>
+						</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="u-row">
+			<div class="u-col-12">
+				<div class="u-widget">
+					<div class="form">
+						<div class="u-col-3 u-col-xs-4 u-col-sm-4 u-col-md-3" style=" width: 330px; padding-left: 0px; ">
+							<div class="u-text u-label-floating-always is-upgraded" data-upgraded=",u.Text">
+								<input class="u-input" type="file" accept="image/*" name="addfile" id="countrysubsidybatch_id" multiple="multiple">
 								<label class="u-label" for="sample1" style="display:none;">选择附件</label>
 							</div>
 						</div>

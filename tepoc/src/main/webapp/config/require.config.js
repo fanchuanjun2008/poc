@@ -25,13 +25,16 @@ require.config({
 			deps:["knockout"]
 		},
 		'uuigrid':{
-			deps:["uui","css!vendor/uui/css/grid.css"]
+			deps:["uui","refComp","css!vendor/uui/css/grid.css"]
 		},
 		'bootstrap': {
 			deps: ["jquery"]
 		},
 		'uuitree':{
-			deps: ["uui","css!vendor/uui/css/tree.css"]
+			deps: ["uui","refComp","css!vendor/uui/css/tree.css"]
+		},
+		'ajaxfileupload':{
+			deps: ["refComp"]
 		},
 		refComp:{
         	deps: ["css!/uitemplate_web/static/css/ref/ref.css","css!/uitemplate_web/static/css/ref/jquery.scrollbar.css","css!/uitemplate_web/static/trd/bootstrap-table/src/bootstrap-table.css"]

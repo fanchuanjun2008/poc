@@ -1,6 +1,8 @@
 define(['text!pages/dept/dept.html','pages/dept/meta','css!pages/dept/dept.css','uuitree','uuigrid'],function(html){
 
     var init = function (element, params) {
+    	
+    	ctxdept = '.'
         var viewModel = {
     		listurl : '/dept/list',   
         	addurl :  '/dept/createRow',
@@ -46,7 +48,7 @@ define(['text!pages/dept/dept.html','pages/dept/meta','css!pages/dept/dept.css',
                         });
                         viewModel.deptDa.addParams(queryData);
                         app.serverEvent().addDataTable("deptDa").fire({
-                            url: ctx + viewModel.listurl,
+                            url: ctxdept + viewModel.listurl,
                             success: function (data) {
 
                             },
@@ -89,7 +91,7 @@ define(['text!pages/dept/dept.html','pages/dept/meta','css!pages/dept/dept.css',
                     u.on(ele.querySelector('#adddept_selectDept'), 'click', function () {
                         $.ajax({
                             type: "GET",
-                            url: ctx + '/dept/Dept/listall',
+                            url: ctxdept + '/dept/Dept/listall',
                             contentType: 'application/json;charset=utf-8',
                             dataType: 'json',
                             success: function (res) {
@@ -162,7 +164,7 @@ define(['text!pages/dept/dept.html','pages/dept/meta','css!pages/dept/dept.css',
                 	 $.ajax({
                          type: "GET",
                          async : false,
-                         url: ctx + '/dept/loadEnum',
+                         url: ctxdept + '/dept/loadEnum',
                          contentType: 'application/json;charset=utf-8',
                          dataType: 'json',
                          success: function (res) {
@@ -184,7 +186,7 @@ define(['text!pages/dept/dept.html','pages/dept/meta','css!pages/dept/dept.css',
                     });
                     viewModel.deptDa.addParams(queryData);
                     app.serverEvent().addDataTable("deptDa").fire({
-                        url: ctx + viewModel.listurl,
+                        url: ctxdept + viewModel.listurl,
                         success: function (data) {
 
                         },
@@ -198,7 +200,7 @@ define(['text!pages/dept/dept.html','pages/dept/meta','css!pages/dept/dept.css',
                 },
                 addClick: function () {
                     app.serverEvent().addDataTable("deptDa").fire({
-                        url: ctx + viewModel.addurl,
+                        url: ctxdept + viewModel.addurl,
                         error:function(er){
                         	  u.messageDialog({msg: '请求失败，请检查。', title: '请求错误', btnText: '确定'});
                          }
@@ -220,7 +222,7 @@ define(['text!pages/dept/dept.html','pages/dept/meta','css!pages/dept/dept.css',
                     }
 
                     app.serverEvent().addDataTable("deptDa", 'change').fire({
-                        url: ctx + viewModel.saveurl,
+                        url: ctxdept + viewModel.saveurl,
                         success: function (data) {
                             u.showMessage({msg: '操作完成'})
                         },
@@ -240,7 +242,7 @@ define(['text!pages/dept/dept.html','pages/dept/meta','css!pages/dept/dept.css',
                         title: '警告',
                         onOk: function () {
                             app.serverEvent().addDataTable("deptDa", 'allSelect').fire({
-                                url: ctx + viewModel.delurl,
+                                url: ctxdept + viewModel.delurl,
                                 success: function (data) {
                                    /* u.showMessage({msg: '操作完成'})*/
                                 },

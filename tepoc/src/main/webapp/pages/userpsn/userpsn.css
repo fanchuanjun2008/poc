@@ -172,9 +172,9 @@ div#commonShowDialog {
 }
 
 #user_card_button .u-button {
-	color: rgb(255, 255, 255);
+	/*color: rgb(255, 255, 255);
 	background-color: #1E7BE2;
-	border: 1px #1E7BE2 solid;
+	border: 1px #1E7BE2 solid;*/
 }
 
 .ufBack i.uf.uf-longleft {
@@ -235,11 +235,15 @@ span.u-form-control-info.uf.uf-exclamationsign {
 	width: 120px;
 }
 .image-box img {
-	width: 100%;
+	    width: 100%;
+    /* max-width: 100%; */
+    height: 120px;
+    object-fit: cover;
 }
 .upload-btn {
 	position: relative;
 	cursor: pointer;
+	margin-top: 5px;
 }
 .upload-btn > button {
 	display: block;
@@ -284,4 +288,16 @@ span.u-form-control-info.uf.uf-exclamationsign {
 .border{
 	padding:4px;
 border-bottom: 1px solid #cecece;
+}
+.u-radio>img{
+	    width: 100%;
+    /* max-width: 100%; */
+    height: 120px;
+    object-fit: cover;
+}
+.u-container-fluid{
+	padding-top:20px;
+}
+.u-container-fluid>.u-tabs{
+	padding-bottom: 100px;
 }

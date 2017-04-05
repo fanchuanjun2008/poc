@@ -4,16 +4,16 @@ var metaDt = {
 
         },
         username: {
-
+        	required:true
         },
         sex: {
-
+        	required:true
         },
         idcard: {
-
+        	required:true
         },
         brithdate: {
-
+        	required:true
         },
         email: {
 
@@ -88,6 +88,9 @@ var metaUserRole = {
         roletype: {
 
         },
+        status: {
+        	
+        }
     }
 };
 
@@ -111,6 +114,9 @@ var metaUserDept = {
         deptname: {
 
         },
+        status: {
+        	
+        }
     }
 };
 
