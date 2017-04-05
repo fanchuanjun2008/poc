@@ -162,6 +162,7 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
 				 * 子表角色新建参照增加点击确定的监听（初始调用）
 				 */
                 initRoleAdd: function() {
+                	return;
                     viewModel.event.initRefer('corprefcjf', 'http://127.0.0.1:8090/tepoc/ref/roleref/', function(data) { // lyk备注：参照请求url
 																															// 联系范传军确定
                         if (data && data.length > 0) {
@@ -1268,6 +1269,19 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
   	            refComp.initRefComp($that, options);
   	        });
     		 viewModel.event.initRoleAdd();
+    		 viewModel.UserPsnFormDa.on('valuechange', function(v, b) {
+    	            var ref = $('#refContainercorprefcjf').data('uui.refer');
+    	            var arr = [];
+    	            for (var i = 0, len = ref.values.length; i < len; i++) {
+    	                arr.push({
+    	                    "rolecode": ref.values[i].refcode,
+    	                    "rolename": ref.values[i].refname,
+    	                    "roletype": ref.values[i].refpk
+    	                })
+    	            }
+    	            viewModel.UserRoleFormDa.setSimpleData(arr);
+    	        })
+
 
     		 $('#corpref').each(function(i,val){
     		     	var $that=$(this);
