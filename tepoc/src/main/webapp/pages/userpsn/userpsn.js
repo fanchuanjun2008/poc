@@ -16,6 +16,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
             updateURL: tepoc_ctx + "/UserPsn/savecard",
             delURL: tepoc_ctx + "/UserPsn/delBatch",
             formStatus: _CONST.FORM_STATUS_ADD,
+            fileindex:null,
             UserPsnDa: new u.DataTable(metaDt), // 主表显示
             UserPsnFormDa: new u.DataTable(metaDt), // 主表编辑
             UserRoleFormDa: new u.DataTable(metaUserRole), // 子表角色
@@ -102,7 +103,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                  * 清空
                  */
                 cleanSearch: function() {
-                    $(element).find('.form-search').find('input').val('');
+                	this.searchData.setSimpleData({});  
                 },
                 /**
                  * 参照增加点击确定的监听公共方法
@@ -381,7 +382,12 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 },
 
                 // 打开附件上传界面
-                onOpenUploadWin: function() {
+                onOpenUploadWin: function(a,e) {
+                	var tar = e.target;
+                	window.file_style= "add";
+                	if(tar.name == 'editfile'){
+                		window.file_style= "edit";
+                	}
                     window.countrysubsid_md = u.dialog({
                         id: 'countrysubsid_testDialg3',
                         content: "#countrysubsid_dialog_uploadfile",
@@ -432,6 +438,21 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                                 title: "提示",
                                 btnText: "OK"
                             });
+                            viewModel.event.fileQuery();
+                            if(window.file_style=="edit"){
+                            	var row = viewModel.fileindex;
+                                if (row != null ) {
+                                	 var pk = row;
+                                     var par = {
+                                         id: pk, // 【必填】表的id
+                                         cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+                                         // 时候必填
+                                     }
+                                     var f = new interface_file();
+                                     f.filesystem_delete(par, viewModel.event.fileDeleteCallBack);
+                                } 
+                               
+                            }
                         } else { // error 或者加載js錯誤
                             u.messageDialog({
                                 msg: "上传失败！" + data.message,
@@ -469,39 +490,40 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                         }
                     }
                 },
+                fileselect: function(a,e){
+                	var tar = e.target;
+                	if(tar.type == 'radio'){
+                		viewModel.fileindex = tar.value;
+                		setTimeout(function(){
+                    		tar.checked = true;
+                    	})
+                	}
+                	
+                },
                 // 附件删除
                 fileDelete: function() {
-                    var row = viewModel.UserFileFormDa.getSelectedRows();
-                    if (row == null || row.length == 0) {
+                    var row = viewModel.fileindex;
+                    if (row == null ) {
                         u.messageDialog({
-                            msg: "请选择要删除的附件",
+                            msg: "请选择要删除的图片",
                             title: "提示",
                             btnText: "OK"
                         });
                         return
-                    } else if (row.length > 1) {
-                        u.messageDialog({
-                            msg: "每次只能删除一个附件",
-                            title: "提示",
-                            btnText: "OK"
-                        });
-                        return
+                    } 
+                    var pk = row;
+                    var par = {
+                        id: pk, // 【必填】表的id
+                        cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+                        // 时候必填
                     }
-                    for (var i = 0; i < row.length; i++) {
-                        var pk = row[i].getValue("id");
-                        var par = {
-                            id: pk, // 【必填】表的id
-                            cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
-                            // 时候必填
-                        }
-                        var f = new interface_file();
-                        f.filesystem_delete(par, viewModel.fileDeleteCallBack);
-                    }
+                    var f = new interface_file();
+                    f.filesystem_delete(par, viewModel.event.fileDeleteCallBack);
                 },
                 // 附件删除回调
                 fileDeleteCallBack: function(data) {
                     if (1 == data.status) { // 上传成功状态
-                        viewModel.fileQuery();
+                        viewModel.event.fileQuery();
                     } else {
                         u.messageDialog({
                             msg: "删除失败" + data.message,
@@ -1309,9 +1331,6 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
         viewModel.searchData.setRowSelect(0);
         viewModel.addRefDa.createEmptyRow();
         viewModel.addRefDa.setRowSelect(0);
-        viewModel.event.initRoleAdd();
-        viewModel.event.initDeptEdit();
-        viewModel.event.initDeptAdd();
         /** 处理角色和部门的新增 end * */
 
         /**
@@ -1369,41 +1388,59 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 };
                 refComp.initRefComp($that, options);
             });
-            viewModel.UserPsnFormDa.on('valuechange', function(v, b) {
-                var field = v.field;
+            viewModel.addRefDa.on('valuechange', function(v, b) {
+            	var field = v.field;
                 if (field == 'role') {
                     var ref = $('#refContainerrolerefadd').data('uui.refer');
                     var arr = [];
-                    for (var i = 0, len = ref.values.length; i < len; i++) {
+                    if (ref.values.length > 0) {
+                        var rolecode = ref.values[0].refcode;
+                        var rolename = ref.values[0].refname;
+                        var roletype = ref.values[0].roletype;
                         arr.push({
-                            "rolecode": ref.values[i].refcode,
-                            "rolename": ref.values[i].refname,
-                            "roletype": ref.values[i].roletype
+                            "rolecode": rolecode,
+                            "rolename": rolename,
+                            "roletype": roletype
                         })
+                        var row = viewModel.UserRoleFormDa.getRowByField('rolecode', rolecode);
+                        if (!row) {
+                            viewModel.UserRoleFormDa.addSimpleData(arr);
+                        }
                     }
-                    viewModel.UserRoleFormDa.addSimpleData(arr);
+
                 } else if (field == 'dept') {
                     var ref = $('#refContainerdeptAddRef').data('uui.refer');
                     var arr = [];
-                    for (var i = 0, len = ref.values.length; i < len; i++) {
+                    if (ref.values.length > 0) {
+                        var deptcode = ref.values[0].refcode;
+                        var deptname = ref.values[0].refname;
                         arr.push({
-                            "deptcode": ref.values[i].refcode,
-                            "deptname": ref.values[i].refname,
+                            "deptcode": deptcode,
+                            "deptname": deptname,
                         })
+                        var row = viewModel.UserDeptFormDa.getRowByField('deptcode', deptcode);
+                        if (!row) {
+                            viewModel.UserDeptFormDa.addSimpleData(arr);
+                        }
                     }
-                    viewModel.UserDeptFormDa.addSimpleData(arr);
+
                 } else if (field == 'deptedit') {
                     var ref = $('#refContainerdeptAddRef').data('uui.refer');
                     var arr = [];
-                    for (var i = 0, len = ref.values.length; i < len; i++) {
+                    if (ref.values.length > 0) {
+                        var deptcode = ref.values[0].refcode;
+                        var deptname = ref.values[0].refname;
                         arr.push({
-                            "deptcode": ref.values[i].refcode,
-                            "deptname": ref.values[i].refname,
+                            "deptcode": deptcode,
+                            "deptname": deptname,
                         })
+                        var selRowIndex = viewModel.UserDeptFormDa.getSelectedIndex();
+                        viewModel.UserDeptFormDa.removeRow(selRowIndex);
+                        var row = viewModel.UserDeptFormDa.getRowByField('deptcode', deptcode);
+                        if (!row) {
+                            viewModel.UserDeptFormDa.addSimpleData(arr);
+                        }
                     }
-                    var selRowIndex = viewModel.UserDeptFormDa.getSelectedIndex();
-                    viewModel.UserDeptFormDa.removeRow(selRowIndex);
-                    viewModel.UserDeptFormDa.addSimpleData(arr);
                 }
 
             })

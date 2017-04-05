@@ -530,3 +530,7 @@ span.u-form-control-success.uf.uf-correct{
 .u-grid-content-multiSelect {
 	margin:0.02rem!important;
 }
+
+.u-navlayout{
+	height:100% !important;
+}
