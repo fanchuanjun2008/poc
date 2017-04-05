@@ -32,10 +32,10 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
 
             comboData: [{
                 name: '男',
-                value: '01'
+                value: '0'
             }, {
                 name: '女',
-                value: '02'
+                value: '1'
             }],
             comboDataMajor: [{
                 name: '软件工程',
@@ -162,7 +162,7 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
 				 * 子表角色新建参照增加点击确定的监听（初始调用）
 				 */
                 initRoleAdd: function() {
-                    viewModel.event.initRefer('roleAddRef', 'http://127.0.0.1:8090/tepoc/ref/roleref/', function(data) { // lyk备注：参照请求url
+                    viewModel.event.initRefer('corprefcjf', 'http://127.0.0.1:8090/tepoc/ref/roleref/', function(data) { // lyk备注：参照请求url
 																															// 联系范传军确定
                         if (data && data.length > 0) {
                             var dataArr = [];
@@ -184,7 +184,7 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
 				 * 子表角色新建点击触发参照
 				 */
                 addUserRole: function() {
-                    $('#roleAddRef').trigger("click.refer");
+                    $('#corprefcjf').find('span').trigger("click.refer");
                 },
                 /**
 				 * 子表部门新建参照增加点击确定的监听（初始调用）
@@ -251,6 +251,101 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                         $('#deptAddRef1').trigger("click.refer");
                     }
                 },
+                // 打开附件上传界面
+        		onOpenInfoUploadWin : function(){
+        			window.countrysubsid_md = u.dialog({id:'countrysubsid_testDialg4',content:"#countrysubsid_dialog_uploadfileinfo",hasCloseMenu:true});
+        			$('.sub-list2-new').css('display','inline-block');
+        		},
+             // 上传附件
+        		onInfoFileUpload : function(){
+        			// 获取表单
+        			var pk = viewModel.UserPsnFormDa.getValue("pk_user");
+        			var par = {
+        					 fileElementId: "infofile_id",  // 【必填】文件上传空间的id属性
+																		// <input
+																		// type="file"
+																		// id="id_file"
+																		// name="file"
+																		// />,可以修改，主要看你使用的
+																		// id是什么
+        					 filepath: pk,   // 【必填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
+        					 groupname: "INFOCOUNTRYSUBSIDY",// 【必填】分組名称,未来会提供树节点
+        					 permission: "read", // 【选填】 read是可读=公有
+													// private=私有
+													// 当这个参数不传的时候会默认private
+        					 url: true,          // 【选填】是否返回附件的连接地址，并且会存储到数据库
+        					 thumbnail :  "100w",// 【选填】缩略图--可调节大小，和url参数配合使用，不会存储到数据库
+        					 cross_url : window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+															// 时候必填
+        					 }
+        			 var f = new interface_file();
+        			 f.filesystem_upload(par,function(data){
+            			 onCloseLoading();
+            			 if(null == data){
+            				 u.messageDialog({msg:"上传图片不能超过1M，请优化后再上传！",title:"提示", btnText:"OK"});
+            			 }else{
+            				 if(1 == data.status){// 上传成功状态
+            					 viewModel.UserPsnFormDa.addSimpleData(data.data);
+            					 u.messageDialog({msg:"上传成功！",title:"提示", btnText:"OK"});
+            				 }else{// error 或者加載js錯誤
+            					 u.messageDialog({msg:"上传失败！"+data.message,title:"提示", btnText:"OK"});
+            				 }
+            			 }
+            		 });
+        			 onLoading();
+        		},
+        		
+        		 infoFileQuery : function(){
+        			var pk = viewModel.UserPsnFormDa.getValue("pk_user");
+        			 var par = {
+        				     // 建议一定要有条件否则会返回所有值
+        					 filepath: pk, // 【选填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
+        					 groupname: "INFOCOUNTRYSUBSIDY",// 【选填】[分組名称,未来会提供树节点]
+        					 cross_url : window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+															// 时候必填
+        				}
+        			 var f = new interface_file();
+        			 f.filesystem_query(par,function(data){
+            			 if(1 == data.status){// 上传成功状态
+            				 viewModel.UserFileFormDa.setSimpleData(data.data);
+            			 }else{
+            				 // 没有查询到数据，可以不用提醒
+            				 if("没有查询到相关数据" != data.message){
+            					 u.messageDialog({msg:"查询失败"+data.message,title:"提示", btnText:"OK"});
+            				 }else{
+            					 viewModel.UserFileFormDa.removeAllRows();
+            				 }
+            			 }
+            		 });
+        		 },
+        		 // 附件删除
+        		 infoFileDelete : function(){
+        			 var row = viewModel.UserFileFormDa.getSelectedRows();
+        			 if(row==null || row.length==0){
+        				 u.messageDialog({msg:"请选择要删除的附件",title:"提示", btnText:"OK"});
+        				 return
+        			 }else if(row.length>1){
+        				 u.messageDialog({msg:"每次只能删除一个附件",title:"提示", btnText:"OK"});
+        				 return
+        			 }
+        			 for(var i=0;i<row.length;i++){
+        				 var pk = row[i].getValue("id");
+        				 var par = {
+        		        	 id:pk,// 【必填】表的id
+        		        	 cross_url : window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+															// 时候必填
+        				 }
+        				 var f = new interface_file();
+        				 f.filesystem_delete(par,function(data){
+                			 if(1 == data.status){// 上传成功状态
+                				 viewModel.fileQuery();
+                			 }else{
+                				 u.messageDialog({msg:"删除失败"+data.message,title:"提示", btnText:"OK"});
+                			 }
+                		 });
+        			 }
+        		 },
+                
               // 打开附件上传界面
         		onOpenUploadWin : function(){
         			window.countrysubsid_md = u.dialog({id:'countrysubsid_testDialg3',content:"#countrysubsid_dialog_uploadfile",hasCloseMenu:true});
@@ -297,7 +392,6 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
         			 }
         		 },
         		 fileQuery : function(){
-// var main = row.getSimpleData();
         			var pk = viewModel.UserPsnFormDa.getValue("pk_user");
         			 var par = {
         				     // 建议一定要有条件否则会返回所有值
@@ -390,11 +484,7 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
         				 parent.open(url);
         			 }
         		 },
-
-
-
-
-
+        		 
                 /**
 				 * 主页查询方法（初始调用）
 				 */
@@ -407,13 +497,18 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     };
 
                     if (viewModel.searchData.getSimpleData()) {
-                        jsonData["search_name"] = viewModel.searchData.getSimpleData()[0].search_name;
+                    	if(viewModel.searchData.getSimpleData()[0].search_name)
+                        jsonData["search_username"] = viewModel.searchData.getSimpleData()[0].search_name;
+                    	if(viewModel.searchData.getSimpleData()[0].search_sex)
                         jsonData["search_sex"] = viewModel.searchData.getSimpleData()[0].search_sex;
+                    	if(viewModel.searchData.getSimpleData()[0].search_profession)
                         jsonData["search_profession"] = viewModel.searchData.getSimpleData()[0].search_profession;
+                    	if(viewModel.searchData.getSimpleData()[0].search_entry_start)
                         jsonData["search_entry_start"] = viewModel.searchData.getSimpleData()[0].search_entry_start;
 
                     }
-
+                    
+                   
 
                     $.ajax({
                         type: 'get',
@@ -532,14 +627,12 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     var userId = viewModel.UserPsnFormDa.getValue("pk_user");
                     var jsonData = {
                         pageIndex: 0,
-                        pageSize: viewModel.deptpageSize,
+                        pageSize: viewModel.deptchildPageSize,
                         sortField: "ts",
                         sortDirection: "asc"
                     };
                     jsonData['search_fk_id_userrole'] = userId;
-                    jsonData = {
-                    		
-                    }
+                   
                     $.ajax({
                         type: 'GET',
                         url: tepoc_ctx + '/UserDept/list',
@@ -563,11 +656,11 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                                         var totlePage = res.detailMsg.data.totalPages;
                                         viewModel.child_dept_card_pcomp.update({ // 卡片页子表的分页信息
                                             totalPages: totlePage,
-                                            pageSize: viewModel.deptpageSize,
+                                            pageSize: viewModel.deptchildPageSize,
                                             currentPage: viewModel.deptchilddraw,
                                             totalCount: totleCount
                                         });
-                                        if (totleCount > viewModel.deptpageSize) { // 根据总条数，来判断是否显示子表的分页层
+                                        if (totleCount > viewModel.deptchildPageSize) { // 根据总条数，来判断是否显示子表的分页层
                                             $('#child_dept_card_pagination').show();
                                         } else {
                                             $('#child_dept_card_pagination').hide();
@@ -598,72 +691,8 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                 /**
 				 * 子表活动照片查询方法
 				 */
-                getUserDeptList: function() {
-                    var userId = viewModel.UserPsnFormDa.getValue("pk_user");
-                    var jsonData = {
-                        pageIndex: 0,
-                        pageSize: viewModel.deptpageSize,
-                        sortField: "ts",
-                        sortDirection: "asc"
-                    };
-                    jsonData['search_fk_id_userrole'] = userId;
-                    jsonData = {
-                    		
-                    }
-                    $.ajax({
-                        type: 'GET',
-                        url: tepoc_ctx + '/UserDept/list',
-                        datatype: 'json',
-                        data: jsonData,
-                        contentType: 'application/json;charset=utf-8',
-                        success: function(res) {
-                            if (res) {
-                                if (res.success == 'success') {
-                                    if (res.detailMsg.data) {
-                                        viewModel.UserDeptFormDa.removeAllRows();
-                                        viewModel.UserDeptFormDa.clear();
-                                        viewModel.UserDeptFormDa.setSimpleData(res.detailMsg.data.content, {
-                                            unSelect: true
-                                        });
-
-                                        viewModel.UserDeptFormDa.setSimpleData(res.detailMsg.data.content, {
-                                            unSelect: true
-                                        });
-                                        var totleCount = res.detailMsg.data.totalElements;
-                                        var totlePage = res.detailMsg.data.totalPages;
-                                        viewModel.child_dept_card_pcomp.update({ // 卡片页子表的分页信息
-                                            totalPages: totlePage,
-                                            pageSize: viewModel.deptpageSize,
-                                            currentPage: viewModel.deptchilddraw,
-                                            totalCount: totleCount
-                                        });
-                                        if (totleCount > viewModel.deptpageSize) { // 根据总条数，来判断是否显示子表的分页层
-                                            $('#child_dept_card_pagination').show();
-                                        } else {
-                                            $('#child_dept_card_pagination').hide();
-                                        }
-
-                                    }
-                                } else {
-                                    var msg = "";
-                                    for (var key in res.message) {
-                                        msg += res.message[key] + "<br/>";
-                                    }
-                                    u.messageDialog({
-                                        msg: msg,
-                                        title: '请求错误',
-                                        btnText: '确定'
-                                    });
-                                }
-                            } else {
-                                u.messageDialog({
-                                    msg: '后台返回数据格式有误，请联系管理员',
-                                    title: '数据错误',
-                                    btnText: '确定'
-                                });
-                            }
-                        }
-                    });
+                getUserFileList: function() {
+                    
                 },
                 /**
 				 * 
@@ -718,7 +747,7 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                         viewModel.event.getUserJobList();
                     });
                     viewModel.child_dept_card_pcomp.on('sizeChange', function(arg) {
-                        viewModel.deptpageSize = parseInt(arg);
+                        viewModel.deptchildPageSize = parseInt(arg);
                         viewModel.deptchilddraw = 1;
                         viewModel.event.getUserDeptList();
                     });
@@ -744,6 +773,7 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     viewModel.event.clearDa(viewModel.UserFileFormDa);
                     // 设置业务操作逻辑
                     $(".u-button-pa").removeClass('hide');
+                    $('.border').addClass('hide');
                     // 显示操作卡片
                     viewModel.md.dGo('addPage');
                 },
@@ -788,7 +818,8 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     viewModel.UserPsnFormDa.setEnable(true);
                     viewModel.UserRoleFormDa.setEnable(true);
                     $(".u-button-pa,.padding-bottom-5>button").removeClass('hide');
-
+                    $('.border').addClass('hide');
+                    viewModel.event.infoFileQuery();
                     // 显示操作卡片
                     viewModel.md.dGo('addPage');
                 },
@@ -833,7 +864,8 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
                     viewModel.UserPsnFormDa.setEnable(false);
                     viewModel.UserRoleFormDa.setEnable(false);
                     $(".u-button-pa,.padding-bottom-5>button").addClass('hide');
-
+                    $('.border').removeClass('hide');
+                    viewModel.event.infoFileQuery();
                     // 显示操作卡片
                     viewModel.md.dGo('addPage');
                 },
@@ -1175,7 +1207,7 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
         };
         // end viewModel
 
-
+        
         $(element).html(template);
         window.vm = viewModel;
         var app = u.createApp({
@@ -1189,6 +1221,8 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
         viewModel.event.initPagination();
 
         /** 处理角色和部门的新增 begin * */
+        viewModel.searchData.createEmptyRow();
+        viewModel.searchData.setRowSelect(0);
         viewModel.addRefDa.createEmptyRow();
         viewModel.addRefDa.setRowSelect(0);
         viewModel.event.initRoleAdd();
@@ -1201,6 +1235,7 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
 		 * 
 		 * @type {[type]}
 		 */
+        
         $('.u-tabs__tab-bar>a').on('click', function(obj) {
         	var $this = $(this);
             if ($this.attr('id') == 'tab_dept') {
@@ -1222,6 +1257,17 @@ define(['iReferComp','refComp','text!pages/userpsn/userpsn.html', 'pages/userpsn
         	var refid;
         	var dom;
     		 var pk='';
+    		 
+    		 $('#corprefcjf').each(function(i, val) {
+  	            var $that = $(this);
+  	            dom = $that;
+  	            var options = {
+  	                refCode: "roleref",
+  	                isMultiSelectedEnabled: false
+  	            };
+  	            refComp.initRefComp($that, options);
+  	        });
+    		 viewModel.event.initRoleAdd();
 
     		 $('#corpref').each(function(i,val){
     		     	var $that=$(this);

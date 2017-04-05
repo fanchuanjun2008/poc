@@ -210,10 +210,9 @@
 						<div class="image-box">
 							<img src="../../static/a0.jpg" />
 							<div class="upload-btn">
-								<button class="u-button u-button-primary">
+								<button class="u-button u-button-primary" data-bind="click:event.onOpenInfoUploadWin">
 									上传照片
 								</button>
-								<input class="file-btn" type="file" />
 							</div>
 
 						</div>
@@ -364,8 +363,12 @@
 								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-addUserJob" data-bind="click: event.addUserRole">
 									新建
 								</button>
-								<input id="roleAddRef" type="text" u-meta='{"refCode":"roleref","type":"uiRefer", "data":"addRefDa", "field":"role"}' style="display:none;">
-
+								<div style="display: none;">
+									<div id="corprefcjf" class="input-group" u-meta='{"refCode":"roleref","name":"所属角色","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'> 
+										<input id="testRefMuGridTree2"  class="u-form-control u-input" type="text" data-bind="enable: true">
+										<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: true"></span>
+									</div>
+								</div>
 								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-delUserJob" data-bind="click: event.delUserJob">
 									删除
 								</button>
@@ -458,6 +461,41 @@
 
 	</div>
 </div>
+<div id="countrysubsid_dialog_uploadfileinfo" style="display: none;">
+	<div class="u-msg-title">
+		<h4>个人照片上传</h4>
+	</div>
+	<div class="u-msg-content">
+		<div class="u-row">
+			<div class="u-col-12" style="margin-bottom: 20px;">
+				<div class="u-widget">
+					<div class="menu">
+						<button class="u-button raised primary sub-list1-new" data-bind="click:event.onInfoFileUpload" data-upgraded=",u.Button" style="display: inline-block;">
+							上传<span class="u-button-container"><span class="u-ripple is-animating" style="width: 158px; height: 158px; transform: translate(-50%, -50%) translate(48px, 13px);"></span></span>
+						</button>
+						<button class="u-button raised  sub-list1-cancel" data-bind="click:event.onCloseFileWindow" data-upgraded=",u.Button">
+							取消<span class="u-button-container"><span class="u-ripple is-animating" style="width: 156.506px; height: 156.506px; transform: translate(-50%, -50%) translate(49px, 15px);"></span></span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="u-row">
+			<div class="u-col-12">
+				<div class="u-widget">
+					<div class="form">
+						<div class="u-col-3 u-col-xs-4 u-col-sm-4 u-col-md-3" style=" width: 330px; padding-left: 0px; ">
+							<div class="u-text u-label-floating-always is-upgraded" data-upgraded=",u.Text">
+								<input class="u-input" type="file" name="addfile" id="infofile_id" multiple="multiple">
+								<label class="u-label" for="sample1" style="display:none;">选择附件</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <div id="countrysubsid_dialog_uploadfile" style="display: none;">
 	<div class="u-msg-title">
 		<h4>附件上传</h4>
@@ -467,7 +505,7 @@
 			<div class="u-col-12" style="margin-bottom: 20px;">
 				<div class="u-widget">
 					<div class="menu">
-						<button class="u-button raised primary sub-list1-new" data-bind="click:event.onFileUpload" data-upgraded=",u.Button" style="display: inline-block;">
+						<button class="u-button raised primary sub-list2-new" data-bind="click:event.onFileUpload" data-upgraded=",u.Button" style="display: inline-block;">
 							上传<span class="u-button-container"><span class="u-ripple is-animating" style="width: 158px; height: 158px; transform: translate(-50%, -50%) translate(48px, 13px);"></span></span>
 						</button>
 						<button class="u-button raised  sub-list1-cancel" data-bind="click:event.onCloseFileWindow" data-upgraded=",u.Button">
