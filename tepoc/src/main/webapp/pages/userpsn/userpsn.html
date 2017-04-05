@@ -39,13 +39,15 @@
 	<div class="u-mdlayout-btn u-row hide ">
 		<div id="user_card_button">
 			<div class="u-col-4  ufBack padding-bottom-5" data-bind="click:event.goBack">
-				<a><i class="uf uf-aaleft"></i>返回</a>
+				<button type="button" class="u-button u-button-primary u-button-pa" style="" >
+					返回
+				</button>
 			</div>
 			<div class="u-col-4 padding-bottom-5 " style="text-align:center;">
 				<span>人员信息</span>
 			</div>
 			<div class="u-col-4 padding-bottom-5">
-				<button type="button" class=" u-button u-button-primary u-button-sm" style="float:right;" data-bind="click:event.saveClick">
+				<button type="button" class="u-button u-button-primary u-button-pa" style="float:right;" data-bind="click:event.saveClick">
 					保存
 				</button>
 			</div>
@@ -101,10 +103,10 @@
 			<div class="u-row">
 				<div class="u-col-3 u-col-sm-12 pull-right">
 					<div class=" padding-top-2 ">
-						<button class="u-button u-button-primary raised gray-btn u-button-pa margin-right-20" id="user-action-search" data-bind="click: event.search">
+						<button class="u-button raised primary" id="user-action-search" data-bind="click: event.search">
 							查询
 						</button>
-						<button class="u-button u-button-primary  raised gray-btn u-button-pa " id="user-action-cleanSearch" data-bind="click: event.cleanSearch">
+						<button class="u-button raised primary" id="user-action-cleanSearch" data-bind="click: event.cleanSearch">
 							清空
 						</button>
 					</div>
