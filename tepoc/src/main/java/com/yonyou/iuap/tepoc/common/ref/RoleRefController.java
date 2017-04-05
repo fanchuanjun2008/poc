@@ -32,7 +32,7 @@ import com.yonyou.iuap.tepoc.service.RoleService;
 
 @RequestMapping({"/ref/roleref"})
 @Controller
-public class RoleRefController extends AbstractGridRefModel/* implements IRefModelRestEx*/{
+public class RoleRefController extends AbstractGridRefModel implements IRefModelRestEx{
 	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -104,13 +104,13 @@ public class RoleRefController extends AbstractGridRefModel/* implements IRefMod
 		}
 	}
 
-//	@Override
-//	public List<Map<String,String>> getIntRefData(
-//			String pks) throws Exception {
-//		String sql = "select id as pk,role_name as name from ieop_role where id in ("+pks+");";
-//		List<Map<String,String>> results = dao.queryForList(sql, new MapListProcessor());
-//		return results;
-//	}
+	@Override
+	public List<Map<String,String>> getIntRefData(
+			String pks) throws Exception {
+		String sql = "select pk_role as pk,rolename as name from role where pk_role in ("+pks+");";
+		List<Map<String,String>> results = dao.queryForList(sql, new MapListProcessor());
+		return results;
+	}
 
 	@Override
 	public List<Map<String, String>> filterRefJSON(@RequestBody RefViewModelVO arg0) {

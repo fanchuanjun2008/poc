@@ -32,7 +32,7 @@ import com.yonyou.iuap.tepoc.service.OrgService;
 
 @RequestMapping({"/ref/corpref"})
 @Controller
-public class CorpRefController extends AbstractTreeRefModel/* implements IRefModelRestEx*/{
+public class CorpRefController extends AbstractTreeRefModel implements IRefModelRestEx{
 	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -103,13 +103,13 @@ public class CorpRefController extends AbstractTreeRefModel/* implements IRefMod
 		}
 	}
 
-//	@Override
-//	public List<Map<String,String>> getIntRefData(
-//			String pks) throws Exception {
-//		String sql = "select pk_corp as pk,unitname as name from bd_corp where pk_corp in ("+pks+");";
-//		List<Map<String,String>> results = dao.queryForList(sql, new MapListProcessor());
-//		return results;
-//	}
+	@Override
+	public List<Map<String,String>> getIntRefData(
+			String pks) throws Exception {
+		String sql = "select org_id as pk,org_name as name from org where org_id in ("+pks+");";
+		List<Map<String,String>> results = dao.queryForList(sql, new MapListProcessor());
+		return results;
+	}
 
 	@Override
 	public List<Map<String, String>> filterRefJSON(@RequestBody RefViewModelVO arg0) {
@@ -144,7 +144,7 @@ public class CorpRefController extends AbstractTreeRefModel/* implements IRefMod
 
 	@Override
 	public List<Map<String, String>> matchPKRefJSON(@RequestBody RefViewModelVO pks) {
-		String sql = "select org_id as pk,org_name as name from org where pk_corp in ("+pks+");";
+		String sql = "select org_id as pk,org_name as name from org where org_id in ("+pks+");";
 		List<Map<String,String>> results = dao.queryForList(sql, new MapListProcessor());
 		return results;
 	}

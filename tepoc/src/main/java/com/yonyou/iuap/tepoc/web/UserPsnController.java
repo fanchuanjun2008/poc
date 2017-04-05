@@ -115,9 +115,9 @@ public class UserPsnController extends BaseController {
     
     @RequestMapping(value = "/savecard", method = RequestMethod.POST)
     @ResponseBody
-    public UserPsnVO saveUserPsn(@RequestBody UserPsnVO entity) throws DAOException {
+    public Object saveUserPsn(@RequestBody UserPsnVO entity) throws DAOException {
 		UserPsnVO result = service.merge(entity);
-		return result;
+		return super.buildSuccess(result);
 	}
 
     /**
@@ -136,7 +136,7 @@ public class UserPsnController extends BaseController {
 		searchParams = Servlets.getParametersStartingWith(request, "search_");
 		PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto");
         Page<UserPsnVO> page = service.selectAllByPage(searchParams, pageRequest);
-        return buildSuccess(page);
+        return super.buildSuccess(page);
     }
     
     /**
@@ -220,7 +220,7 @@ public class UserPsnController extends BaseController {
 	* @param response
 	* @throws BusinessException
 	 */
-	@RequestMapping(value = "/excelExport", method = RequestMethod.GET)
+	@RequestMapping(value = "/excelExport", method = RequestMethod.POST)
 	public void userExcelExport(
 			ModelMap model,
 			HttpServletRequest request,

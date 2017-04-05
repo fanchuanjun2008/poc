@@ -34,7 +34,7 @@ import com.yonyou.iuap.tepoc.service.OrgService;
 
 @RequestMapping({"/ref/deptref"})
 @Controller
-public class DeptRefController extends AbstractTreeGridRefModel/* implements IRefModelRestEx*/{
+public class DeptRefController extends AbstractTreeGridRefModel implements IRefModelRestEx{
 	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -160,13 +160,13 @@ public class DeptRefController extends AbstractTreeGridRefModel/* implements IRe
 		}
 	}
 
-//	@Override
-//	public List<Map<String,String>> getIntRefData(
-//			String pks) throws Exception {
-//		String sql = "select pk_dept as pk,deptname as name from bd_dept where pk_dept in ("+pks+");";
-//		List<Map<String,String>> results = dao.queryForList(sql, new MapListProcessor());
-//		return results;
-//	}
+	@Override
+	public List<Map<String,String>> getIntRefData(
+			String pks) throws Exception {
+		String sql = "select pk_dept as pk,deptname as name from bd_dept where pk_dept in ("+pks+");";
+		List<Map<String,String>> results = dao.queryForList(sql, new MapListProcessor());
+		return results;
+	}
 
 	@Override
 	public List<Map<String, String>> filterRefJSON(@RequestBody RefViewModelVO arg0) {
