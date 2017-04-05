@@ -84,6 +84,14 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                         }
                     }
                 },
+                changeUserBri:function(date){
+                	var v = date();
+                	if(v){
+                		return u.dateRender(new Date(v),'YYYY-MM-DD')
+                	}else{
+                		return ''
+                	}	
+                }
                 ex_export: function() {
                     // var dats = [];
                     // var pks = ""

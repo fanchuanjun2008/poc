@@ -47,7 +47,7 @@
 				<span>人员信息</span>
 			</div>
 			<div class="u-col-4">
-				<button type="button" class="u-button u-button-primary" style="float:right;" data-bind="click:event.saveClick">
+				<button type="button" class="u-button u-button-primary u-button-pa" style="float:right;" data-bind="click:event.saveClick">
 					保存
 				</button>
 			</div>
@@ -151,14 +151,16 @@
 									<td data-bind="text: $parent.event.changeUserPsnsex(row.ref('sex'))"></td>
 									<!-- <td data-bind="text: row.ref('sex')"></td> -->
 									<!-- <td data-bind="text: row.ref('idcard')"></td> -->
-									<td data-bind="text: row.ref('brithdate')"></td>
+									<!-- <td data-bind="text: row.ref('brithdate')"></td> -->
+									<td data-bind="text: $parent.event.changeUserBri(row.ref('brithdate'))"></td>
 									<td data-bind="text: row.ref('email')"></td>
 									<td data-bind="text: row.ref('telphone')"></td>
 									<!-- <td data-bind="text: row.ref('edution')"></td> -->
 									<td data-bind="text: $parent.event.changeUseEdu(row.ref('edution'))"></td>
 									<td data-bind="text: $parent.event.changeUseMajor(row.ref('major'))"></td>
 									<!-- <td data-bind="text: row.ref('major')"></td> -->
-									<td data-bind="text: row.ref('work_date')"></td>
+									<!-- <td data-bind="text: row.ref('work_date')"></td> -->
+									<td data-bind="text: $parent.event.changeUserBri(row.ref('work_date'))"></td>
 									<td data-bind="text: row.ref('pk_corp_name')"></td>
 									<td data-bind="text: row.ref('pk_dept_name')"></td>
 									<!-- <td data-bind="text: row.ref('photo')"></td> -->
