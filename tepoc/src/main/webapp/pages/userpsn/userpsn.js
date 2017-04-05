@@ -455,11 +455,13 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 	}
                    
                 },
+                
                 // 上传附件
                 onFileUpload: function() {
                     // 获取表单
                     var pk = viewModel.UserPsnFormDa.getValue("pk_user");
                     if(pk){
+                    	
                     	var par = {
                                 fileElementId: "countrysubsidybatch_id", // 【必填】文件上传空间的id属性
                                 // <input
@@ -960,6 +962,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     $('.border').addClass('hide');
                     // 显示操作卡片
                     viewModel.md.dGo('addPage');
+                    $('#tab_role')[0].click();
                 },
                 /**
                  * 头部编辑按钮操作
@@ -1004,8 +1007,10 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     $(".u-button-pa,.padding-bottom-5>button").removeClass('hide');
                     $('.border').addClass('hide');
                     viewModel.event.infoFileQuery();
+                    
                     // 显示操作卡片
                     viewModel.md.dGo('addPage');
+                    $('#tab_role')[0].click();
                 },
                 /**
                  * 头部查阅按钮操作
@@ -1050,8 +1055,10 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     $(".u-button-pa,.padding-bottom-5>button").addClass('hide');
                     $('.border').removeClass('hide');
                     viewModel.event.infoFileQuery();
+                   
                     // 显示操作卡片
                     viewModel.md.dGo('addPage');
+                    $('#tab_role')[0].click();
                 },
 
 
