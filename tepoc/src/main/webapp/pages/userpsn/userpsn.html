@@ -208,7 +208,7 @@
 				<div class="u-container-fluid">
 					<div class="search-content">
 						<div class="image-box">
-							<img src="../../static/a0.jpg" />
+							<img id="infouser_img" src="" />
 							<div class="upload-btn">
 								<button class="u-button u-button-primary" data-bind="click:event.onOpenInfoUploadWin">
 									上传照片
@@ -222,7 +222,10 @@
 									<label>用户名</label>
 
 									<div class="u-input-group u-has-feedback" u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"username"}'>
-										<input type="text" class="u-form-control" placeholder="">
+										<div class="u-input-group-before" style="color: red;">
+												*
+											</div>
+											<input type="text" class="u-form-control" placeholder="">
 									</div>
 								</div>
 							</div>
@@ -246,7 +249,10 @@
 									<label>身份证</label>
 
 									<div class="u-input-group u-has-feedback" u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"idcard","validType":"idcard"}'>
-										<input type="text" class="u-form-control" placeholder="">
+										<div class="u-input-group-before" style="color: red;">
+												*
+											</div>
+											<input type="text" class="u-form-control" placeholder="">
 									</div>
 								</div>
 							</div>
@@ -255,7 +261,10 @@
 									<label>出生日期</label>
 
 									<div class="u-input-group u-has-feedback" u-meta='{"type":"u-date","data":"UserPsnFormDa","field":"brithdate"}'>
-										<input type="text" class="u-form-control" placeholder="">
+										<div class="u-input-group-before" style="color: red;">
+												*
+											</div>
+											<input type="text" class="u-form-control" placeholder="">
 									</div>
 								</div>
 							</div>
@@ -312,13 +321,9 @@
 								<div class="u-form-group">
 									<label>所属公司</label>
 									<!--  lyk备注：参照换成新的uiref的方式 -->
-
-
-									<div id="corpref" class="input-group" u-meta='{"refCode":"corpref","name":"所属公司","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
-										<div class="u-input-group u-has-feedback">
-											<input class="u-form-control" />
-											<span class="u-form-control-feedback fa fa-search refer" data-role="combo-button"></span>
-										</div>
+									<div id="corpref" class="u-input-group u-has-feedback" u-meta='{"refCode":"corpref","name":"所属公司","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
+										<input class="u-form-control" />
+										<span class="u-form-control-feedback fa fa-search refer" data-role="combo-button"></span>
 									</div>
 									<!-- <input id="corpref" type="text" u-meta='{"refCode":"corpref","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}' style="display:none;"> -->
 									<!-- <div class="u-combo"
@@ -335,11 +340,10 @@
 								<div class="u-form-group">
 									<label>部门</label>
 									<!-- lyk备注：参照换成新的uiref的方式 -->
-									<div id="deptref" class="input-group" u-meta='{"refCode":"deptref","name":"所属公司","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
-										<div class="u-input-group u-has-feedback">
-											<input class="u-form-control" />
-											<span class="u-form-control-feedback fa fa-search refer" data-role="combo-button"></span>
-										</div>
+									<div id="deptref" class="u-input-group u-has-feedback" u-meta='{"refCode":"deptref","name":"所属公司","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
+										<input class="u-form-control" />
+										<span class="u-form-control-feedback fa fa-search refer" data-role="combo-button"></span>
+
 									</div>
 									<!-- <div class="u-combo" u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"pk_dept_name","onlySelect":true}'>
 									<div class="u-input-group u-has-feedback">

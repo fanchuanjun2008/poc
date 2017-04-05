@@ -4,16 +4,16 @@ var metaDt = {
 
         },
         username: {
-
+        	required:true
         },
         sex: {
-
+        	required:true
         },
         idcard: {
-
+        	required:true
         },
         brithdate: {
-
+        	required:true
         },
         email: {
 

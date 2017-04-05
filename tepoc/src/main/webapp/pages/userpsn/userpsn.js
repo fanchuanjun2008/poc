@@ -331,6 +331,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                                     title: "提示",
                                     btnText: "OK"
                                 });
+                                $('#infouser_img').attr('src',imgsrc_tans(data.data[0].url));
                             } else { // error 或者加載js錯誤
                                 u.messageDialog({
                                     msg: "上传失败！" + data.message,
@@ -355,7 +356,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     var f = new interface_file();
                     f.filesystem_query(par, function(data) {
                         if (1 == data.status) { // 上传成功状态
-                            viewModel.UserFileFormDa.setSimpleData(data.data);
+                            $('#infouser_img').attr('src',imgsrc_tans(data.data[0].url));
                         } else {
                             // 没有查询到数据，可以不用提醒
                             if ("没有查询到相关数据" != data.message) {
@@ -1090,7 +1091,27 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
 
                     var user = viewModel.UserPsnFormDa.getSimpleData();
                     var userJob = viewModel.UserRoleFormDa.getSimpleData();
+                    if(userJob){
+                    	for(var i = 0; i < userJob.length;i++){
+                        	if(userJob[i].pk_user_role){
+                        		userJob[i].status = '1'
+                        	}else{
+                        		userJob[i].status = '2'
+                        	}
+                        }
+                    }
+                    
                     var userDept = viewModel.UserDeptFormDa.getSimpleData();
+                    if(userDept){
+                    	for(var i = 0; i < userDept.length;i++){
+                        	if(userDept[i].pk_user_dept){
+                        		userDept[i].status = '1'
+                        	}else{
+                        		userDept[i].status = '2'
+                        	}
+                        }
+                    }
+                    
                     var userFile = viewModel.UserFileFormDa.getSimpleData();
                     var jsondata = user[0];
                     jsondata.id_userrole = userJob;
@@ -1100,6 +1121,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     var sendurl = viewModel.addURL;
                     if (viewModel.formStatus === _CONST.FORM_STATUS_EDIT) {
                         sendurl = viewModel.updateURL;
+                        jsondata.status = '1';
                     }
                     jsondata = {
 //                        "pk_user": "29b3ae05-4d66-4681-8279-7a61fa3abe6e",
