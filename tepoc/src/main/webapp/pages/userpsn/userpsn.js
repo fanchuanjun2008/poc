@@ -285,91 +285,112 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 },
                 // 打开附件上传界面
                 onOpenInfoUploadWin: function() {
-                    window.countrysubsid_md = u.dialog({
-                        id: 'countrysubsid_testDialg4',
-                        content: "#countrysubsid_dialog_uploadfileinfo",
-                        hasCloseMenu: true
-                    });
-                    $('.sub-list2-new').css('display', 'inline-block');
+                	if(viewModel.UserPsnFormDa.getValue("pk_user")){
+                		 window.countrysubsid_md = u.dialog({
+                             id: 'countrysubsid_testDialg4',
+                             content: "#countrysubsid_dialog_uploadfileinfo",
+                             hasCloseMenu: true
+                         });
+                         $('.sub-list2-new').css('display', 'inline-block');
+                	}else{
+                		u.messageDialog({
+                            msg: "请先创建用户!",
+                            title: "提示",
+                            btnText: "OK"
+                        });
+                	}
+                   
                 },
                 // 上传附件
                 onInfoFileUpload: function() {
                     // 获取表单
                     var pk = viewModel.UserPsnFormDa.getValue("pk_user");
-                    var par = {
-                        fileElementId: "infofile_id", // 【必填】文件上传空间的id属性
-                        // <input
-                        // type="file"
-                        // id="id_file"
-                        // name="file"
-                        // />,可以修改，主要看你使用的
-                        // id是什么
-                        filepath: pk, // 【必填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
-                        groupname: "INFOCOUNTRYSUBSIDY", // 【必填】分組名称,未来会提供树节点
-                        permission: "read", // 【选填】 read是可读=公有
-                        // private=私有
-                        // 当这个参数不传的时候会默认private
-                        url: true, // 【选填】是否返回附件的连接地址，并且会存储到数据库
-                        thumbnail: "100w", // 【选填】缩略图--可调节大小，和url参数配合使用，不会存储到数据库
-                        cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
-                        // 时候必填
-                    }
-                    var f = new interface_file();
-                    f.filesystem_upload(par, function(data) {
-                        onCloseLoading();
-                        if (null == data) {
-                            u.messageDialog({
-                                msg: "上传图片不能超过1M，请优化后再上传！",
-                                title: "提示",
-                                btnText: "OK"
-                            });
-                        } else {
-                            if (1 == data.status) { // 上传成功状态
-                                viewModel.UserPsnFormDa.addSimpleData(data.data);
-                                u.messageDialog({
-                                    msg: "上传成功！",
-                                    title: "提示",
-                                    btnText: "OK"
-                                });
-                                $('#infouser_img').attr('src',imgsrc_tans(data.data[0].url));
-                            } else { // error 或者加載js錯誤
-                                u.messageDialog({
-                                    msg: "上传失败！" + data.message,
-                                    title: "提示",
-                                    btnText: "OK"
-                                });
+                    if(pk){
+                    	var par = {
+                                fileElementId: "infofile_id", // 【必填】文件上传空间的id属性
+                                // <input
+                                // type="file"
+                                // id="id_file"
+                                // name="file"
+                                // />,可以修改，主要看你使用的
+                                // id是什么
+                                filepath: pk, // 【必填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
+                                groupname: "INFOCOUNTRYSUBSIDY", // 【必填】分組名称,未来会提供树节点
+                                permission: "read", // 【选填】 read是可读=公有
+                                // private=私有
+                                // 当这个参数不传的时候会默认private
+                                url: true, // 【选填】是否返回附件的连接地址，并且会存储到数据库
+                                thumbnail: "100w", // 【选填】缩略图--可调节大小，和url参数配合使用，不会存储到数据库
+                                cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+                                // 时候必填
                             }
-                        }
-                    });
-                    onLoading();
+                            var f = new interface_file();
+                            f.filesystem_upload(par, function(data) {
+                                onCloseLoading();
+                                if (null == data) {
+                                    u.messageDialog({
+                                        msg: "上传图片不能超过1M，请优化后再上传！",
+                                        title: "提示",
+                                        btnText: "OK"
+                                    });
+                                } else {
+                                    if (1 == data.status) { // 上传成功状态
+                                        viewModel.UserPsnFormDa.addSimpleData(data.data);
+                                        u.messageDialog({
+                                            msg: "上传成功！",
+                                            title: "提示",
+                                            btnText: "OK"
+                                        });
+                                        $('#infouser_img').attr('src',imgsrc_tans(data.data[0].url));
+                                    } else { // error 或者加載js錯誤
+                                        u.messageDialog({
+                                            msg: "上传失败！" + data.message,
+                                            title: "提示",
+                                            btnText: "OK"
+                                        });
+                                    }
+                                }
+                            });
+                            onLoading();
+                    }else{
+                    	u.messageDialog({
+                            msg: "请先创建用户!",
+                            title: "提示",
+                            btnText: "OK"
+                        });
+                    }
+                    
                 },
 
                 infoFileQuery: function() {
                     var pk = viewModel.UserPsnFormDa.getValue("pk_user");
-                    var par = {
-                        // 建议一定要有条件否则会返回所有值
-                        filepath: pk, // 【选填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
-                        groupname: "INFOCOUNTRYSUBSIDY", // 【选填】[分組名称,未来会提供树节点]
-                        cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
-                        // 时候必填
-                    }
-                    var f = new interface_file();
-                    f.filesystem_query(par, function(data) {
-                        if (1 == data.status) { // 上传成功状态
-                            $('#infouser_img').attr('src',imgsrc_tans(data.data[0].url));
-                        } else {
-                            // 没有查询到数据，可以不用提醒
-                            if ("没有查询到相关数据" != data.message) {
-                                u.messageDialog({
-                                    msg: "查询失败" + data.message,
-                                    title: "提示",
-                                    btnText: "OK"
-                                });
-                            } else {
-                                viewModel.UserFileFormDa.removeAllRows();
+                    if(pk){
+                    	var par = {
+                                // 建议一定要有条件否则会返回所有值
+                                filepath: pk, // 【选填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
+                                groupname: "INFOCOUNTRYSUBSIDY", // 【选填】[分組名称,未来会提供树节点]
+                                cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+                                // 时候必填
                             }
-                        }
-                    });
+                            var f = new interface_file();
+                            f.filesystem_query(par, function(data) {
+                                if (1 == data.status) { // 上传成功状态
+                                    $('#infouser_img').attr('src',imgsrc_tans(data.data[0].url));
+                                } else {
+                                    // 没有查询到数据，可以不用提醒
+                                    if ("没有查询到相关数据" != data.message) {
+                                        u.messageDialog({
+                                            msg: "查询失败" + data.message,
+                                            title: "提示",
+                                            btnText: "OK"
+                                        });
+                                    } else {
+                                        viewModel.UserFileFormDa.removeAllRows();
+                                    }
+                                }
+                            });
+                    }
+                    
                 },
                 // 附件删除
                 infoFileDelete: function() {
@@ -413,43 +434,61 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
 
                 // 打开附件上传界面
                 onOpenUploadWin: function(a, e) {
-                    var tar = e.target;
-                    window.file_style = "add";
-                    if ($(tar).closest('button').attr('name') == 'editfile') {
-                        window.file_style = "edit";
-                    }
-                    window.countrysubsid_md = u.dialog({
-                        id: 'countrysubsid_testDialg3',
-                        content: "#countrysubsid_dialog_uploadfile",
-                        hasCloseMenu: true
-                    });
-                    $('.sub-list1-new').css('display', 'inline-block');
+                	if(viewModel.UserPsnFormDa.getValue("pk_user")){
+                		 var tar = e.target;
+                         window.file_style = "add";
+                         if ($(tar).closest('button').attr('name') == 'editfile') {
+                             window.file_style = "edit";
+                         }
+                         window.countrysubsid_md = u.dialog({
+                             id: 'countrysubsid_testDialg3',
+                             content: "#countrysubsid_dialog_uploadfile",
+                             hasCloseMenu: true
+                         });
+                         $('.sub-list1-new').css('display', 'inline-block');
+                	}else{
+                		u.messageDialog({
+                            msg: "请先创建用户!",
+                            title: "提示",
+                            btnText: "OK"
+                        });
+                	}
+                   
                 },
                 // 上传附件
                 onFileUpload: function() {
                     // 获取表单
                     var pk = viewModel.UserPsnFormDa.getValue("pk_user");
-                    var par = {
-                        fileElementId: "countrysubsidybatch_id", // 【必填】文件上传空间的id属性
-                        // <input
-                        // type="file"
-                        // id="id_file"
-                        // name="file"
-                        // />,可以修改，主要看你使用的
-                        // id是什么
-                        filepath: pk, // 【必填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
-                        groupname: "COUNTRYSUBSIDY", // 【必填】分組名称,未来会提供树节点
-                        permission: "read", // 【选填】 read是可读=公有
-                        // private=私有
-                        // 当这个参数不传的时候会默认private
-                        url: true, // 【选填】是否返回附件的连接地址，并且会存储到数据库
-                        thumbnail: "100w", // 【选填】缩略图--可调节大小，和url参数配合使用，不会存储到数据库
-                        cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
-                        // 时候必填
+                    if(pk){
+                    	var par = {
+                                fileElementId: "countrysubsidybatch_id", // 【必填】文件上传空间的id属性
+                                // <input
+                                // type="file"
+                                // id="id_file"
+                                // name="file"
+                                // />,可以修改，主要看你使用的
+                                // id是什么
+                                filepath: pk, // 【必填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
+                                groupname: "COUNTRYSUBSIDY", // 【必填】分組名称,未来会提供树节点
+                                permission: "read", // 【选填】 read是可读=公有
+                                // private=私有
+                                // 当这个参数不传的时候会默认private
+                                url: true, // 【选填】是否返回附件的连接地址，并且会存储到数据库
+                                thumbnail: "100w", // 【选填】缩略图--可调节大小，和url参数配合使用，不会存储到数据库
+                                cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+                                // 时候必填
+                            }
+                            var f = new interface_file();
+                            f.filesystem_upload(par, viewModel.event.fileUploadCallback);
+                            onLoading();
+                    }else{
+                    	u.messageDialog({
+                            msg: "请先创建用户!",
+                            title: "提示",
+                            btnText: "OK"
+                        });
                     }
-                    var f = new interface_file();
-                    f.filesystem_upload(par, viewModel.event.fileUploadCallback);
-                    onLoading();
+                    
                 },
                 // 上传文件回传信息
                 fileUploadCallback: function(data) {
@@ -494,15 +533,18 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 },
                 fileQuery: function() {
                     var pk = viewModel.UserPsnFormDa.getValue("pk_user");
-                    var par = {
-                        // 建议一定要有条件否则会返回所有值
-                        filepath: pk, // 【选填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
-                        groupname: "COUNTRYSUBSIDY", // 【选填】[分組名称,未来会提供树节点]
-                        cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
-                        // 时候必填
+                    if(pk){
+                    	var par = {
+                                // 建议一定要有条件否则会返回所有值
+                                filepath: pk, // 【选填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
+                                groupname: "COUNTRYSUBSIDY", // 【选填】[分組名称,未来会提供树节点]
+                                cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+                                // 时候必填
+                            }
+                            var f = new interface_file();
+                            f.filesystem_query(par, viewModel.event.fileQueryCallBack);
                     }
-                    var f = new interface_file();
-                    f.filesystem_query(par, viewModel.event.fileQueryCallBack);
+                    
                 },
                 fileQueryCallBack: function(data) {
                     if (1 == data.status) { // 上传成功状态
@@ -1093,22 +1135,27 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     var userJob = viewModel.UserRoleFormDa.getSimpleData();
                     if(userJob){
                     	for(var i = 0; i < userJob.length;i++){
-                        	if(userJob[i].pk_user_role){
-                        		userJob[i].status = '1'
-                        	}else{
-                        		userJob[i].status = '2'
-                        	}
+                    		if(userJob[i].status != '3'){
+                    			if(userJob[i].pk_user_role){
+                            		userJob[i].status = '1'
+                            	}else{
+                            		userJob[i].status = '2'
+                            	}
+                    		}
+                        	
                         }
                     }
                     
                     var userDept = viewModel.UserDeptFormDa.getSimpleData();
                     if(userDept){
                     	for(var i = 0; i < userDept.length;i++){
-                        	if(userDept[i].pk_user_dept){
-                        		userDept[i].status = '1'
-                        	}else{
-                        		userDept[i].status = '2'
-                        	}
+                    		if(userDept[i].status != '3'){
+                    			if(userDept[i].pk_user_dept){
+                            		userDept[i].status = '1'
+                            	}else{
+                            		userDept[i].status = '2'
+                            	}
+                    		}
                         }
                     }
                     
@@ -1230,34 +1277,14 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                             });
                             var index = viewModel.UserRoleFormDa.getFocusIndex();
                             if (jsonDel[0].pk_user_role == null) {
-                                viewModel.UserRoleFormDa.removeRows(index);
+                                viewModel.UserRoleFormDa.setRowsDelete(index);
                                 return;
+                            }else{
+                            	viewModel.UserRoleFormDa.setRowsDelete(index);
+                            	viewModel.UserRoleFormDa.getRow(index).setValue('status','3')
+                            	return;
                             }
-                            $.ajax({
-                                type: "post",
-                                url: tepoc_ctx + "/UserRole/del",
-                                contentType: 'application/json;charset=utf-8',
-                                data: JSON.stringify(jsonDel[0]),
-                                success: function(res) {
-                                    if (res) {
-                                        if (res.success == 'success') {
-                                            viewModel.UserRoleFormDa.removeRows(index);
-                                        } else {
-                                            u.messageDialog({
-                                                msg: res.message,
-                                                title: '操作提示',
-                                                btnText: '确定'
-                                            });
-                                        }
-                                    } else {
-                                        u.messageDialog({
-                                            msg: '无返回数据',
-                                            title: '操作提示',
-                                            btnText: '确定'
-                                        });
-                                    }
-                                }
-                            });
+                            
                         }
                     }
 
@@ -1282,40 +1309,15 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                             });
                             var index = viewModel.UserDeptFormDa.getFocusIndex();
                             if (jsonDel[0].pk_user_dept == null) {
-                                viewModel.UserDeptFormDa.removeRows(index);
+                                viewModel.UserDeptFormDa.setRowsDelete(index);
                                 return;
+                            }else{
+                            	
+                            	viewModel.UserDeptFormDa.setRowsDelete(index);
+                            	viewModel.UserDeptFormDa.getRow(index).setValue('status','3')
+                            	return;
                             }
-                            $.ajax({
-                                type: "post",
-                                url: tepoc_ctx + "/UserDept/del",
-                                contentType: 'application/json;charset=utf-8',
-                                data: JSON.stringify(jsonDel[0]),
-                                success: function(res) {
-                                    if (res) {
-                                        if (res.success == 'success') {
-                                            /*
-                                             * u.showMessage({ msg: "<i
-                                             * class=\"fa fa-check-circle
-                                             * margin-r-5\"></i>删除成功",
-                                             * position: "center" })
-                                             */
-                                            viewModel.UserRoleFormDa.removeRows(index);
-                                        } else {
-                                            u.messageDialog({
-                                                msg: res.message,
-                                                title: '操作提示',
-                                                btnText: '确定'
-                                            });
-                                        }
-                                    } else {
-                                        u.messageDialog({
-                                            msg: '无返回数据',
-                                            title: '操作提示',
-                                            btnText: '确定'
-                                        });
-                                    }
-                                }
-                            });
+                            
                         }
                     }
 

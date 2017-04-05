@@ -31,7 +31,7 @@ require.config({
 			deps: ["jquery"]
 		},
 		'uuitree':{
-			deps: ["uui","css!vendor/uui/css/tree.css"]
+			deps: ["uui","refComp","css!vendor/uui/css/tree.css"]
 		},
 		'ajaxfileupload':{
 			deps: ["refComp"]

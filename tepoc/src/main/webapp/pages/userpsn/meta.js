@@ -88,6 +88,9 @@ var metaUserRole = {
         roletype: {
 
         },
+        status: {
+        	
+        }
     }
 };
 
@@ -111,6 +114,9 @@ var metaUserDept = {
         deptname: {
 
         },
+        status: {
+        	
+        }
     }
 };
 
