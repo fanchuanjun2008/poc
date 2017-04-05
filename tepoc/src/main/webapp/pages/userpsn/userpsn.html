@@ -363,8 +363,8 @@
 								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-addUserJob" data-bind="click: event.addUserRole">
 									新建
 								</button>
-								<div style="display: block;">
-									<div id="corprefcjf" class="input-group" u-meta='{"refCode":"roleref","name":"所属角色","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'> 
+								<div style="display: none;">
+									<div id="rolerefadd" class="input-group" u-meta='{"refCode":"roleref","name":"所属角色","type":"uiRefer", "data":"addRefDa", "field":"role"}'>
 										<input id="testRefMuGridTree2"  class="u-form-control u-input" type="text" data-bind="enable: true">
 										<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: true"></span>
 									</div>
@@ -392,12 +392,22 @@
 								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-addUserDept" data-bind="click: event.addUserDept">
 									新建
 								</button>
-								<input id="deptAddRef" type="text" u-meta='{"refCode":"dept","type":"uiRefer", "data":"addRefDa", "field":"dept"}' style="display:none;">
+								<div style="display: none;">
+									<div id="deptAddRef" class="input-group" u-meta='{"refCode":"deptref","name":"所属角色","type":"uiRefer", "data":"addRefDa", "field":"dept"}'>
+										<input id="testRefMuGridTree21"  class="u-form-control u-input" type="text" data-bind="enable: true">
+										<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: true"></span>
+									</div>
+								</div>
 
 								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-editUseDept" data-bind="click: event.editUserDept">
 									编辑
 								</button>
-								<input id="deptAddRef1" type="text" u-meta='{"refCode":"dept","type":"uiRefer", "data":"addRefDa", "field":"dept"}' style="display:none;">
+								<div style="display: none;">
+									<div id="deptAddRef1" class="input-group" u-meta='{"refCode":"deptref","name":"所属角色","type":"uiRefer", "data":"addRefDa", "field":"deptedit"}'>
+										<input id="testRefMuGridTree212"  class="u-form-control u-input" type="text" data-bind="enable: true">
+										<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: true"></span>
+									</div>
+								</div>
 								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-delUserDept" data-bind="click: event.delUserDept">
 									删除
 								</button>
@@ -429,10 +439,10 @@
 								<div class="u-col-2">
 									<label class="u-radio" for="option-1">
 										<input type="radio" id="option-1" class="u-radio-button" name="options" value="1">
-										
-										<img data-bind="attr:{src: imgsrc_tans(row.ref('url')())}" /> 
+
+										<img data-bind="attr:{src: imgsrc_tans(row.ref('url')())}" />
 										<span class="u-radio-label" data-bind="text: row.ref('filename')"></span>
-										<span data-bind="text: row.ref('id')" style="display: none;"></span> 
+										<span data-bind="text: row.ref('id')" style="display: none;"></span>
 									</label>
 								</div>
 							</div>
