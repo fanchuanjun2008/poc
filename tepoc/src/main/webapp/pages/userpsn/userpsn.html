@@ -312,9 +312,13 @@
 								<div class="u-form-group">
 									<label>所属公司</label>
 									<!--  lyk备注：参照换成新的uiref的方式 -->
-									<div id="corpref" class="input-group" u-meta='{"refCode":"corpref","name":"所属部门","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
-										<input id="testRefMuGridTree2" class="u-form-control u-input" type="text" data-bind="enable: true">
-										<span class="u-form-control-feedback fa fa-search refer" data-bind="enable: true"></span>
+
+
+									<div id="corpref" class="input-group" u-meta='{"refCode":"corpref","name":"所属公司","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
+										<div class="u-input-group u-has-feedback">
+											<input class="u-form-control" />
+											<span class="u-form-control-feedback fa fa-search refer" data-role="combo-button"></span>
+										</div>
 									</div>
 									<!-- <input id="corpref" type="text" u-meta='{"refCode":"corpref","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}' style="display:none;"> -->
 									<!-- <div class="u-combo"
@@ -331,7 +335,12 @@
 								<div class="u-form-group">
 									<label>部门</label>
 									<!-- lyk备注：参照换成新的uiref的方式 -->
-									<input id="roleAddRef" type="text" u-meta='{"refCode":"dept","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_dept_name"}' style="display:none;">
+									<div id="deptref" class="input-group" u-meta='{"refCode":"deptref","name":"所属公司","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
+										<div class="u-input-group u-has-feedback">
+											<input class="u-form-control" />
+											<span class="u-form-control-feedback fa fa-search refer" data-role="combo-button"></span>
+										</div>
+									</div>
 									<!-- <div class="u-combo" u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"pk_dept_name","onlySelect":true}'>
 									<div class="u-input-group u-has-feedback">
 									<span class="u-form-control-feedback fa fa-list-ul" data-bind="click:event.selectDept_UserPsn"></span>
@@ -484,7 +493,7 @@
 						<button class="u-button raised primary sub-list1-new" data-bind="click:event.onInfoFileUpload" data-upgraded=",u.Button" style="display: inline-block;">
 							上传<span class="u-button-container"><span class="u-ripple is-animating" style="width: 158px; height: 158px; transform: translate(-50%, -50%) translate(48px, 13px);"></span></span>
 						</button>
-						
+
 					</div>
 				</div>
 			</div>

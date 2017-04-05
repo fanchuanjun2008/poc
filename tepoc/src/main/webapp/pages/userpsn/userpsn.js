@@ -1493,7 +1493,16 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     isMultiSelectedEnabled: false
                 };
                 refComp.initRefComp($that, options);
-                refid = '#refContainer' + $that.attr('id');
+            });
+            $('#deptref').each(function(i, val) {
+                var $that = $(this);
+                dom = $that;
+                var options = {
+                    refCode: "deptref",
+                    selectedVals: pk,
+                    isMultiSelectedEnabled: false
+                };
+                refComp.initRefComp($that, options);
             });
             //    		 $('.educateref').each(function(i,val){
             //    		     	var $that=$(this);
