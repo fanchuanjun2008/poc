@@ -134,138 +134,21 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 cleanSearch: function() {
                     this.searchData.setSimpleData({});
                 },
-                /**
-                 * 参照增加点击确定的监听公共方法
-                 *
-                 * @param {[type]}
-                 *            name 输入框的ID
-                 * @param {[type]}
-                 *            url 参照对应的后台url
-                 * @param {[type]}
-                 *            fun 参照点击之后的function调用
-                 */
-                initRefer: function(name, url, fun) {
-                    var $that = $('#' + name);
-                    var refcont = $('#refContainer' + name);
-                    if (refcont && refcont.length > 0) {
-                        refcont.each(function() {
-                            refcont.data('uui.refer', '');
-                        });
-                    }
-                    var options = {
-                        refInput: $that,
-                        refModelUrl: url,
-                        isPOPMode: true,
-                        contentId: 'refContainer' + name,
-                        dom: $that,
-                        // pageUrl: '/iform_web/static/js/ref/refDList.js', // lyk备注：对应js路径修改
-                        // 联系范传军确定对应的url
-                        pageUrl: '/uitemplate_web/static/js/ref/refDList.js', // lyk备注：对应js路径修改
-                        // 联系范传军确定对应的url
-                        setVal: function(data) {
-                            fun.call(this, data);
 
-                        }
-                    }
-                    var pageURL = options.pageUrl;
-                    var refInitFunc = pageURL.substr(pageURL.lastIndexOf('/') + 1).replace('.js', '');
-                    if (!window[refInitFunc]) {
-                        var scriptStr = '';
-                        $.ajax({
-                            url: pageURL,
-                            dataType: 'script',
-                            async: false,
-                            success: function(data) {
-                                scriptStr = data
-                            }
-                        })
-                        eval(scriptStr);
-                    }
-                    try {
-                        window[refInitFunc](options);
-                    } catch (e) {
-
-                    }
-                    $that.off('blur.refer');
-                },
-
-                /**
-                 * 子表角色新建参照增加点击确定的监听（初始调用）
-                 */
-                initRoleAdd: function() {
-                    return;
-                    viewModel.event.initRefer('rolerefadd', 'http://127.0.0.1:8090/tepoc/ref/roleref/', function(data) { // lyk备注：参照请求url
-                        // 联系范传军确定
-                        if (data && data.length > 0) {
-                            var dataArr = [];
-                            $.each(data, function(index, _data) {
-                                var code = _data.code;
-                                var name = _data.name;
-                                var type = _data.type;
-                                var dataObj = {};
-                                dataObj.roleCode = _data.code;
-                                dataObj.roleName = _data.name;
-                                dataObj.roleType = _data.type;
-                                dataArr.push(dataArr);
-                            });
-                        }
-                        viewModel.UserRoleFormDa.addSimpleData(dataArr);
-                    })
-                },
                 /**
                  * 子表角色新建点击触发参照
                  */
                 addUserRole: function() {
                     $('#rolerefadd').find('span').trigger("click.refer");
                 },
-                /**
-                 * 子表部门新建参照增加点击确定的监听（初始调用）
-                 */
-                initDeptAdd: function() {
-                    viewModel.event.initRefer('deptAddRef', 'url------', function(data) { // lyk备注：参照请求url
-                        // 联系范传军确定
-                        if (data && data.length > 0) {
-                            var dataArr = [];
-                            $.each(data, function(index, _data) {
-                                var code = _data.code;
-                                var name = _data.name;
-                                var dataObj = {};
-                                dataObj.deptCode = _data.code;
-                                dataObj.deptName = _data.name;
-                                dataArr.push(dataArr);
-                            });
-                        }
-                        viewModel.UserDeptFormDa.addSimpleData(dataArr);
-                    })
-                },
+
                 /**
                  * 子表部门新建点击触发参照
                  */
                 addUserDept: function() {
                     $('#deptAddRef').find('span').trigger("click.refer");
                 },
-                /**
-                 * 子表部门编辑参照增加点击确定的监听（初始调用）
-                 */
-                initDeptEdit: function() {
-                    viewModel.event.initRefer('deptAddRef1', 'url-----', function(data) { // lyk备注：参照请求url
-                        // 联系范传军确定
-                        if (data && data.length > 0) {
-                            var dataArr = [];
-                            $.each(data, function(index, _data) {
-                                var code = _data.code;
-                                var name = _data.name;
-                                var dataObj = {};
-                                dataObj.deptCode = _data.code;
-                                dataObj.deptName = _data.name;
-                                dataArr.push(dataArr);
-                            });
-                        }
-                        var selRowIndex = viewModel.UserDeptFormDa.getSelectedIndex();
-                        viewModel.UserDeptFormDa.removeRow(selRowIndex);
-                        viewModel.UserDeptFormDa.addSimpleData(dataArr);
-                    })
-                },
+
                 /**
                  * 子表部门新建点击触发参照
                  */
@@ -285,112 +168,112 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 },
                 // 打开附件上传界面
                 onOpenInfoUploadWin: function() {
-                	if(viewModel.UserPsnFormDa.getValue("pk_user")){
-                		 window.countrysubsid_md = u.dialog({
-                             id: 'countrysubsid_testDialg4',
-                             content: "#countrysubsid_dialog_uploadfileinfo",
-                             hasCloseMenu: true
-                         });
-                         $('.sub-list2-new').css('display', 'inline-block');
-                	}else{
-                		u.messageDialog({
+                    if (viewModel.UserPsnFormDa.getValue("pk_user")) {
+                        window.countrysubsid_md = u.dialog({
+                            id: 'countrysubsid_testDialg4',
+                            content: "#countrysubsid_dialog_uploadfileinfo",
+                            hasCloseMenu: true
+                        });
+                        $('.sub-list2-new').css('display', 'inline-block');
+                    } else {
+                        u.messageDialog({
                             msg: "请先创建用户!",
                             title: "提示",
                             btnText: "OK"
                         });
-                	}
-                   
+                    }
+
                 },
                 // 上传附件
                 onInfoFileUpload: function() {
                     // 获取表单
                     var pk = viewModel.UserPsnFormDa.getValue("pk_user");
-                    if(pk){
-                    	var par = {
-                                fileElementId: "infofile_id", // 【必填】文件上传空间的id属性
-                                // <input
-                                // type="file"
-                                // id="id_file"
-                                // name="file"
-                                // />,可以修改，主要看你使用的
-                                // id是什么
-                                filepath: pk, // 【必填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
-                                groupname: "INFOCOUNTRYSUBSIDY", // 【必填】分組名称,未来会提供树节点
-                                permission: "read", // 【选填】 read是可读=公有
-                                // private=私有
-                                // 当这个参数不传的时候会默认private
-                                url: true, // 【选填】是否返回附件的连接地址，并且会存储到数据库
-                                thumbnail: "100w", // 【选填】缩略图--可调节大小，和url参数配合使用，不会存储到数据库
-                                cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
-                                // 时候必填
-                            }
-                            var f = new interface_file();
-                            f.filesystem_upload(par, function(data) {
-                                onCloseLoading();
-                                if (null == data) {
+                    if (pk) {
+                        var par = {
+                            fileElementId: "infofile_id", // 【必填】文件上传空间的id属性
+                            // <input
+                            // type="file"
+                            // id="id_file"
+                            // name="file"
+                            // />,可以修改，主要看你使用的
+                            // id是什么
+                            filepath: pk, // 【必填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
+                            groupname: "INFOCOUNTRYSUBSIDY", // 【必填】分組名称,未来会提供树节点
+                            permission: "read", // 【选填】 read是可读=公有
+                            // private=私有
+                            // 当这个参数不传的时候会默认private
+                            url: true, // 【选填】是否返回附件的连接地址，并且会存储到数据库
+                            thumbnail: "100w", // 【选填】缩略图--可调节大小，和url参数配合使用，不会存储到数据库
+                            cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+                            // 时候必填
+                        }
+                        var f = new interface_file();
+                        f.filesystem_upload(par, function(data) {
+                            onCloseLoading();
+                            if (null == data) {
+                                u.messageDialog({
+                                    msg: "上传图片不能超过1M，请优化后再上传！",
+                                    title: "提示",
+                                    btnText: "OK"
+                                });
+                            } else {
+                                if (1 == data.status) { // 上传成功状态
+                                    viewModel.UserPsnFormDa.addSimpleData(data.data);
                                     u.messageDialog({
-                                        msg: "上传图片不能超过1M，请优化后再上传！",
+                                        msg: "上传成功！",
                                         title: "提示",
                                         btnText: "OK"
                                     });
-                                } else {
-                                    if (1 == data.status) { // 上传成功状态
-                                        viewModel.UserPsnFormDa.addSimpleData(data.data);
-                                        u.messageDialog({
-                                            msg: "上传成功！",
-                                            title: "提示",
-                                            btnText: "OK"
-                                        });
-                                        $('#infouser_img').attr('src',imgsrc_tans(data.data[0].url));
-                                    } else { // error 或者加載js錯誤
-                                        u.messageDialog({
-                                            msg: "上传失败！" + data.message,
-                                            title: "提示",
-                                            btnText: "OK"
-                                        });
-                                    }
+                                    $('#infouser_img').attr('src', imgsrc_tans(data.data[0].url));
+                                } else { // error 或者加載js錯誤
+                                    u.messageDialog({
+                                        msg: "上传失败！" + data.message,
+                                        title: "提示",
+                                        btnText: "OK"
+                                    });
                                 }
-                            });
-                            onLoading();
-                    }else{
-                    	u.messageDialog({
+                            }
+                        });
+                        onLoading();
+                    } else {
+                        u.messageDialog({
                             msg: "请先创建用户!",
                             title: "提示",
                             btnText: "OK"
                         });
                     }
-                    
+
                 },
 
                 infoFileQuery: function() {
                     var pk = viewModel.UserPsnFormDa.getValue("pk_user");
-                    if(pk){
-                    	var par = {
-                                // 建议一定要有条件否则会返回所有值
-                                filepath: pk, // 【选填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
-                                groupname: "INFOCOUNTRYSUBSIDY", // 【选填】[分組名称,未来会提供树节点]
-                                cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
-                                // 时候必填
-                            }
-                            var f = new interface_file();
-                            f.filesystem_query(par, function(data) {
-                                if (1 == data.status) { // 上传成功状态
-                                    $('#infouser_img').attr('src',imgsrc_tans(data.data[0].url));
+                    if (pk) {
+                        var par = {
+                            // 建议一定要有条件否则会返回所有值
+                            filepath: pk, // 【选填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
+                            groupname: "INFOCOUNTRYSUBSIDY", // 【选填】[分組名称,未来会提供树节点]
+                            cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+                            // 时候必填
+                        }
+                        var f = new interface_file();
+                        f.filesystem_query(par, function(data) {
+                            if (1 == data.status) { // 上传成功状态
+                                $('#infouser_img').attr('src', imgsrc_tans(data.data[0].url));
+                            } else {
+                                // 没有查询到数据，可以不用提醒
+                                if ("没有查询到相关数据" != data.message) {
+                                    u.messageDialog({
+                                        msg: "查询失败" + data.message,
+                                        title: "提示",
+                                        btnText: "OK"
+                                    });
                                 } else {
-                                    // 没有查询到数据，可以不用提醒
-                                    if ("没有查询到相关数据" != data.message) {
-                                        u.messageDialog({
-                                            msg: "查询失败" + data.message,
-                                            title: "提示",
-                                            btnText: "OK"
-                                        });
-                                    } else {
-                                        viewModel.UserFileFormDa.removeAllRows();
-                                    }
+                                    viewModel.UserFileFormDa.removeAllRows();
                                 }
-                            });
+                            }
+                        });
                     }
-                    
+
                 },
                 // 附件删除
                 infoFileDelete: function() {
@@ -434,63 +317,63 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
 
                 // 打开附件上传界面
                 onOpenUploadWin: function(a, e) {
-                	if(viewModel.UserPsnFormDa.getValue("pk_user")){
-                		 var tar = e.target;
-                         window.file_style = "add";
-                         if ($(tar).closest('button').attr('name') == 'editfile') {
-                             window.file_style = "edit";
-                         }
-                         window.countrysubsid_md = u.dialog({
-                             id: 'countrysubsid_testDialg3',
-                             content: "#countrysubsid_dialog_uploadfile",
-                             hasCloseMenu: true
-                         });
-                         $('.sub-list1-new').css('display', 'inline-block');
-                	}else{
-                		u.messageDialog({
-                            msg: "请先创建用户!",
-                            title: "提示",
-                            btnText: "OK"
+                    if (viewModel.UserPsnFormDa.getValue("pk_user")) {
+                        var tar = e.target;
+                        window.file_style = "add";
+                        if ($(tar).closest('button').attr('name') == 'editfile') {
+                            window.file_style = "edit";
+                        }
+                        window.countrysubsid_md = u.dialog({
+                            id: 'countrysubsid_testDialg3',
+                            content: "#countrysubsid_dialog_uploadfile",
+                            hasCloseMenu: true
                         });
-                	}
-                   
-                },
-                
-                // 上传附件
-                onFileUpload: function() {
-                    // 获取表单
-                    var pk = viewModel.UserPsnFormDa.getValue("pk_user");
-                    if(pk){
-                    	
-                    	var par = {
-                                fileElementId: "countrysubsidybatch_id", // 【必填】文件上传空间的id属性
-                                // <input
-                                // type="file"
-                                // id="id_file"
-                                // name="file"
-                                // />,可以修改，主要看你使用的
-                                // id是什么
-                                filepath: pk, // 【必填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
-                                groupname: "COUNTRYSUBSIDY", // 【必填】分組名称,未来会提供树节点
-                                permission: "read", // 【选填】 read是可读=公有
-                                // private=私有
-                                // 当这个参数不传的时候会默认private
-                                url: true, // 【选填】是否返回附件的连接地址，并且会存储到数据库
-                                thumbnail: "100w", // 【选填】缩略图--可调节大小，和url参数配合使用，不会存储到数据库
-                                cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
-                                // 时候必填
-                            }
-                            var f = new interface_file();
-                            f.filesystem_upload(par, viewModel.event.fileUploadCallback);
-                            onLoading();
-                    }else{
-                    	u.messageDialog({
+                        $('.sub-list1-new').css('display', 'inline-block');
+                    } else {
+                        u.messageDialog({
                             msg: "请先创建用户!",
                             title: "提示",
                             btnText: "OK"
                         });
                     }
-                    
+
+                },
+
+                // 上传附件
+                onFileUpload: function() {
+                    // 获取表单
+                    var pk = viewModel.UserPsnFormDa.getValue("pk_user");
+                    if (pk) {
+
+                        var par = {
+                            fileElementId: "countrysubsidybatch_id", // 【必填】文件上传空间的id属性
+                            // <input
+                            // type="file"
+                            // id="id_file"
+                            // name="file"
+                            // />,可以修改，主要看你使用的
+                            // id是什么
+                            filepath: pk, // 【必填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
+                            groupname: "COUNTRYSUBSIDY", // 【必填】分組名称,未来会提供树节点
+                            permission: "read", // 【选填】 read是可读=公有
+                            // private=私有
+                            // 当这个参数不传的时候会默认private
+                            url: true, // 【选填】是否返回附件的连接地址，并且会存储到数据库
+                            thumbnail: "100w", // 【选填】缩略图--可调节大小，和url参数配合使用，不会存储到数据库
+                            cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+                            // 时候必填
+                        }
+                        var f = new interface_file();
+                        f.filesystem_upload(par, viewModel.event.fileUploadCallback);
+                        onLoading();
+                    } else {
+                        u.messageDialog({
+                            msg: "请先创建用户!",
+                            title: "提示",
+                            btnText: "OK"
+                        });
+                    }
+
                 },
                 // 上传文件回传信息
                 fileUploadCallback: function(data) {
@@ -535,18 +418,18 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 },
                 fileQuery: function() {
                     var pk = viewModel.UserPsnFormDa.getValue("pk_user");
-                    if(pk){
-                    	var par = {
-                                // 建议一定要有条件否则会返回所有值
-                                filepath: pk, // 【选填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
-                                groupname: "COUNTRYSUBSIDY", // 【选填】[分組名称,未来会提供树节点]
-                                cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
-                                // 时候必填
-                            }
-                            var f = new interface_file();
-                            f.filesystem_query(par, viewModel.event.fileQueryCallBack);
+                    if (pk) {
+                        var par = {
+                            // 建议一定要有条件否则会返回所有值
+                            filepath: pk, // 【选填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
+                            groupname: "COUNTRYSUBSIDY", // 【选填】[分組名称,未来会提供树节点]
+                            cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+                            // 时候必填
+                        }
+                        var f = new interface_file();
+                        f.filesystem_query(par, viewModel.event.fileQueryCallBack);
                     }
-                    
+
                 },
                 fileQueryCallBack: function(data) {
                     if (1 == data.status) { // 上传成功状态
@@ -1007,7 +890,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     $(".u-button-pa,.padding-bottom-5>button").removeClass('hide');
                     $('.border').addClass('hide');
                     viewModel.event.infoFileQuery();
-                    
+
                     // 显示操作卡片
                     viewModel.md.dGo('addPage');
                     $('#tab_role')[0].click();
@@ -1055,7 +938,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     $(".u-button-pa,.padding-bottom-5>button").addClass('hide');
                     $('.border').removeClass('hide');
                     viewModel.event.infoFileQuery();
-                   
+
                     // 显示操作卡片
                     viewModel.md.dGo('addPage');
                     $('#tab_role')[0].click();
@@ -1140,32 +1023,32 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
 
                     var user = viewModel.UserPsnFormDa.getSimpleData();
                     var userJob = viewModel.UserRoleFormDa.getSimpleData();
-                    if(userJob){
-                    	for(var i = 0; i < userJob.length;i++){
-                    		if(userJob[i].status != '3'){
-                    			if(userJob[i].pk_user_role){
-                            		userJob[i].status = '1'
-                            	}else{
-                            		userJob[i].status = '2'
-                            	}
-                    		}
-                        	
+                    if (userJob) {
+                        for (var i = 0; i < userJob.length; i++) {
+                            if (userJob[i].status != '3') {
+                                if (userJob[i].pk_user_role) {
+                                    userJob[i].status = '1'
+                                } else {
+                                    userJob[i].status = '2'
+                                }
+                            }
+
                         }
                     }
-                    
+
                     var userDept = viewModel.UserDeptFormDa.getSimpleData();
-                    if(userDept){
-                    	for(var i = 0; i < userDept.length;i++){
-                    		if(userDept[i].status != '3'){
-                    			if(userDept[i].pk_user_dept){
-                            		userDept[i].status = '1'
-                            	}else{
-                            		userDept[i].status = '2'
-                            	}
-                    		}
+                    if (userDept) {
+                        for (var i = 0; i < userDept.length; i++) {
+                            if (userDept[i].status != '3') {
+                                if (userDept[i].pk_user_dept) {
+                                    userDept[i].status = '1'
+                                } else {
+                                    userDept[i].status = '2'
+                                }
+                            }
                         }
                     }
-                    
+
                     var userFile = viewModel.UserFileFormDa.getSimpleData();
                     var jsondata = user[0];
                     jsondata.id_userrole = userJob;
@@ -1177,7 +1060,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                         sendurl = viewModel.updateURL;
                         jsondata.status = '1';
                     }
-                    jsondata = {
+                    /*jsondata = {
 //                        "pk_user": "29b3ae05-4d66-4681-8279-7a61fa3abe6e",
                         username: "黄油",
                         sex: "0",
@@ -1224,7 +1107,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                             }
                         ]
 
-                    }
+                    }*/
                     $.ajax({
                         type: "post",
                         url: sendurl,
@@ -1286,12 +1169,12 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                             if (jsonDel[0].pk_user_role == null) {
                                 viewModel.UserRoleFormDa.setRowsDelete(index);
                                 return;
-                            }else{
-                            	viewModel.UserRoleFormDa.setRowsDelete(index);
-                            	viewModel.UserRoleFormDa.getRow(index).setValue('status','3')
-                            	return;
+                            } else {
+                                viewModel.UserRoleFormDa.setRowsDelete(index);
+                                viewModel.UserRoleFormDa.getRow(index).setValue('status', '3')
+                                return;
                             }
-                            
+
                         }
                     }
 
@@ -1318,13 +1201,13 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                             if (jsonDel[0].pk_user_dept == null) {
                                 viewModel.UserDeptFormDa.setRowsDelete(index);
                                 return;
-                            }else{
-                            	
-                            	viewModel.UserDeptFormDa.setRowsDelete(index);
-                            	viewModel.UserDeptFormDa.getRow(index).setValue('status','3')
-                            	return;
+                            } else {
+
+                                viewModel.UserDeptFormDa.setRowsDelete(index);
+                                viewModel.UserDeptFormDa.getRow(index).setValue('status', '3')
+                                return;
                             }
-                            
+
                         }
                     }
 
@@ -1461,54 +1344,65 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 var field = v.field;
                 if (field == 'role') {
                     var ref = $('#refContainerrolerefadd').data('uui.refer');
-                    var arr = [];
+
                     if (ref.values.length > 0) {
-                        var rolecode = ref.values[0].refcode;
-                        var rolename = ref.values[0].refname;
-                        var roletype = ref.values[0].roletype;
-                        arr.push({
-                            "rolecode": rolecode,
-                            "rolename": rolename,
-                            "roletype": roletype
-                        })
-                        var row = viewModel.UserRoleFormDa.getRowByField('rolecode', rolecode);
-                        if (!row) {
-                            viewModel.UserRoleFormDa.addSimpleData(arr);
+                        for (var i = 0; i < ref.values.length; i++) {
+                            var arr = [];
+                            var rolecode = ref.values[i].refcode;
+                            var rolename = ref.values[i].refname;
+                            var roletype = ref.values[i].roletype;
+                            arr.push({
+                                "rolecode": rolecode,
+                                "rolename": rolename,
+                                "roletype": roletype
+                            })
+                            var row = viewModel.UserRoleFormDa.getRowByField('rolecode', rolecode);
+                            if (!row) {
+                                viewModel.UserRoleFormDa.addSimpleData(arr);
+                            }
                         }
                     }
 
                 } else if (field == 'dept') {
                     var ref = $('#refContainerdeptAddRef').data('uui.refer');
-                    var arr = [];
+
                     if (ref.values.length > 0) {
-                        var deptcode = ref.values[0].refcode;
-                        var deptname = ref.values[0].refname;
-                        arr.push({
-                            "deptcode": deptcode,
-                            "deptname": deptname,
-                        })
-                        var row = viewModel.UserDeptFormDa.getRowByField('deptcode', deptcode);
-                        if (!row) {
-                            viewModel.UserDeptFormDa.addSimpleData(arr);
+                        for (var i = 0; i < ref.values.length; i++) {
+                            var arr = [];
+                            var deptcode = ref.values[i].refcode;
+                            var deptname = ref.values[i].refname;
+                            arr.push({
+                                "deptcode": deptcode,
+                                "deptname": deptname,
+                            })
+                            var row = viewModel.UserDeptFormDa.getRowByField('deptcode', deptcode);
+                            if (!row) {
+                                viewModel.UserDeptFormDa.addSimpleData(arr);
+                            }
                         }
+
                     }
 
                 } else if (field == 'deptedit') {
                     var ref = $('#refContainerdeptAddRef').data('uui.refer');
-                    var arr = [];
+
                     if (ref.values.length > 0) {
-                        var deptcode = ref.values[0].refcode;
-                        var deptname = ref.values[0].refname;
-                        arr.push({
-                            "deptcode": deptcode,
-                            "deptname": deptname,
-                        })
                         var selRowIndex = viewModel.UserDeptFormDa.getSelectedIndex();
                         viewModel.UserDeptFormDa.removeRow(selRowIndex);
-                        var row = viewModel.UserDeptFormDa.getRowByField('deptcode', deptcode);
-                        if (!row) {
-                            viewModel.UserDeptFormDa.addSimpleData(arr);
+                        for (var i = 0; i < ref.values.length; i++) {
+                            var arr = [];
+                            var deptcode = ref.values[i].refcode;
+                            var deptname = ref.values[i].refname;
+                            arr.push({
+                                "deptcode": deptcode,
+                                "deptname": deptname,
+                            })
+                            var row = viewModel.UserDeptFormDa.getRowByField('deptcode', deptcode);
+                            if (!row) {
+                                viewModel.UserDeptFormDa.addSimpleData(arr);
+                            }
                         }
+
                     }
                 }
 
@@ -1535,39 +1429,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 };
                 refComp.initRefComp($that, options);
             });
-            //    		 $('.educateref').each(function(i,val){
-            //    		     	var $that=$(this);
-            //    		     	dom = $that;
-            //    				var options = {
-            //    						refCode:"user",
-            //    						selectedVals:pk,
-            //    						isMultiSelectedEnabled:false
-            //    				};
-            //    				refComp.initRefComp($that,options);
-            //    				refid ='#refContainer' + $that.attr('id');
-            //    		 	});
-            //    		 $('#countrysubsidy_city_edit').each(function(i,val){
-            //    		     	var $that=$(this);
-            //    		     	dom = $that;
-            //    				var options = {
-            //    						refCode:"city",
-            //    						selectedVals:pk,
-            //    						isMultiSelectedEnabled:false
-            //    				};
-            //    				refComp.initRefComp($that,options);
-            //    				refid ='#refContainer' + $that.attr('id');
-            //    		 	});
-            //    		 $('#countrysubsidy_city_add').each(function(i,val){
-            //    		     	var $that=$(this);
-            //    		     	dom = $that;
-            //    				var options = {
-            //    						refCode:"city",
-            //    						selectedVals:pk,
-            //    						isMultiSelectedEnabled:false
-            //    				};
-            //    				refComp.initRefComp($that,options);
-            //    				refid ='#refContainer' + $that.attr('id');
-            //    		 	});
+
             var $input = dom.find('input');
             $input.val(name);
         }
