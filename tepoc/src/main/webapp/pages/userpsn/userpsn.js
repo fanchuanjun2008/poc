@@ -16,7 +16,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
             updateURL: tepoc_ctx + "/UserPsn/savecard",
             delURL: tepoc_ctx + "/UserPsn/delBatch",
             formStatus: _CONST.FORM_STATUS_ADD,
-            fileindex:null,
+            fileindex: null,
             UserPsnDa: new u.DataTable(metaDt), // 主表显示
             UserPsnFormDa: new u.DataTable(metaDt), // 主表编辑
             UserRoleFormDa: new u.DataTable(metaUserRole), // 子表角色
@@ -55,6 +55,32 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
             }],
 
             event: {
+                changeUserPsnsex: function(id) {
+                    var v = id();
+                    for (var i = 0; i < comboData.length; i++) {
+                        if (v == comboData[i].value) {
+                            return comboData[i].name;
+                        }
+
+                    }
+                },
+                changeUseEdu: function(id) {
+                    var v = id();
+                    for (var i = 0; i < comboDataEdution.length; i++) {
+                        if (v == comboDataEdution[i].value) {
+                            return comboDataEdution[i].name;
+                        }
+
+                    }
+                },
+                changeUseMajor: function(id) {
+                    var v = id();
+                    for (var i = 0; i < comboDataMajor.length; i++) {
+                        if (v == comboDataMajor[i].value) {
+                            return comboDataMajor[i].name;
+                        }
+                    }
+                },
                 ex_export: function() {
                     // var dats = [];
                     // var pks = ""
@@ -103,7 +129,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                  * 清空
                  */
                 cleanSearch: function() {
-                	this.searchData.setSimpleData({});  
+                    this.searchData.setSimpleData({});
                 },
                 /**
                  * 参照增加点击确定的监听公共方法
@@ -382,12 +408,12 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 },
 
                 // 打开附件上传界面
-                onOpenUploadWin: function(a,e) {
-                	var tar = e.target;
-                	window.file_style= "add";
-                	if(tar.name == 'editfile'){
-                		window.file_style= "edit";
-                	}
+                onOpenUploadWin: function(a, e) {
+                    var tar = e.target;
+                    window.file_style = "add";
+                    if ($(tar).closest('button').attr('name') == 'editfile') {
+                        window.file_style = "edit";
+                    }
                     window.countrysubsid_md = u.dialog({
                         id: 'countrysubsid_testDialg3',
                         content: "#countrysubsid_dialog_uploadfile",
@@ -439,19 +465,19 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                                 btnText: "OK"
                             });
                             viewModel.event.fileQuery();
-                            if(window.file_style=="edit"){
-                            	var row = viewModel.fileindex;
-                                if (row != null ) {
-                                	 var pk = row;
-                                     var par = {
-                                         id: pk, // 【必填】表的id
-                                         cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
-                                         // 时候必填
-                                     }
-                                     var f = new interface_file();
-                                     f.filesystem_delete(par, viewModel.event.fileDeleteCallBack);
-                                } 
-                               
+                            if (window.file_style == "edit") {
+                                var row = viewModel.fileindex;
+                                if (row != null) {
+                                    var pk = row;
+                                    var par = {
+                                        id: pk, // 【必填】表的id
+                                        cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+                                        // 时候必填
+                                    }
+                                    var f = new interface_file();
+                                    f.filesystem_delete(par, viewModel.event.fileDeleteCallBack);
+                                }
+
                             }
                         } else { // error 或者加載js錯誤
                             u.messageDialog({
@@ -490,35 +516,43 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                         }
                     }
                 },
-                fileselect: function(a,e){
-                	var tar = e.target;
-                	if(tar.type == 'radio'){
-                		viewModel.fileindex = tar.value;
-                		setTimeout(function(){
-                    		tar.checked = true;
-                    	})
-                	}
-                	
+                fileselect: function(a, e) {
+                    var tar = e.target;
+                    if (tar.type == 'radio') {
+                        viewModel.fileindex = tar.value;
+                        setTimeout(function() {
+                            tar.checked = true;
+                        })
+                    }
+
                 },
                 // 附件删除
                 fileDelete: function() {
                     var row = viewModel.fileindex;
-                    if (row == null ) {
+                    if (row == null) {
                         u.messageDialog({
                             msg: "请选择要删除的图片",
                             title: "提示",
                             btnText: "OK"
                         });
                         return
-                    } 
-                    var pk = row;
-                    var par = {
-                        id: pk, // 【必填】表的id
-                        cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
-                        // 时候必填
                     }
-                    var f = new interface_file();
-                    f.filesystem_delete(par, viewModel.event.fileDeleteCallBack);
+                    u.confirmDialog({
+                        msg: '<div class="pull-left col-padding" >' +
+                            '<i class="fa fa-exclamation-circle margin-r-5 fa-3x orange" style="vertical-align:middle"></i>确认删除这些数据数据吗？</div>',
+                        title: '警告',
+                        onOk: function() {
+                            var pk = row;
+                            var par = {
+                                id: pk, // 【必填】表的id
+                                cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+                                // 时候必填
+                            }
+                            var f = new interface_file();
+                            f.filesystem_delete(par, viewModel.event.fileDeleteCallBack);
+                        }
+                    });
+
                 },
                 // 附件删除回调
                 fileDeleteCallBack: function(data) {
@@ -889,7 +923,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     window.deptSearch = false;
                     window.fileSearch = false;
                     var selectArray = viewModel.UserPsnDa.selectedIndices();
-                    if (selectArray.length < 1 && false) {
+                    if (selectArray.length < 1) {
                         u.messageDialog({
                             msg: "请选择要编辑的记录!",
                             title: "提示",
@@ -1063,7 +1097,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     if (viewModel.formStatus === _CONST.FORM_STATUS_EDIT) {
                         sendurl = viewModel.updateURL;
                     }
-                    jsondata = {
+                    /*jsondata = {
                         "pk_user": "29b3ae05-4d66-4681-8279-7a61fa3abe6e",
                         username: "黄油",
                         sex: "0",
@@ -1110,7 +1144,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                             }
                         ]
 
-                    }
+                    }*/
                     $.ajax({
                         type: "post",
                         url: sendurl,
@@ -1389,7 +1423,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 refComp.initRefComp($that, options);
             });
             viewModel.addRefDa.on('valuechange', function(v, b) {
-            	var field = v.field;
+                var field = v.field;
                 if (field == 'role') {
                     var ref = $('#refContainerrolerefadd').data('uui.refer');
                     var arr = [];

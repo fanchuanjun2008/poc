@@ -146,14 +146,16 @@
 										<input type="checkbox" class="u-checkbox-input">
 										<span class="u-checkbox-label"></span> </label></td>
 									<td data-bind="text: row.ref('username')"></td>
-									<!-- <td data-bind="text: $parent.event.changeUserPsnsex(row.ref('sex'))"></td> -->
-									<td data-bind="text: row.ref('sex')"></td>
+									<td data-bind="text: $parent.event.changeUserPsnsex(row.ref('sex'))"></td>
+									<!-- <td data-bind="text: row.ref('sex')"></td> -->
 									<!-- <td data-bind="text: row.ref('idcard')"></td> -->
 									<td data-bind="text: row.ref('brithdate')"></td>
 									<td data-bind="text: row.ref('email')"></td>
 									<td data-bind="text: row.ref('telphone')"></td>
-									<td data-bind="text: row.ref('edution')"></td>
-									<td data-bind="text: row.ref('major')"></td>
+									<!-- <td data-bind="text: row.ref('edution')"></td> -->
+									<td data-bind="text: $parent.event.changeUseEdu(row.ref('edution'))"></td>
+									<td data-bind="text: $parent.event.changeUseMajor(row.ref('major'))"></td>
+									<!-- <td data-bind="text: row.ref('major')"></td> -->
 									<td data-bind="text: row.ref('work_date')"></td>
 									<td data-bind="text: row.ref('pk_corp_name')"></td>
 									<td data-bind="text: row.ref('pk_dept_name')"></td>
@@ -428,7 +430,7 @@
 									增加
 								</button>
 								<button class="u-button u-button-primary u-button-pa" name="editfile" data-bind="click: event.onOpenUploadWin">
-									编辑 
+									编辑
 								</button>
 								<button class="u-button u-button-primary u-button-pa" id="UserRole-action-delUserJob" data-bind="click: event.fileDelete">
 									删除
@@ -482,9 +484,7 @@
 						<button class="u-button raised primary sub-list1-new" data-bind="click:event.onInfoFileUpload" data-upgraded=",u.Button" style="display: inline-block;">
 							上传<span class="u-button-container"><span class="u-ripple is-animating" style="width: 158px; height: 158px; transform: translate(-50%, -50%) translate(48px, 13px);"></span></span>
 						</button>
-						<button class="u-button raised  sub-list1-cancel" data-bind="click:event.onCloseFileWindow" data-upgraded=",u.Button">
-							取消<span class="u-button-container"><span class="u-ripple is-animating" style="width: 156.506px; height: 156.506px; transform: translate(-50%, -50%) translate(49px, 15px);"></span></span>
-						</button>
+						
 					</div>
 				</div>
 			</div>
@@ -517,9 +517,7 @@
 						<button class="u-button raised primary sub-list2-new" data-bind="click:event.onFileUpload" data-upgraded=",u.Button" style="display: inline-block;">
 							上传<span class="u-button-container"><span class="u-ripple is-animating" style="width: 158px; height: 158px; transform: translate(-50%, -50%) translate(48px, 13px);"></span></span>
 						</button>
-						<button class="u-button raised  sub-list1-cancel" data-bind="click:event.onCloseFileWindow" data-upgraded=",u.Button">
-							取消<span class="u-button-container"><span class="u-ripple is-animating" style="width: 156.506px; height: 156.506px; transform: translate(-50%, -50%) translate(49px, 15px);"></span></span>
-						</button>
+
 					</div>
 				</div>
 			</div>
