@@ -57,6 +57,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
             event: {
                 changeUserPsnsex: function(id) {
                     var v = id();
+                    var comboData = viewModel.comboData;
                     for (var i = 0; i < comboData.length; i++) {
                         if (v == comboData[i].value) {
                             return comboData[i].name;
@@ -66,6 +67,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 },
                 changeUseEdu: function(id) {
                     var v = id();
+                    var comboDataEdution = viewModel.comboDataEdution;
                     for (var i = 0; i < comboDataEdution.length; i++) {
                         if (v == comboDataEdution[i].value) {
                             return comboDataEdution[i].name;
@@ -75,6 +77,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 },
                 changeUseMajor: function(id) {
                     var v = id();
+                    var comboDataMajor = viewModel.comboDataMajor;
                     for (var i = 0; i < comboDataMajor.length; i++) {
                         if (v == comboDataMajor[i].value) {
                             return comboDataMajor[i].name;
@@ -1091,14 +1094,15 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     var userFile = viewModel.UserFileFormDa.getSimpleData();
                     var jsondata = user[0];
                     jsondata.id_userrole = userJob;
+                    jsondata.status = '2';
                     jsondata.id_userdept = userDept;
                     jsondata.id_userFile = userFile;
                     var sendurl = viewModel.addURL;
                     if (viewModel.formStatus === _CONST.FORM_STATUS_EDIT) {
                         sendurl = viewModel.updateURL;
                     }
-                    /*jsondata = {
-                        "pk_user": "29b3ae05-4d66-4681-8279-7a61fa3abe6e",
+                    jsondata = {
+//                        "pk_user": "29b3ae05-4d66-4681-8279-7a61fa3abe6e",
                         username: "黄油",
                         sex: "0",
                         status: '2', //默认是0不操作，1表示修改，2表示新增，3表示删除
@@ -1144,7 +1148,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                             }
                         ]
 
-                    }*/
+                    }
                     $.ajax({
                         type: "post",
                         url: sendurl,
