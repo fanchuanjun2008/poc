@@ -321,6 +321,14 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                         var tar = e.target;
                         window.file_style = "add";
                         if ($(tar).closest('button').attr('name') == 'editfile') {
+                        	var row = viewModel.fileindex;
+                            if (row == null) {
+                            	u.messageDialog({
+                                    msg: "请先选择一张图片进行编辑!",
+                                    title: "提示",
+                                    btnText: "OK"
+                                });
+                            }
                             window.file_style = "edit";
                         }
                         window.countrysubsid_md = u.dialog({
@@ -840,6 +848,20 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     viewModel.event.clearDa(viewModel.UserRoleFormDa);
                     viewModel.event.clearDa(viewModel.UserDeptFormDa);
                     viewModel.event.clearDa(viewModel.UserFileFormDa);
+                    
+                    viewModel.child_card_pcomp.update({ // 卡片页子表的分页信息
+                        totalPages: 1,
+                        pageSize: viewModel.childPageSize,
+                        currentPage: viewModel.childdraw,
+                        totalCount: 0
+                    });
+                    viewModel.child_dept_card_pcomp.update({ // 卡片页子表的分页信息
+                        totalPages: 1,
+                        pageSize: viewModel.childPageSize,
+                        currentPage: viewModel.childdraw,
+                        totalCount: 0
+                    });
+                    
                     // 设置业务操作逻辑
                     $(".u-button-pa").removeClass('hide');
                     $('.border').addClass('hide');
@@ -1054,7 +1076,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     jsondata.id_userrole = userJob;
                     jsondata.status = '2';
                     jsondata.id_userdept = userDept;
-                    jsondata.id_userFile = userFile;
+//                    jsondata.id_userFile = userFile;
                     var sendurl = viewModel.addURL;
                     if (viewModel.formStatus === _CONST.FORM_STATUS_EDIT) {
                         sendurl = viewModel.updateURL;

@@ -33,6 +33,9 @@ require.config({
 		'uuitree':{
 			deps: ["uui","refComp","css!vendor/uui/css/tree.css"]
 		},
+		'interfaceFileImpl':{
+			deps:['interfaceFile']
+		},
 		'ajaxfileupload':{
 			deps: ["refComp"]
 		},
