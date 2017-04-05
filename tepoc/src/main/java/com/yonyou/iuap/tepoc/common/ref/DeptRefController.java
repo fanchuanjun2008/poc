@@ -69,7 +69,7 @@ public class DeptRefController extends AbstractTreeGridRefModel implements IRefM
 	public List<Map<String, String>> blobRefClassSearch(@RequestBody RefViewModelVO paramRefViewModelVO) {
 		Map<String, Object> searchParams = new HashMap<String, Object>();
 		String condition =  paramRefViewModelVO.getContent();//获取查询条件
-		if(condition!=null || !StringUtils.isEmpty(condition)){
+		if(condition!=null && !StringUtils.isEmpty(condition)){
 			searchParams.put("condition", condition);			
 		}
 		RefClientPageInfo refClientPageInfo = paramRefViewModelVO.getRefClientPageInfo();
@@ -112,7 +112,7 @@ public class DeptRefController extends AbstractTreeGridRefModel implements IRefM
 		
 		Map<String, Object> searchParams = new HashMap<String, Object>();
 		String condition = paramRefViewModelVO.getContent();// 获取查询条件
-		if(condition!=null || !StringUtils.isEmpty(condition)){
+		if(condition!=null && !StringUtils.isEmpty(condition)){
 			searchParams.put("condition", condition);			
 		}
 		RefClientPageInfo refClientPageInfo = paramRefViewModelVO.getRefClientPageInfo();

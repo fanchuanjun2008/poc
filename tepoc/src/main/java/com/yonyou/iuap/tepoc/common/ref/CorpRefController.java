@@ -65,7 +65,7 @@ public class CorpRefController extends AbstractTreeRefModel implements IRefModel
 		
 		Map<String, Object> searchParams = new HashMap<String, Object>();
 		String condition =  paramRefViewModelVO.getContent();//获取查询条件
-		if(condition!=null || !StringUtils.isEmpty(condition)){
+		if(condition!=null && !StringUtils.isEmpty(condition)){
 			searchParams.put("condition", condition);			
 		}
 		RefClientPageInfo refClientPageInfo = paramRefViewModelVO.getRefClientPageInfo();
@@ -117,7 +117,7 @@ public class CorpRefController extends AbstractTreeRefModel implements IRefModel
 		PageRequest pageRequest = new PageRequest(0, Constant.pagesize, new Sort(Direction.ASC, "ts"));
 		Page<OrgVO> categoryPage = null;
 		String condition =  arg0.getContent();//获取查询条件
-		if(condition!=null || !StringUtils.isEmpty(condition)){
+		if(condition!=null && !StringUtils.isEmpty(condition)){
 			searchParams.put("condition", condition);			
 		}
 		try {

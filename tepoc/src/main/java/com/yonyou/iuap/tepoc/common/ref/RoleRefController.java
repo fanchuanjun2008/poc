@@ -66,7 +66,7 @@ public class RoleRefController extends AbstractGridRefModel implements IRefModel
 		
 		SearchParams searchParams = new SearchParams();
 		String condition =  paramRefViewModelVO.getContent();//获取查询条件
-		if(condition!=null || !StringUtils.isEmpty(condition)){
+		if(condition!=null && !StringUtils.isEmpty(condition)){
 			searchParams.addCondition("condition", condition);			
 		}
 		RefClientPageInfo refClientPageInfo = paramRefViewModelVO.getRefClientPageInfo();
