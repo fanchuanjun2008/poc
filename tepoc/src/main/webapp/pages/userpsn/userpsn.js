@@ -1370,6 +1370,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 refComp.initRefComp($that, options);
             });
             viewModel.UserPsnFormDa.on('valuechange', function(v, b) {
+                var field = v.field;
                 if (field == 'role') {
                     var ref = $('#refContainerrolerefadd').data('uui.refer');
                     var arr = [];
