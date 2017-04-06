@@ -121,20 +121,13 @@ var metaUserDept = {
 };
 
 var metaSearch = {
-    meta: {
-        search_name: {}, //国补单号
-        search_sex: {}, //企业申报文号
-        search_entryTime: {}, //申报城市
-        search_vvin: {}, //车辆识别代码
-        search_birthdate_start: {}, //申报日期开始日期
-        search_birthdate_end: {}, //申报日期结束日期
-        search_vvehicleseries: {}, //车系
-        search_vrundept: {}, //车辆运营单位
-        search_doverduedate_start: {}, //超期回款日期
-        search_doverduedate_end: {}, //超期回款日期
-        search_vstatus: {} //国补申报状态
-    }
-};
+		meta : {
+			search_username : {}, // 姓名
+			search_sex : {}, // 性别
+			search_major : {}, // 专业
+			search_work_date : {}// 入职时间
+		}
+	};
 var metaUserFile ={
 		meta: {
 			id:{},

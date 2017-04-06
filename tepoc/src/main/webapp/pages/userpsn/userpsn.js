@@ -582,14 +582,14 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     };
 
                     if (viewModel.searchData.getSimpleData()) {
-                        if (viewModel.searchData.getSimpleData()[0].search_name)
-                            jsonData["search_username"] = viewModel.searchData.getSimpleData()[0].search_name;
+                        if (viewModel.searchData.getSimpleData()[0].search_username)
+                            jsonData["search_username"] = viewModel.searchData.getSimpleData()[0].search_username;
                         if (viewModel.searchData.getSimpleData()[0].search_sex)
                             jsonData["search_sex"] = viewModel.searchData.getSimpleData()[0].search_sex;
-                        if (viewModel.searchData.getSimpleData()[0].search_profession)
-                            jsonData["search_profession"] = viewModel.searchData.getSimpleData()[0].search_profession;
-                        if (viewModel.searchData.getSimpleData()[0].search_entry_start)
-                            jsonData["search_entry_start"] = viewModel.searchData.getSimpleData()[0].search_entry_start;
+                        if (viewModel.searchData.getSimpleData()[0].search_major)
+                            jsonData["search_major"] = viewModel.searchData.getSimpleData()[0].search_major;
+                        if (viewModel.searchData.getSimpleData()[0].search_work_date)
+                            jsonData["search_work_date"] = viewModel.searchData.getSimpleData()[0].search_work_date;
 
                     }
 
@@ -647,10 +647,10 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 getUserJobList: function() {
                     var userId = viewModel.UserPsnFormDa.getValue("pk_user");
                     var jsonData = {
-                        pageIndex: 0,
+                        pageIndex: viewModel.childdraw,
                         pageSize: viewModel.childPageSize,
                         sortField: "ts",
-                        sortDirection: "asc"
+                        sortDirection: "desc"
                     };
                     jsonData['search_fk_id_userrole'] = userId;
                     $.ajax({
@@ -711,10 +711,10 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 getUserDeptList: function() {
                     var userId = viewModel.UserPsnFormDa.getValue("pk_user");
                     var jsonData = {
-                        pageIndex: 0,
+                        pageIndex: viewModel.deptchilddraw,
                         pageSize: viewModel.deptchildPageSize,
                         sortField: "ts",
-                        sortDirection: "asc"
+                        sortDirection: "desc"
                     };
                     jsonData['search_fk_id_userrole'] = userId;
 
@@ -1348,7 +1348,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 dom = $that;
                 var options = {
                     refCode: "roleref",
-                    isMultiSelectedEnabled: false
+                    isMultiSelectedEnabled: true
                 };
                 refComp.initRefComp($that, options);
             });
