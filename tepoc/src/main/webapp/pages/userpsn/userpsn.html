@@ -22,7 +22,7 @@
 			返回
 			</button> -->
 		</div>
-		<!-- <div id="user_list_button_2" class="u-col-4 user-actions user_list_button_2 ">
+		<!-- <div id="user_list_button_2" class="u-col-3 user-actions user_list_button_2 ">
 		<div class=" u-button-group margin-0 padding-0">
 		<button class="u-button u-button-primary u-button-sm " data-bind="click: event.addClick">
 		增加
@@ -38,18 +38,8 @@
 	</div>
 	<div class="u-mdlayout-btn u-row hide ">
 		<div id="user_card_button">
-			<div class="u-col-4  ufBack" data-bind="click:event.goBack">
-				<button type="button" class="u-button u-button-primary" style="" >
-					返回
-				</button>
-			</div>
-			<div class="u-col-4 padding-bottom-5 " style="text-align:center;">
+			<div class="u-col-12 padding-bottom-5 " style="text-align:center;">
 				<span>人员信息</span>
-			</div>
-			<div class="u-col-4">
-				<button type="button" class="u-button u-button-primary u-button-pa" style="float:right;" data-bind="click:event.saveClick">
-					保存
-				</button>
 			</div>
 		</div>
 	</div>
@@ -223,21 +213,21 @@
 						<div class="u-row">
 							<div class="u-col-md-4">
 								<div class="u-form-group">
-									<label>用户名</label>
+									<label class="u-col-3">用户名</label>
 
-									<div class="u-input-group u-has-feedback" u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"username"}'>
+									<div class="u-col-9 u-has-feedback" u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"username"}'>
 										<div class="u-input-group-before" style="color: red;">
-												*
-											</div>
-											<input type="text" class="u-form-control" placeholder="">
+											*
+										</div>
+										<input type="text" class="u-form-control" placeholder="">
 									</div>
 								</div>
 							</div>
 							<div class="u-col-md-4">
 								<div class="u-form-group">
-									<label>性别</label>
+									<label class="u-col-3">性别</label>
 
-									<div class="u-combo" u-meta='{"type":"u-combobox","datasource":"comboData","data":"UserPsnFormDa","field":"sex","onlySelect":true}'>
+									<div class="u-col-9 u-combo" u-meta='{"type":"u-combobox","datasource":"comboData","data":"UserPsnFormDa","field":"sex","onlySelect":true}'>
 										<div class="u-input-group u-has-feedback">
 											<div class="u-input-group-before" style="color: red;">
 												*
@@ -250,50 +240,50 @@
 							</div>
 							<div class="u-col-md-4">
 								<div class="u-form-group">
-									<label>身份证</label>
+									<label class="u-col-3">身份证</label>
 
-									<div class="u-input-group u-has-feedback" u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"idcard","validType":"idcard"}'>
+									<div class="u-col-9 u-input-group u-has-feedback" u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"idcard","validType":"idcard"}'>
 										<div class="u-input-group-before" style="color: red;">
-												*
-											</div>
-											<input type="text" class="u-form-control" placeholder="">
-									</div>
-								</div>
-							</div>
-							<div class="u-col-md-4">
-								<div class="u-form-group">
-									<label>出生日期</label>
-
-									<div class="u-input-group u-has-feedback" u-meta='{"type":"u-date","data":"UserPsnFormDa","field":"brithdate"}'>
-										<div class="u-input-group-before" style="color: red;">
-												*
-											</div>
-											<input type="text" class="u-form-control" placeholder="">
-									</div>
-								</div>
-							</div>
-							<div class="u-col-md-4">
-								<div class="u-form-group">
-									<label>邮箱</label>
-
-									<div class="u-input-group u-has-feedback" u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"email","validType":"email"}'>
+											*
+										</div>
 										<input type="text" class="u-form-control" placeholder="">
 									</div>
 								</div>
 							</div>
 							<div class="u-col-md-4">
 								<div class="u-form-group">
-									<label>手机</label>
+									<label class="u-col-3">出生日期</label>
 
-									<div class="u-input-group u-has-feedback" u-meta='{"type":"phoneNumber","data":"UserPsnFormDa","field":"telphone"}'>
+									<div class="u-col-9 u-input-group u-has-feedback" u-meta='{"type":"u-date","data":"UserPsnFormDa","field":"brithdate"}'>
+										<div class="u-input-group-before" style="color: red;">
+											*
+										</div>
 										<input type="text" class="u-form-control" placeholder="">
 									</div>
 								</div>
 							</div>
 							<div class="u-col-md-4">
 								<div class="u-form-group">
-									<label>学历</label>
-									<div id="combo1" class="u-combo" u-meta='{"name":"学历","type":"u-combobox","data":"UserPsnFormDa","field":"edution","datasource":"comboDataEdution"}'>
+									<label class="u-col-3">邮箱</label>
+
+									<div class="u-col-9 u-input-group u-has-feedback" u-meta='{"type":"u-text","data":"UserPsnFormDa","field":"email","validType":"email"}'>
+										<input type="text" class="u-form-control" placeholder="">
+									</div>
+								</div>
+							</div>
+							<div class="u-col-md-4">
+								<div class="u-form-group">
+									<label class="u-col-3">手机</label>
+
+									<div class="u-col-9 u-input-group u-has-feedback" u-meta='{"type":"phoneNumber","data":"UserPsnFormDa","field":"telphone"}'>
+										<input type="text" class="u-form-control" placeholder="">
+									</div>
+								</div>
+							</div>
+							<div class="u-col-md-4">
+								<div class="u-form-group">
+									<label class="u-col-3">学历</label>
+									<div id="combo1" class="u-col-9 u-combo" u-meta='{"name":"学历","type":"u-combobox","data":"UserPsnFormDa","field":"edution","datasource":"comboDataEdution"}'>
 										<div class="u-input-group u-has-feedback">
 											<input class="u-form-control" />
 											<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
@@ -303,8 +293,8 @@
 							</div>
 							<div class="u-col-md-4">
 								<div class="u-form-group">
-									<label>专业</label>
-									<div id="combo1" class="u-combo" u-meta='{"name":"专业","type":"u-combobox","data":"UserPsnFormDa","field":"major","datasource":"comboDataMajor"}'>
+									<label class="u-col-3">专业</label>
+									<div id="combo1" class="u-col-9 u-combo" u-meta='{"name":"专业","type":"u-combobox","data":"UserPsnFormDa","field":"major","datasource":"comboDataMajor"}'>
 										<div class="u-input-group u-has-feedback">
 											<input class="u-form-control" />
 											<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
@@ -314,18 +304,18 @@
 							</div>
 							<div class="u-col-md-4">
 								<div class="u-form-group">
-									<label>入职时间</label>
+									<label class="u-col-3">入职时间</label>
 
-									<div class="u-input-group u-has-feedback" u-meta='{"type":"u-date","data":"UserPsnFormDa","field":"work_date"}'>
+									<div class="u-col-9 u-input-group u-has-feedback" u-meta='{"type":"u-date","data":"UserPsnFormDa","field":"work_date"}'>
 										<input type="text" class="u-form-control" placeholder="">
 									</div>
 								</div>
 							</div>
 							<div class="u-col-md-4">
 								<div class="u-form-group">
-									<label>所属公司</label>
+									<label class="u-col-3">所属公司</label>
 									<!--  lyk备注：参照换成新的uiref的方式 -->
-									<div id="corpref" class="u-input-group u-has-feedback" u-meta='{"refCode":"corpref","name":"所属公司","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
+									<div id="corpref" class="u-col-9 u-input-group u-has-feedback" u-meta='{"refCode":"corpref","name":"所属公司","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
 										<input class="u-form-control" />
 										<span class="u-form-control-feedback fa fa-search refer" data-role="combo-button"></span>
 									</div>
@@ -342,9 +332,9 @@
 							</div>
 							<div class="u-col-md-4">
 								<div class="u-form-group">
-									<label>部门</label>
+									<label class="u-col-3">部门</label>
 									<!-- lyk备注：参照换成新的uiref的方式 -->
-									<div id="deptref" class="u-input-group u-has-feedback" u-meta='{"refCode":"deptref","name":"所属公司","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
+									<div id="deptref" class="u-col-9 u-input-group u-has-feedback" u-meta='{"refCode":"deptref","name":"所属公司","type":"uiRefer", "data":"UserPsnFormDa", "field":"pk_corp_name"}'>
 										<input class="u-form-control" />
 										<span class="u-form-control-feedback fa fa-search refer" data-role="combo-button"></span>
 
@@ -462,32 +452,43 @@
 							</div>
 
 						</div>
+						<div class="text-center" style="margin-top: 5px;">
+							<button type="button" class="u-button u-button-primary" style="height: 30px;padding: 6px 13px;" data-bind="click:event.goBack">
+								返回
+							</button>
+							<button type="button" class="u-button u-button-primary u-button-pa" style="" data-bind="click:event.saveClick">
+								保存
+							</button>
+						</div>
 					</div>
-				</div>
-			</div>
-			<!-- END FORM-->
-		</div>
-		<!-- end addPage -->
-		<!-- editPage -->
-		<!-- end editPage -->
-		<!-- showPage -->
-		<div class="u-mdlayout-page" id="showPage">
-			<div class="u-mdlayout-page-section">
-				<div class="u-col-md-12" style="margin:10px 5px 1px 20px;">
-					<div class="u-widget">
-						<button type="button" class="u-button u-button-primary u-button-pa" data-bind="click:event.goBack">
-							返回
-						</button>
-					</div>
-				</div>
-				<!-- BEGIN FORM-->
-				<form action="#" class="form-horizontal" id="user-view-form"></form>
-			</div>
-			<!-- END FORM-->
-		</div>
-		<!-- end showPage -->
 
+				</div>
+			</div>
+		</div>
+		<!-- END FORM-->
 	</div>
+	<!-- end addPage -->
+	<!-- editPage -->
+	<!-- end editPage -->
+	<!-- showPage -->
+	<div class="u-mdlayout-page" id="showPage">
+		<div class="u-mdlayout-page-section">
+			<div class="u-col-md-12" style="margin:10px 5px 1px 20px;">
+				<div class="u-widget">
+					<button type="button" class="u-button u-button-primary u-button-pa" data-bind="click:event.goBack">
+						返回
+					</button>
+				</div>
+			</div>
+			<!-- BEGIN FORM-->
+			<form action="#" class="form-horizontal" id="user-view-form"></form>
+		</div>
+		<!-- END FORM-->
+	</div>
+	<!-- end showPage -->
+
+</div>
+
 </div>
 <div id="countrysubsid_dialog_uploadfileinfo" style="display: none;">
 	<div class="u-msg-title">
