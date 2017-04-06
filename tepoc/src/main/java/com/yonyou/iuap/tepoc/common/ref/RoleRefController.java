@@ -142,9 +142,9 @@ public class RoleRefController extends AbstractGridRefModel implements IRefModel
 
 	@Override
 	public List<Map<String, String>> matchPKRefJSON(@RequestBody RefViewModelVO pks) {
-		String sql = "select pk_role as pk,rolename as name from role where pk_role in ("+pks+");";
-		List<Map<String,String>> results = dao.queryForList(sql, new MapListProcessor());
-		return results;
+//		String sql = "select pk_role as pk,rolename as name from role where pk_role in ("+pks+");";
+//		List<Map<String,String>> results = dao.queryForList(sql, new MapListProcessor());
+		return null;
 	}
 
 	@Override

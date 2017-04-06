@@ -92,7 +92,7 @@ public class DeptRefController extends AbstractTreeGridRefModel implements IRefM
 				user.put("refpk", vo.getOrgid());
 				user.put("refcode", vo.getOrgcode());
 				user.put("refname", vo.getOrgname());
-				user.put("refshortname", vo.getShortname());
+				user.put("name", vo.getShortname());
 				user.put("id", vo.getOrgid());
 				user.put("pid", vo.getParentid());
 				list.add(user);
@@ -216,9 +216,9 @@ public class DeptRefController extends AbstractTreeGridRefModel implements IRefM
 
 	@Override
 	public List<Map<String, String>> matchPKRefJSON(@RequestBody RefViewModelVO pks) {
-		String sql = "select pk_dept as pk,dept_name as name from dept where pk_dept in ("+pks+");";
-		List<Map<String,String>> results = dao.queryForList(sql, new MapListProcessor());
-		return results;
+//		String sql = "select pk_dept as pk,dept_name as name from dept where pk_dept in ("+pks+");";
+//		List<Map<String,String>> results = dao.queryForList(sql, new MapListProcessor());
+		return null;
 	}
 
 	@Override

@@ -144,9 +144,9 @@ public class CorpRefController extends AbstractTreeRefModel implements IRefModel
 
 	@Override
 	public List<Map<String, String>> matchPKRefJSON(@RequestBody RefViewModelVO pks) {
-		String sql = "select org_id as pk,org_name as name from org where org_id in ("+pks+");";
-		List<Map<String,String>> results = dao.queryForList(sql, new MapListProcessor());
-		return results;
+//		String sql = "select org_id as pk,org_name as name from org where org_id in ("+pks+");";
+//		List<Map<String,String>> results = dao.queryForList(sql, new MapListProcessor());
+		return null;
 	}
 
 	@Override
