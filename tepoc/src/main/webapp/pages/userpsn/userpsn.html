@@ -47,17 +47,17 @@
 		<h5 data-bind="click:event.showSearchClick">查询条件</h5>
 		<div class="search-section" id="showSearch">
 			<div class="u-row">
-				<div class="u-col-5 u-col-sm-12">
-					<div class="u-col-2 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
+				<div class="u-col-10 u-col-sm-12">
+					<div class="u-col-1 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
 						<label>用户名</label>
 					</div>
-					<div class="u-col-4 u-col-sm-8 ">
+					<div class="u-col-2 u-col-sm-8 ">
 						<input type="text" class="u-form-control u-input-write" u-meta='{"id":"search_name","name":"用户名","type":"string","data":"searchData","field":"search_name"}'>
 					</div>
-					<div class="u-col-2 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
+					<div class="u-col-1 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
 						<label>性别</label>
 					</div>
-					<div class="u-col-4 u-col-sm-8 ">
+					<div class="u-col-2 u-col-sm-8 ">
 						<div id="combo1" class="u-combo" u-meta='{"id":"search_sex","name":"性别","type":"u-combobox","data":"searchData","field":"search_sex","datasource":"comboData"}'>
 							<div class="u-input-group u-has-feedback">
 								<input class="u-form-control" />
@@ -66,12 +66,10 @@
 						</div>
 					</div>
 
-				</div>
-				<div class="u-col-5 u-col-sm-12">
-					<div class="u-col-2 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
+					<div class="u-col-1 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
 						<label>专业</label>
 					</div>
-					<div class="u-col-4 u-col-sm-8 ">
+					<div class="u-col-2 u-col-sm-8 ">
 						<div id="combo1" class="u-combo" u-meta='{"id":"search_profession","name":"专业","type":"u-combobox","data":"searchData","field":"search_profession","datasource":"comboDataMajor"}'>
 							<div class="u-input-group u-has-feedback">
 								<input class="u-form-control" />
@@ -79,10 +77,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="u-col-2 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
+					<div class="u-col-1 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
 						<label>入职时间</label>
 					</div>
-					<div class="u-col-4 u-col-sm-8 ">
+					<div class="u-col-2 u-col-sm-8 ">
 						<div class="u-datepicke input-group fx-datepicker" u-meta='{"id":"search_entry_start","name":"入职时间","data":"searchData","field":"search_entry_start","type":"u-date","format":"YYYY-MM-DD"}'>
 							<input type="text" class="u-form-control" />
 							<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
