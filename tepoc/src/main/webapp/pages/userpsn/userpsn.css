@@ -186,7 +186,7 @@ div#commonShowDialog {
 }
 
 #addPage .u-input-group {
-	width: 100%;
+	/*width: 100%;*/
 }
 
 /*验证*/
@@ -299,5 +299,17 @@ border-bottom: 1px solid #cecece;
 	padding-top:20px;
 }
 .u-container-fluid>.u-tabs{
+	position:relative;
 	padding-bottom: 100px;
+}
+.u-form-group label{
+	padding: 0;
+	line-height: 33px;
+}
+.u-form-group{
+	margin-right: 28px!important;
+	margin-bottom: 0px!important;
+}
+.u-col-9{
+	padding: 0!important;
 }
