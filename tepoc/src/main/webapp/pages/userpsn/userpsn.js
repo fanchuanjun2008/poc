@@ -647,7 +647,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 getUserJobList: function() {
                     var userId = viewModel.UserPsnFormDa.getValue("pk_user");
                     var jsonData = {
-                        pageIndex: viewModel.childdraw,
+                        pageIndex: viewModel.childdraw - 1,
                         pageSize: viewModel.childPageSize,
                         sortField: "ts",
                         sortDirection: "desc"
@@ -676,11 +676,11 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                                             currentPage: viewModel.childdraw,
                                             totalCount: totleCount
                                         });
-                                        if (totleCount > viewModel.childPageSize) { // 根据总条数，来判断是否显示子表的分页层
-                                            $('#child_card_pagination').show();
-                                        } else {
-                                            $('#child_card_pagination').hide();
-                                        }
+//                                        if (totleCount > viewModel.childPageSize) { // 根据总条数，来判断是否显示子表的分页层
+//                                            $('#child_card_pagination').show();
+//                                        } else {
+//                                            $('#child_card_pagination').hide();
+//                                        }
 
                                     }
                                 } else {
@@ -711,12 +711,12 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 getUserDeptList: function() {
                     var userId = viewModel.UserPsnFormDa.getValue("pk_user");
                     var jsonData = {
-                        pageIndex: viewModel.deptchilddraw,
+                        pageIndex: viewModel.deptchilddraw - 1,
                         pageSize: viewModel.deptchildPageSize,
                         sortField: "ts",
                         sortDirection: "desc"
                     };
-                    jsonData['search_fk_id_userrole'] = userId;
+                    jsonData['search_fk_id_userdept'] = userId;
 
                     $.ajax({
                         type: 'GET',
@@ -745,11 +745,11 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                                             currentPage: viewModel.deptchilddraw,
                                             totalCount: totleCount
                                         });
-                                        if (totleCount > viewModel.deptchildPageSize) { // 根据总条数，来判断是否显示子表的分页层
-                                            $('#child_dept_card_pagination').show();
-                                        } else {
-                                            $('#child_dept_card_pagination').hide();
-                                        }
+//                                        if (totleCount > viewModel.deptchildPageSize) { // 根据总条数，来判断是否显示子表的分页层
+//                                            $('#child_dept_card_pagination').show();
+//                                        } else {
+//                                            $('#child_dept_card_pagination').hide();
+//                                        }
 
                                     }
                                 } else {
@@ -853,6 +853,8 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     viewModel.event.clearDa(viewModel.UserPsnFormDa);
                     viewModel.UserPsnFormDa.createEmptyRow();
                     viewModel.UserPsnFormDa.setRowSelect(0);
+                    viewModel.UserPsnFormDa.setEnable(true);
+                    viewModel.UserRoleFormDa.setEnable(true);
                     viewModel.event.clearDa(viewModel.UserRoleFormDa);
                     viewModel.event.clearDa(viewModel.UserDeptFormDa);
                     viewModel.event.clearDa(viewModel.UserFileFormDa);
@@ -1357,7 +1359,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 dom = $that;
                 var options = {
                     refCode: "deptref",
-                    isMultiSelectedEnabled: false
+                    isMultiSelectedEnabled: true
                 };
                 refComp.initRefComp($that, options);
             });
