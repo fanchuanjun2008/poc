@@ -53,6 +53,51 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                 name: '硕士',
                 value: '02'
             }],
+            sexRender:function(obj){
+            	var v = obj.value;
+            	var show = v;
+            	var comboData = viewModel.comboData;
+                for (var i = 0; i < comboData.length; i++) {
+                    if (v == comboData[i].value) {
+                    	show =  comboData[i].name;
+                    }
+
+                }
+                obj.element.innerHTML = show;
+            },
+            briRender:function(obj){
+            	var v = obj.value;
+            	var show = '';
+            	if(v){
+            		show = u.dateRender(new Date(parseInt(v)),'YYYY-MM-DD')
+            	}else{
+            		show = ''
+            	}	
+                obj.element.innerHTML = show;
+            },
+            eduRender:function(obj){
+            	var v = obj.value;
+            	var show = v;
+            	var comboDataEdution = viewModel.comboDataEdution;
+                for (var i = 0; i < comboDataEdution.length; i++) {
+                    if (v == comboDataEdution[i].value) {
+                        show =  comboDataEdution[i].name;
+                    }
+
+                }
+                obj.element.innerHTML = show;
+            },
+            majRender:function(obj){
+            	var v = obj.value;
+            	var show = v;
+            	var comboDataMajor = viewModel.comboDataMajor;
+                for (var i = 0; i < comboDataMajor.length; i++) {
+                    if (v == comboDataMajor[i].value) {
+                        return comboDataMajor[i].name;
+                    }
+                }
+            	obj.element.innerHTML = show;
+            },
 
             event: {
                 changeUserPsnsex: function(id) {
@@ -638,6 +683,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                             }
                         }
                     });
+                    $('#editbtn-group').removeClass('hide');
                     // end ajax
                 },
 
@@ -872,7 +918,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     
                     // 设置业务操作逻辑
                     $(".u-button-pa").removeClass('hide');
-                    $('.border').addClass('hide');
+                    $('.border,#editbtn-group').addClass('hide');
                     // 显示操作卡片
                     viewModel.md.dGo('addPage');
                     $('#tab_role')[0].click();
@@ -918,7 +964,8 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     viewModel.UserPsnFormDa.setEnable(true);
                     viewModel.UserRoleFormDa.setEnable(true);
                     $(".u-button-pa,.padding-bottom-5>button").removeClass('hide');
-                    $('.border').addClass('hide');
+                    
+                    $('.border,#editbtn-group').addClass('hide');
                     viewModel.event.infoFileQuery();
 
                     // 显示操作卡片
@@ -966,7 +1013,7 @@ define(['iReferComp', 'refComp', 'text!pages/userpsn/userpsn.html', 'pages/userp
                     viewModel.UserPsnFormDa.setEnable(false);
                     viewModel.UserRoleFormDa.setEnable(false);
                     $(".u-button-pa,.padding-bottom-5>button").addClass('hide');
-                    $('.border').removeClass('hide');
+                    $('.border,#editbtn-group').removeClass('hide');
                     viewModel.event.infoFileQuery();
 
                     // 显示操作卡片

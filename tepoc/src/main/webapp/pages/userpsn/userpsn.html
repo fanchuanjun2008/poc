@@ -1,5 +1,5 @@
 <div class="u-mdlayout" id="user-mdlayout">
-	<div class="u-mdlayout-btn u-row">
+	<div id="editbtn-group" class="u-mdlayout-btn u-row">
 		<div class="btnBox pull-left mb-5">
 			<button class="u-button raised primary" id="table-add" data-bind="click: event.addClick">
 				<i class="icon uf uf-plus">新建</i>
@@ -108,51 +108,54 @@
 			<div class="u-mdlayout-page-section">
 				<div class="user-datagrid" style="">
 					<div class="table-container">
-						<table class="u-table" style="width:100%">
-							<thead>
-								<tr>
-									<th name="userCheckbox" style="display: block;border-top:1px solid transparent;"><label class="margin-top-5 u-checkbox only-style u-checkbox-floatl" data-bind="click: UserPsnDa.toggleAllSelect.bind(UserPsnDa), css:{'is-checked': UserPsnDa.allSelected()}">
-										<input id="checkInput" type="checkbox" class="u-checkbox-input">
-										<span class="u-checkbox-label"></span> </label></th>
-									<th>用户名</th>
-									<th>性别</th>
-									<!-- <th>身份证</th> -->
-									<th>出生日期</th>
-									<th>邮箱</th>
-									<th>手机</th>
-									<th>学历</th>
-									<th>专业</th>
-									<th>入职时间</th>
-									<th>所属公司</th>
-									<th>部门</th>
-									<!-- <th>照片</th> -->
-								</tr>
-							</thead>
-							<tbody data-bind="foreach:{data:UserPsnDa.rows(),as:'row', afterAdd: event.afterAdd}">
-								<tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'rowindex': $index()}, click: $parent.event.rowClick">
-									<td name="userCheckbox" class="checkbox1"><label class="u-checkbox only-style u-checkbox-floatl" data-bind="click: row.multiSelect, css:{'is-checked': row.selected()}">
-										<input type="checkbox" class="u-checkbox-input">
-										<span class="u-checkbox-label"></span> </label></td>
-									<td data-bind="text: row.ref('username')"></td>
-									<td data-bind="text: $parent.event.changeUserPsnsex(row.ref('sex'))"></td>
-									<!-- <td data-bind="text: row.ref('sex')"></td> -->
-									<!-- <td data-bind="text: row.ref('idcard')"></td> -->
-									<!-- <td data-bind="text: row.ref('brithdate')"></td> -->
-									<td data-bind="text: $parent.event.changeUserBri(row.ref('brithdate'))"></td>
-									<td data-bind="text: row.ref('email')"></td>
-									<td data-bind="text: row.ref('telphone')"></td>
-									<!-- <td data-bind="text: row.ref('edution')"></td> -->
-									<td data-bind="text: $parent.event.changeUseEdu(row.ref('edution'))"></td>
-									<td data-bind="text: $parent.event.changeUseMajor(row.ref('major'))"></td>
-									<!-- <td data-bind="text: row.ref('major')"></td> -->
-									<!-- <td data-bind="text: row.ref('work_date')"></td> -->
-									<td data-bind="text: $parent.event.changeUserBri(row.ref('work_date'))"></td>
-									<td data-bind="text: row.ref('pk_corp_name')"></td>
-									<td data-bind="text: row.ref('pk_dept_name')"></td>
-									<!-- <td data-bind="text: row.ref('photo')"></td> -->
-								</tr>
-							</tbody>
-						</table>
+						<div id="gridTest" u-meta='{"id":"grid","type":"grid","data":"UserPsnDa","columnMenu":false,"canDrag":false,"sortable":false,"canSwap":false}'>
+							<div options='{"field":"username","dataType":"String","title":"姓名","fixed":true}' class="fixed-color"></div>
+							<div options='{"field":"sex","dataType":"time","title":"性别","renderType":"sexRender"}'></div>
+							<div options='{"field":"brithdate","dataType":"String","title":"出生日期","renderType":"briRender"}'></div>
+							<div options='{"field":"email","dataType":"String","title":"邮箱"}'></div>
+							<div options='{"field":"telphone","dataType":"String","title":"手机"}'></div>
+							<div options='{"field":"edution","dataType":"String","title":"学历","renderType":"eduRender"}'></div>
+							<div options='{"field":"major","dataType":"String","title":"专业","renderType":"majRender"}'></div>
+							<div options='{"field":"work_date","dataType":"String","title":"入职时间","renderType":"briRender"}'></div>
+							<div options='{"field":"pk_corp_name","dataType":"String","title":"所属公司"}'></div>
+							<div options='{"field":"pk_dept_name","dataType":"String","title":"部门"}'></div>
+						</div>
+						<!-- <table class="u-table" style="width:100%">
+						<thead>
+						<tr>
+						<th name="userCheckbox" style="display: block;border-top:1px solid transparent;"><label class="margin-top-5 u-checkbox only-style u-checkbox-floatl" data-bind="click: UserPsnDa.toggleAllSelect.bind(UserPsnDa), css:{'is-checked': UserPsnDa.allSelected()}">
+						<input id="checkInput" type="checkbox" class="u-checkbox-input">
+						<span class="u-checkbox-label"></span> </label></th>
+						<th>用户名</th>
+						<th>性别</th>
+						<th>出生日期</th>
+						<th>邮箱</th>
+						<th>手机</th>
+						<th>学历</th>
+						<th>专业</th>
+						<th>入职时间</th>
+						<th>所属公司</th>
+						<th>部门</th>
+						</tr>
+						</thead>
+						<tbody data-bind="foreach:{data:UserPsnDa.rows(),as:'row', afterAdd: event.afterAdd}">
+						<tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'rowindex': $index()}, click: $parent.event.rowClick">
+						<td name="userCheckbox" class="checkbox1"><label class="u-checkbox only-style u-checkbox-floatl" data-bind="click: row.multiSelect, css:{'is-checked': row.selected()}">
+						<input type="checkbox" class="u-checkbox-input">
+						<span class="u-checkbox-label"></span> </label></td>
+						<td data-bind="text: row.ref('username')"></td>
+						<td data-bind="text: $parent.event.changeUserPsnsex(row.ref('sex'))"></td>
+						<td data-bind="text: $parent.event.changeUserBri(row.ref('brithdate'))"></td>
+						<td data-bind="text: row.ref('email')"></td>
+						<td data-bind="text: row.ref('telphone')"></td>
+						<td data-bind="text: $parent.event.changeUseEdu(row.ref('edution'))"></td>
+						<td data-bind="text: $parent.event.changeUseMajor(row.ref('major'))"></td>
+						<td data-bind="text: $parent.event.changeUserBri(row.ref('work_date'))"></td>
+						<td data-bind="text: row.ref('pk_corp_name')"></td>
+						<td data-bind="text: row.ref('pk_dept_name')"></td>
+						</tr>
+						</tbody>
+						</table> -->
 					</div>
 					<div id='pagination' class='u-pagination pagination-sm '></div>
 				</div>
@@ -379,7 +382,7 @@
 							<div class="u-row">
 								<div id="UserRole-form">
 									<div class="table-container clearfix">
-										<div type="text" id="gridUserJob" u-meta='{"id":"role_grid","type":"grid","data":"UserRoleFormDa","columnMenu":false,"canDrag":false,"sortable":false,"canSwap":false,"editable":false,"editType":"default","showNumCol":true}'>
+										<div type="text" id="gridUserJob" u-meta='{"id":"role_grid","type":"grid","data":"UserRoleFormDa","columnMenu":false,"canDrag":false,"sortable":false,"canSwap":false,"editable":false,"editType":"default","showNumCol":true,"height":"270px"}'>
 											<div options='{"field":"rolecode","dataType":"String","title":"角色编码","editType":"string"}'></div>
 											<div options='{"field":"rolename","dataType":"String","title":"角色名称","editType":"string"}'></div>
 											<div options='{"field":"roletype","dataType":"String","title":"角色类型","editType":"string"}'></div>
@@ -418,7 +421,7 @@
 							<div class="u-row">
 								<div id="UserRole-form">
 									<div class="table-container clearfix">
-										<div type="text" id="gridUserJob" u-meta='{"id":"dept_grid","type":"grid","data":"UserDeptFormDa","columnMenu":false,"canDrag":false,"sortable":false,"canSwap":false,"editable":false,"editType":"default","showNumCol":true}'>
+										<div type="text" id="gridUserJob" u-meta='{"id":"dept_grid","type":"grid","data":"UserDeptFormDa","columnMenu":false,"canDrag":false,"sortable":false,"canSwap":false,"editable":false,"editType":"default","showNumCol":true,"height":"270px"}'>
 											<div options='{"field":"deptcode","dataType":"String","title":"部门编码","editType":"string"}'></div>
 											<div options='{"field":"deptname","dataType":"String","title":"部门名称","editType":"string"}'></div>
 										</div>
@@ -439,7 +442,7 @@
 									删除
 								</button>
 							</div>
-							<div class="u-row" data-bind="foreach:{data:UserFileFormDa.rows(),as:'row'}">
+							<div class="u-row" data-bind="foreach:{data:UserFileFormDa.rows(),as:'row'}" style="min-height: 270px;">
 								<div class="u-col-2">
 									<label class="u-radio" data-bind="attr:{'for': 'option-' +$index()},click:$parent.event.fileselect">
 										<input type="radio" data-bind="attr:{'id': 'option-' +$index(),'value':row.ref('id')}" class="u-radio-button" name="options" >

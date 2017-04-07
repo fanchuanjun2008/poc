@@ -5,6 +5,7 @@ div#content {
 }
 
 div#content .u-mdlayout {
+	overflow:hidden;
 	background: #EEEFF1;
 	box-shadow: none;
 }
