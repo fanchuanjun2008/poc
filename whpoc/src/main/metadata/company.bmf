@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><component conRouterType="曼哈顿直角" createIndustry="0" createTime="2017-03-24 14:14:32" creator="" description="" displayName="company" fromSourceBmf="true" gencodestyle="标准样式" help="" id="54ce0971-1b0a-48b6-b296-58f0e2da2e4f" industry="0" industryChanged="false" industryIncrease="false" industryName="0" isSource="false" isbizmodel="false" mainEntity="7c52206a-e91e-47c8-b6f5-aac72a1786fd" metaType=".bmf" modifier="" modifyIndustry="0" modifyTime="2017-03-24 14:14:36" name="company" namespace="whpoc" ownModule="whpoc" preLoad="false" programcode="0" resModuleName="company" resid="" version="2" versionType="0">
+    <celllist>
+        <entity accessorClassName="nc.md.model.access.javamap.POJOStyle" bizItfImpClassName="" componentID="54ce0971-1b0a-48b6-b296-58f0e2da2e4f" createIndustry="0" createTime="2017-03-24 14:14:35" creator="" czlist="" description="" displayName="公司" fullClassName="com.yonyou.whpoc.company.Company" height="100" help="" id="7c52206a-e91e-47c8-b6f5-aac72a1786fd" industryChanged="false" isAuthen="true" isCreateSQL="true" isExtendBean="false" isPrimary="true" isSource="true" keyAttributeId="e3033dfb-60fd-43a8-a756-0c0fe21d442a" modInfoClassName="" modifier="" modifyIndustry="0" modifyTime="2017-03-24 14:17:37" name="Company" resid="" stereoType="" tableName="whpoc_company" userDefClassName="" versionType="0" visibility="public" width="100" x="179" y="71">
+            <attributelist>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="7c52206a-e91e-47c8-b6f5-aac72a1786fd" createIndustry="0" dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" defaultValue="" description="" displayName="主键" dynamic="false" dynamicTable="" fieldName="compan_id" fieldType="char" fixedLength="false" forLocale="false" help="" id="e3033dfb-60fd-43a8-a756-0c0fe21d442a" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="true" isNullable="false" isReadOnly="false" isShare="false" isSource="true" length="36" maxValue="" minValue="" modifyIndustry="0" name="companid" notSerialize="false" precise="" refModelName="" resid="" sequence="0" typeDisplayName="ID" typeName="ID" versionType="0" visibility="public"/>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="7c52206a-e91e-47c8-b6f5-aac72a1786fd" createIndustry="0" dataType="BS000010000100001001" dataTypeStyle="SINGLE" dbtype="varchar" defaultValue="" description="" displayName="公司代码" dynamic="false" dynamicTable="" fieldName="company_code" fieldType="varchar" fixedLength="false" forLocale="false" help="" id="4c0c2cbc-80ae-4508-9755-1e873ec403fb" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="false" isNullable="true" isReadOnly="false" isShare="false" isSource="true" length="50" maxValue="" minValue="" modifyIndustry="0" name="companycode" notSerialize="false" precise="" refModelName="" resid="" sequence="1" typeDisplayName="String" typeName="String" versionType="0" visibility="public"/>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="7c52206a-e91e-47c8-b6f5-aac72a1786fd" createIndustry="0" dataType="BS000010000100001001" dataTypeStyle="SINGLE" dbtype="varchar" defaultValue="" description="" displayName="公司名称" dynamic="false" dynamicTable="" fieldName="company_name" fieldType="varchar" fixedLength="false" forLocale="false" help="" id="60933dff-5427-428d-a09c-8a4748a12dca" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="false" isNullable="true" isReadOnly="false" isShare="false" isSource="true" length="50" maxValue="" minValue="" modifyIndustry="0" name="companyname" notSerialize="false" precise="" refModelName="" resid="" sequence="2" typeDisplayName="String" typeName="String" versionType="0" visibility="public"/>
+            </attributelist>
+            <operationlist/>
+            <busiitfs/>
+            <busimaps/>
+            <canzhaolist/>
+            <accessor classFullname="nc.md.model.access.javamap.POJOStyle" displayName="POJO" name="pojo">
+                <properties/>
+            </accessor>
+        </entity>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>

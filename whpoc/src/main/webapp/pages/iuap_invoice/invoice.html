@@ -1,0 +1,28 @@
+<div class="main-wrap list-panel" id="inovoice">
+    <link href="/uui/libs/uui/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/uitemplate_web/static/css/ref/ref.css" rel="stylesheet">
+    <link href="/uitemplate_web/static/css/ref/jquery.scrollbar.css" rel="stylesheet">
+    <div class="wrapper">
+        <div class="wrap-body">
+            <!--页面功能名字-->
+            <div class="apptitle">
+                发票
+                <span class="btn btn-default btn-sm backbutton" data-bind="click:events.goback">返回</span>
+            </div>
+            <div class="u-row">
+                <div class="u-col-xs-12 u-col-md-12" style="min-height: 200px">
+                    <!--组织内容列表-->
+                    <div id="invoiceCont">
+                        <div id="template-invoice"></div>
+                        <div style="text-align:right;padding-right: 0" class="u-row">
+                            <button class="u-button raised primary m-r-sm" data-bind="click:events.grid_save">保存</button>
+                            <button class="u-button raised primary m-r-sm" data-bind="click:events.cancel">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
