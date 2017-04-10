@@ -1,0 +1,823 @@
+<div class="u-mdlayout" id="user-mdlayout">
+    <div class="u-mdlayout-btn u-row">
+        <div id="user_list_button_2" class="u-col-4 user-actions user_list_button_2 ">
+            <div class=" u-button-group margin-0 padding-0">
+                <button class="u-button u-button-primary u-button-sm " data-bind="click: event.addClick">增加</button>
+                <button class="u-button u-button-primary u-button-sm " data-bind="click: event.editClick">编辑</button>
+                <button class="u-button u-button-primary u-button-sm " data-bind="click: event.delRow">删除</button>
+                <button id="zhytest" class="u-button u-button-primary u-button-sm " data-bind="click: event.submit">提交审批</button>
+                <button class="u-button u-button-primary u-button-sm " data-bind="click: event.unsubmit">取消提交</button>
+            </div>
+        </div>
+        <div class="u-col-4  center-title">
+            <span>督办任务</span>
+        </div>
+    </div>
+    <div class="u-mdlayout-btn u-row hide ">
+        <div id="user_card_button">
+            <div class="u-col-4  ufBack padding-bottom-5" data-bind="click:event.goBack">
+                <a><i class="uf uf-aaleft"></i>返回</a>
+            </div>
+            <div class="u-col-4 padding-bottom-5 " style="text-align:center;">
+                <span>督办任务</span>
+            </div>
+            <div class="u-col-4 padding-bottom-5">
+                <button type="button" class=" u-button u-button-primary u-button-sm" style="float:right;"
+                        data-bind="click:event.saveClick">保存
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class=" form-search " style="z-index:0;">
+        <div class="u-panel-heading u-collapse-updown " u-data-toggle="collapse" href="#condition-row-user">
+            <span class="u-panel-title padding-5 padding-left-15  ">快速查询
+            <span class=" u-link u-right u-input-label sm" id="condition-toggle-user">
+                 <span>展开</span>                
+                 <i class="uf uf-aadown"></i>             
+             </span>
+             </span>
+        </div>
+        <div class="u-row u-panel-body collapse" id="condition-row-user">
+            <div class="u-col-6 u-col-sm-12">
+																																																												            </div>
+        </div>
+        <div class="u-col-6 u-col-sm-12">
+                <div class=" padding-top-2 ">
+                    <button class="u-button u-button-primary raised gray-btn u-button-pa margin-right-20"
+                            id="user-action-search" data-bind="click: event.search">搜索
+                    </button>
+                    <button class="u-button u-button-primary  raised gray-btn u-button-pa " id="user-action-cleanSearch"
+                            data-bind="click: event.cleanSearch">清空
+                    </button>
+                </div>
+        </div>
+    </div>
+
+	 <div class="u-mdlayout-detail">
+        <!-- list -->
+        <div class="u-mdlayout-page u-navlayout-fixed-header current" id="list">
+            <div class="u-mdlayout-page-section">
+                <div class="user-datagrid" style="">
+                    <div class="table-container">
+                        <table class="u-table" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th name="userCheckbox" style="display: block;border-top:1px solid transparent;">
+                                    <label class="margin-top-5 u-checkbox only-style u-checkbox-floatl"
+                                           data-bind="click: ygdemo_yw_infoDa.toggleAllSelect.bind(ygdemo_yw_infoDa), css:{'is-checked': ygdemo_yw_infoDa.allSelected()}">
+                                        <input id="checkInput" type="checkbox" class="u-checkbox-input">
+                                        <span class="u-checkbox-label"></span>
+                                    </label>
+                                </th>
+                                <th>督办编号</th>
+                                <th>督办名称</th>
+                                <th>督办来源</th>
+                                <th>来源说明</th>
+                                <th>责任单位</th>
+                                <th>责任人</th>
+                                <th>协办单位</th>
+                                <th>协办人</th>
+                                <th>计划开始日期</th>
+                                <th>计划结束日期</th>
+                                <th>重要程度</th>
+                                <th>牵头领导</th>
+                                <th>主办人</th>
+                                <th>督办人</th>
+                                <th>交付要求</th>
+                                <th>督办事宜</th>
+                                <th>进度比例</th>
+                                <th>任务评分</th>
+                                <th>是否KPI</th>
+                                <th>KPI级别</th>
+                                <th>状态</th>
+                                <th>创建人</th>
+                                <th>创建时间</th>
+                                <th>最后修改人</th>
+                                <th>最后修改日期</th>
+                                <th>所属组织</th>
+                            </tr>
+                            </thead>
+                            <tbody data-bind="foreach:{data:ygdemo_yw_infoDa.rows(),as:'row', afterAdd: event.afterAdd}">
+                            <tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'rowindex': $index()}, click: $parent.event.rowClick">
+                                <td name="userCheckbox" class="checkbox1">
+                                    <label class="u-checkbox only-style u-checkbox-floatl"
+                                           data-bind="click: row.multiSelect, css:{'is-checked': row.selected()}">
+                                        <input type="checkbox" class="u-checkbox-input">
+                                        <span class="u-checkbox-label"></span>
+                                    </label>
+                                </td>
+                                <td data-bind="text: row.ref('code')"></td>
+                                <td data-bind="text: row.ref('name')"></td>
+								<td data-bind="text: $parent.event.changeygdemo_yw_infoly_code(row.ref('ly_code'))"></td>
+                                <td data-bind="text: row.ref('ly_sm')"></td>
+								<td data-bind="text: row.ref('zr_dw_name')"></td>
+								<td data-bind="text: row.ref('zrr_name')"></td>
+								<td data-bind="text: row.ref('xb_dw_name')"></td>
+								<td data-bind="text: row.ref('xbr_name')"></td>
+								<td data-bind="text: u.dateRender(row.ref('begin_date'))"></td>
+								<td data-bind="text: u.dateRender(row.ref('end_date'))"></td>
+								<td data-bind="text: $parent.event.changeygdemo_yw_infozy_cd(row.ref('zy_cd'))"></td>
+								<td data-bind="text: row.ref('qt_ld_name')"></td>
+								<td data-bind="text: row.ref('zbr_name')"></td>
+								<td data-bind="text: row.ref('dbr_name')"></td>
+                                <td data-bind="text: row.ref('jfyq')"></td>
+                                <td data-bind="text: row.ref('db_info')"></td>
+                                <td data-bind="text: row.ref('jd_bl')"></td>
+                                <td data-bind="text: row.ref('rwpf')"></td>
+								<td data-bind="text: $parent.event.changeygdemo_yw_infokpi_flag(row.ref('kpi_flag'))"></td>
+								<td data-bind="text: $parent.event.changeygdemo_yw_infokpi_level(row.ref('kpi_level'))"></td>
+								<td data-bind="text: $parent.event.changeygdemo_yw_infostate(row.ref('state'))"></td>
+								<td data-bind="text: row.ref('create_name_name')"></td>
+								<td data-bind="text: u.dateRender(row.ref('create_time'))"></td>
+								<td data-bind="text: row.ref('update_name_name')"></td>
+								<td data-bind="text: u.dateRender(row.ref('update_time'))"></td>
+								<td data-bind="text: row.ref('unitid_name')"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id='pagination' class='u-pagination pagination-sm '></div>
+                </div>
+                <div class="user-datagrid " style="padding:15px 0px 15px 0px;">
+                    <div class="table-container">
+                        <table class="u-table" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>名称</th>
+                                <th>主办人</th>
+                                <th>子任务描述</th>
+                                <th>计划开始日期</th>
+                                <th>计划结束日期</th>
+                                <th>创建人</th>
+                                <th>创建时间</th>
+                                <th>最后修改人</th>
+                                <th>最后修改日期</th>
+                            </tr>
+                            </thead>
+                            <tbody data-bind="foreach:{data:ygdemo_yw_subDa.rows(),as:'row'}">
+                            <tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'rowindex': $index()}, click: $parent.event.selectUserJob">
+                                <td data-bind="text: row.ref('sub_code')"></td>
+                                <td data-bind="text: row.ref('sub_name')"></td>
+								<td data-bind="text: row.ref('zbr_name')"></td>
+                                <td data-bind="text: row.ref('sub_ms')"></td>
+								<td data-bind="text: u.dateRender(row.ref('begin_date'))"></td>
+								<td data-bind="text: u.dateRender(row.ref('end_date'))"></td>
+								<td data-bind="text: row.ref('create_name_name')"></td>
+								<td data-bind="text: u.dateRender(row.ref('create_time'))"></td>
+								<td data-bind="text: row.ref('update_name_name')"></td>
+								<td data-bind="text: u.dateRender(row.ref('update_time'))"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>    
+                    <div style="display:none" id='child_list_pagination' class='u-pagination pagination-sm '></div>        
+                </div>
+            </div>
+        </div>
+        <!-- end list -->
+        <!-- addPage -->
+        <div class="u-mdlayout-page" id="addPage">
+            <div class="u-mdlayout-page-section" id="user-form">
+                <!-- BEGIN FORM-->
+                <form action="#" class="form-horizontal" >
+                    <div class="u-container-fluid">
+                        <div class="u-row">
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>督办编号</label>
+
+                                    <div class="u-input-group u-has-feedback"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"code"}'>
+                                    	<input type="text" class="u-form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>督办名称</label>
+
+                                    <div class="u-input-group u-has-feedback"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"name"}'>
+                                    	<input type="text" class="u-form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>督办来源</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-combobox","datasource":"ygdemo_yw_info_ly_code","data":"ygdemo_yw_infoFormDa","field":"ly_code","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <div class="u-input-group-before" style="color: red;">*</div>
+                                            <span class="u-form-control-feedback fa fa-angle-down"
+                                                  data-role="combo-button"></span>
+                                            <input class="u-form-control" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>来源说明</label>
+
+                                    <div class="u-input-group u-has-feedback"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"ly_sm"}'>
+                                    	<input type="text" class="u-form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>责任单位</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"zr_dw_name","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <span class="u-form-control-feedback fa fa-list-ul"
+                                                  data-bind="click:event.selectBdCorpVO_ygdemo_yw_info_zr_dw"></span>
+                                            <input class="u-form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>责任人</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"zrr_name","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <span class="u-form-control-feedback fa fa-list-ul"
+                                                  data-bind="click:event.selectBdPsndocVO_ygdemo_yw_info_zrr"></span>
+                                            <input class="u-form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>协办单位</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"xb_dw_name","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <span class="u-form-control-feedback fa fa-list-ul"
+                                                  data-bind="click:event.selectBdCorpVO_ygdemo_yw_info_xb_dw"></span>
+                                            <input class="u-form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>协办人</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"xbr_name","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <span class="u-form-control-feedback fa fa-list-ul"
+                                                  data-bind="click:event.selectBdPsndocVO_ygdemo_yw_info_xbr"></span>
+                                            <input class="u-form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>计划开始日期</label>
+
+                                    <div class="u-input-group u-has-feedback"
+                                         u-meta='{"type":"u-date","data":"ygdemo_yw_infoFormDa","field":"begin_date"}'>
+                                        <input type="text" class="u-form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>                            
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>计划结束日期</label>
+
+                                    <div class="u-input-group u-has-feedback"
+                                         u-meta='{"type":"u-date","data":"ygdemo_yw_infoFormDa","field":"end_date"}'>
+                                        <input type="text" class="u-form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>                            
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>重要程度</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-combobox","datasource":"ygdemo_yw_info_zy_cd","data":"ygdemo_yw_infoFormDa","field":"zy_cd","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <div class="u-input-group-before" style="color: red;">*</div>
+                                            <span class="u-form-control-feedback fa fa-angle-down"
+                                                  data-role="combo-button"></span>
+                                            <input class="u-form-control" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>牵头领导</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"qt_ld_name","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <span class="u-form-control-feedback fa fa-list-ul"
+                                                  data-bind="click:event.selectBdPsndocVO_ygdemo_yw_info_qt_ld"></span>
+                                            <input class="u-form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>主办人</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"zbr_name","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <span class="u-form-control-feedback fa fa-list-ul"
+                                                  data-bind="click:event.selectBdPsndocVO_ygdemo_yw_info_zbr"></span>
+                                            <input class="u-form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>督办人</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"dbr_name","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <span class="u-form-control-feedback fa fa-list-ul"
+                                                  data-bind="click:event.selectBdPsndocVO_ygdemo_yw_info_dbr"></span>
+                                            <input class="u-form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>交付要求</label>
+                                    
+                                    <div id="txtWrap" class="u-input-group u-has-feedback">
+									    <textarea u-meta='{"id":"textareaAdapter_jfyq","data":"ygdemo_yw_infoFormDa","field":"jfyq","type":"textarea"}'></textarea>
+									</div>
+
+                                    <!--<div class="u-input-group u-has-feedback"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"jfyq"}'>
+                                    	<input type="text" class="u-form-control" placeholder="">
+                                    </div>-->
+                                </div>
+                            </div>
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>督办事宜</label>
+                                    
+
+									<div id="txtWrap" class="u-input-group u-has-feedback">
+									    <textarea u-meta='{"id":"textareaAdapter_db_info","data":"ygdemo_yw_infoFormDa","field":"db_info","type":"textarea"}'></textarea>
+									</div>
+									
+                                    <!--<div class="u-input-group u-has-feedback"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"db_info"}'>
+                                    	<input type="text" class="u-form-control" placeholder="">
+                                    </div>-->
+                                </div>
+                            </div>
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>进度比例%</label>
+
+                                    <div class="u-input-group u-has-feedback"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"jd_bl"}'>
+                                    	<input type="text" class="u-form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>任务评分</label>
+
+                                    <div class="u-input-group u-has-feedback"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"rwpf"}'>
+                                    	<input type="text" class="u-form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>是否KPI</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-combobox","datasource":"ygdemo_yw_info_kpi_flag","data":"ygdemo_yw_infoFormDa","field":"kpi_flag","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <div class="u-input-group-before" style="color: red;">*</div>
+                                            <span class="u-form-control-feedback fa fa-angle-down"
+                                                  data-role="combo-button"></span>
+                                            <input class="u-form-control" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>KPI级别</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-combobox","datasource":"ygdemo_yw_info_kpi_level","data":"ygdemo_yw_infoFormDa","field":"kpi_level","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <div class="u-input-group-before" style="color: red;">*</div>
+                                            <span class="u-form-control-feedback fa fa-angle-down"
+                                                  data-role="combo-button"></span>
+                                            <input class="u-form-control" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>状态</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-combobox","datasource":"ygdemo_yw_info_state","data":"ygdemo_yw_infoFormDa","field":"state","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <div class="u-input-group-before" style="color: red;">*</div>
+                                            <span class="u-form-control-feedback fa fa-angle-down"
+                                                  data-role="combo-button"></span>
+                                            <input class="u-form-control" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>创建人</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"create_name_name","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <span class="u-form-control-feedback fa fa-list-ul"
+                                                  data-bind="click:event.selectExtIeopUserVO_ygdemo_yw_info_create_name_master"></span>
+                                            <input class="u-form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>创建时间</label>
+
+                                    <div class="u-input-group u-has-feedback"
+                                         u-meta='{"type":"u-date","data":"ygdemo_yw_infoFormDa","field":"create_time"}'>
+                                        <input type="text" class="u-form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>最后修改人</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"update_name_name","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <span class="u-form-control-feedback fa fa-list-ul"
+                                                  data-bind="click:event.selectExtIeopUserVO_ygdemo_yw_info_update_name_master"></span>
+                                            <input class="u-form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>最后修改日期</label>
+
+                                    <div class="u-input-group u-has-feedback"
+                                         u-meta='{"type":"u-date","data":"ygdemo_yw_infoFormDa","field":"update_time"}'>
+                                        <input type="text" class="u-form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="u-col-md-4">
+                                <div class="u-form-group">
+                                    <label>所属组织</label>
+
+                                    <div class="u-combo"
+                                         u-meta='{"type":"u-text","data":"ygdemo_yw_infoFormDa","field":"unitid_name","onlySelect":true}'>
+                                        <div class="u-input-group u-has-feedback">
+                                            <span class="u-form-control-feedback fa fa-list-ul"
+                                                  data-bind="click:event.selectBdCorpVO_ygdemo_yw_info_unitid"></span>
+                                            <input class="u-form-control" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="u-row">
+                            <div id="ygdemo_yw_sub-form">
+                                <div class="u-row margin-bottom-15">
+                                    <div class="u-col-md-2">
+                                        <label>任务分解</label>
+                                    </div>
+                                    <div class="u-col-md-4">
+                                        <div class="ygdemo_yw_sub-actions">
+                                            <button class="u-button u-button-primary u-button-pa"
+                                                    id="ygdemo_yw_sub-action-addUserJob"
+                                                    data-bind="click: event.addUserJob">增加
+                                            </button>
+                                            <button class="u-button u-button-primary u-button-pa"
+                                                    id="ygdemo_yw_sub-action-delUserJob"
+                                                    data-bind="click: event.delUserJob">删除
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="table-container clearfix">
+                                    <div type="text" id="gridUserJob"
+                                         u-meta='{"id":"grid","type":"grid","data":"ygdemo_yw_subFormDa","columnMenu":false,"canDrag":false,"sortable":false,"canSwap":false,"editable":true,"editType":"default"}'>
+                                        <div options='{"field":"sub_code","dataType":"String","title":"编号","editType":"string"}'></div>
+                                        <div options='{"field":"sub_name","dataType":"String","title":"名称","editType":"string"}'></div>
+										<div options='{"field":"zbr_name","dataType":"String","title":"主办人","editType":"event.addygdemo_yw_sub_selectBdPsndocVO","editOptions":{"validType":"string","required":true} }'></div>
+                                        <div options='{"field":"sub_ms","dataType":"String","title":"子任务描述","editType":"string"}'></div>
+										<div options='{"field":"begin_date","dataType":"date","title":"计划开始日期","editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
+										<div options='{"field":"end_date","dataType":"date","title":"计划结束日期","editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
+										<div options='{"field":"create_name_name","dataType":"String","title":"创建人","editType":"event.addygdemo_yw_sub_selectExtIeopUserVO_create_name_sub","editOptions":{"validType":"string","required":true} }'></div>
+										<div options='{"field":"create_time","dataType":"date","title":"创建时间","editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
+										<div options='{"field":"update_name_name","dataType":"String","title":"最后修改人","editType":"event.addygdemo_yw_sub_selectExtIeopUserVO","editOptions":{"validType":"string","required":true} }'></div>
+										<div options='{"field":"update_time","dataType":"date","title":"最后修改日期","editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
+                                    </div>
+                                    <div style="" id='child_card_pagination' class='u-pagination pagination-sm '></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END FORM-->
+        </div>
+        <!-- end addPage -->
+        <!-- editPage -->
+        <!-- end editPage -->
+        <!-- showPage -->
+        <div class="u-mdlayout-page" id="showPage">
+            <div class="u-mdlayout-page-section">
+                <div class="u-col-md-12" style="margin:10px 5px 1px 20px;">
+                    <div class="u-widget">
+                        <button type="button" class="u-button u-button-primary u-button-pa"
+                                data-bind="click:event.goBack">返回
+                        </button>
+                    </div>
+                </div>
+                <!-- BEGIN FORM-->
+                <form action="#" class="form-horizontal" id="user-view-form">
+                </form>
+            </div>
+            <!-- END FORM-->
+        </div>
+        <!-- end showPage -->
+
+    </div>
+</div>
+
+<!-- 树展示的弹出层  -->
+<div id="tree-org_testForygdemo_yw_info_zr_dw" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"org_testForygdemo_yw_infoTree_zr_dw","data":"refBdCorpVODa_zr_dw","type":"tree","idField":"pk_corp","pidField":"parentid","nameField":"unitname","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_BdCorpVOToygdemo_yw_info_zr_dw" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>
+<!-- 树展示的弹出层  -->
+<div id="tree-psndocForygdemo_yw_info_zrr" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"psndocForygdemo_yw_infoTree_zrr","data":"refBdPsndocVODa_zrr","type":"tree","idField":"pk_psndoc","pidField":"parentid","nameField":"psnname","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_BdPsndocVOToygdemo_yw_info_zrr" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>
+<!-- 树展示的弹出层  -->
+<div id="tree-org_testForygdemo_yw_info_unitid" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"org_testForygdemo_yw_infoTree_unitid","data":"refBdCorpVODa_unitid","type":"tree","idField":"pk_corp","pidField":"parentid","nameField":"unitname","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_BdCorpVOToygdemo_yw_info_unitid" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>
+<!-- 树展示的弹出层  -->
+<div id="tree-psndocForygdemo_yw_info_xbr" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"psndocForygdemo_yw_infoTree_xbr","data":"refBdPsndocVODa_xbr","type":"tree","idField":"pk_psndoc","pidField":"parentid","nameField":"psnname","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_BdPsndocVOToygdemo_yw_info_xbr" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>
+<!-- 树展示的弹出层  -->
+<div id="tree-psndocForygdemo_yw_info_qt_ld" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"psndocForygdemo_yw_infoTree_qt_ld","data":"refBdPsndocVODa_qt_ld","type":"tree","idField":"pk_psndoc","pidField":"parentid","nameField":"psnname","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_BdPsndocVOToygdemo_yw_info_qt_ld" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>
+<!-- 树展示的弹出层  -->
+<div id="tree-psndocForygdemo_yw_info_zbr" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"psndocForygdemo_yw_infoTree_zbr","data":"refBdPsndocVODa_zbr","type":"tree","idField":"pk_psndoc","pidField":"parentid","nameField":"psnname","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_BdPsndocVOToygdemo_yw_info_zbr" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>
+<!-- 树展示的弹出层  -->
+<div id="tree-psndocForygdemo_yw_info_dbr" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"psndocForygdemo_yw_infoTree_dbr","data":"refBdPsndocVODa_dbr","type":"tree","idField":"pk_psndoc","pidField":"parentid","nameField":"psnname","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_BdPsndocVOToygdemo_yw_info_dbr" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>
+<!-- 树展示的弹出层  -->
+<div id="tree-ieop_userForygdemo_yw_info_create_name_master" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"ieop_userForygdemo_yw_infoTree_create_name_master","data":"refExtIeopUserVODa_create_name_master","type":"tree","idField":"id","pidField":"parentid","nameField":"name","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_ExtIeopUserVOToygdemo_yw_info_create_name_master" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>
+<!-- 树展示的弹出层  -->
+<div id="tree-ieop_userForygdemo_yw_info_update_name_master" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"ieop_userForygdemo_yw_infoTree_update_name_master","data":"refExtIeopUserVODa_update_name_master","type":"tree","idField":"id","pidField":"parentid","nameField":"name","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_ExtIeopUserVOToygdemo_yw_info_update_name_master" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>
+<!-- 树展示的弹出层  -->
+<div id="tree-org_testForygdemo_yw_info_xb_dw" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"org_testForygdemo_yw_infoTree_xb_dw","data":"refBdCorpVODa_xb_dw","type":"tree","idField":"pk_corp","pidField":"parentid","nameField":"unitname","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_BdCorpVOToygdemo_yw_info_xb_dw" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>
+
+<!-- 树展示的弹出层  -->
+<div id="tree-psndocForygdemo_yw_sub" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"psndocForygdemo_yw_subTree","data":"refBdPsndocVODa","type":"tree","idField":"pk_psndoc","pidField":"parentid","nameField":"psnname","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_BdPsndocVOToygdemo_yw_sub" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>
+<!-- 树展示的弹出层  -->
+<div id="tree-ieop_userForygdemo_yw_sub_create_name_sub" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"ieop_userForygdemo_yw_subTree_create_name_sub","data":"refExtIeopUserVODa_create_name_sub","type":"tree","idField":"id","pidField":"parentid","nameField":"name","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_ExtIeopUserVOToygdemo_yw_sub_create_name_sub" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>
+<!-- 树展示的弹出层  -->
+<div id="tree-ieop_userForygdemo_yw_sub" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="treetitle" id="tree-title"></h4>
+    </div>
+    <div class="u-msg-content">
+        <!--   <div class="ztree" id="commonTree"></div> -->
+        <div id="treecom" class="ztree"
+             u-meta='{"id":"ieop_userForygdemo_yw_subTree","data":"refExtIeopUserVODa","type":"tree","idField":"id","pidField":"parentid","nameField":"name","setting":"treeSetting"}'></div>
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_ExtIeopUserVOToygdemo_yw_sub" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">
+            取消
+        </button>
+    </div>
+
+</div>
+

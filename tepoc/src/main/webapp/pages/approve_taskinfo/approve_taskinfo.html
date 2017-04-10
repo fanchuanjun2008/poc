@@ -1,0 +1,170 @@
+<div class="list-panel" id="manager">
+    <div class="common-header-1" >
+      <div class="u-col-4 padding-right-0" style="float:right">
+         <div class="u-button-group margin-0" style="float:right;">
+			<button class="u-button u-button-primary" id="approveButton" data-bind="click: event.approve">审批</button>
+			<button class="u-button u-button-primary" id="returnButton" data-bind="click: event.reject">驳回</button>
+			<button class="u-button u-button-primary" id="signAddButton" data-bind="click: event.signAdd">加签</button>
+			<button class="u-button u-button-primary" id="approveButton" data-bind="click: event.queryapp">查看审批情况</button>
+         </div> 
+         </div>     
+        <div class="u-col-4" style="float:right;text-align:center;">
+             <span>任务列表</span>
+        </div>
+          
+    </div>
+    <div class="common-header-2" >
+         <div class="pull-left">
+            <div id="searchdiv" class="u-input-group u-has-feedback ">
+                <input type="text" class="u-form-control sm input_enter" id="search"
+                       placeholder="输入任务名/流程定义名"
+> 
+                       <span class="u-form-control-feedback uf uf-zoom"
+                    id="searchBtn" data-bind="click: event.searchClick"></span>
+            </div>
+        </div>
+    </div>
+    
+    <!--table-->
+    <div class="main-container cartable-container">
+        <div class="hr-table ">
+            <div class="u-table b-table width-full"
+                 u-meta='{"id":"gridcardtable","type":"grid","data":"dt1","columnWidth":"150px","multiSelect":true}'>
+                                        <div options='{"field":"name","dataType":"String","title":"任务名","editType":"string"}'></div>
+										<div options='{"field":"assignee","dataType":"date","title":"审计人","editType":"string"}'></div>
+                                        <div options='{"field":"createTime","dataType":"String","title":"创建时间","editType":"string","renderType":"dateRender"}'></div>
+                                        <div options='{"field":"processInstanceId","dataType":"String","title":"实例ID","editType":"string"}'></div>
+                                        <div options='{"field":"processDefinitionId","dataType":"String","title":"流程定义ID","editType":"string"}'></div>
+                                        <div options='{"field":"processDefinitionName","dataType":"String","title":"流程定义名","editType":"string"}'></div>
+            </div>
+        </div>
+        <div id='pagination' class='pagination u-pagination pagination-sm'></div>
+    </div>
+</div>
+<!-- 表格展示的弹出层  -->
+<div id="table-approvalView" tabindex="-1" role="dialog" style="display:none;width:800px">
+    <div class="u-msg-title">
+        <h4 class="tabletitle" id="table-title"></h4>
+    </div>
+    <div class="u-msg-content">
+          <div class="table-container">
+          	            <iframe id="historyGraph" width="99%" style="border: 0px;height: 100%;min-height:300px;"></iframe>
+                        <table id="bpmtable" class="u-table" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>任务名</th>
+                                <th>审计人</th>
+                                <th>流程定义名</th>
+                                <th>任务状态</th>
+                                <th>开始时间</th>
+                                <th>结束时间</th>
+                            </tr>
+                            </thead>
+                            <tbody data-bind="foreach:{data:approvalView.rows(),as:'row'}">
+                            <tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'rowindex': $index()},click: $parent.event.approvalRowClick"">
+                                
+                                <td data-bind="text: row.ref('name')"></td>
+                                <td data-bind="text: row.ref('assignee')"></td>
+                                <td data-bind="text: row.ref('processDefinitionName')"></td>
+                                <td data-bind="text: row.ref('deleteReason')"></td>
+                                <td data-bind="text: u.dateRender(row.ref('startTime'))"></td>
+                                <td data-bind="text: u.dateRender(row.ref('endTime'))"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>       
+          
+    </div>
+    <div class="u-msg-footer">
+        <button type="button"  class="u-button u-button-primary pull-right" data-bind="click:event.mdClose">确定</button>
+    </div>
+</div>
+
+<!-- 表格展示的弹出层  -->
+<div id="table-rejectView" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="tabletitle" id="table-title"></h4>
+    </div>
+    <div class="u-msg-content">
+          <div class="table-container">
+                        <table class="u-table" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>活动编码</th>
+                                <th>活动名称</th>
+                            </tr>
+                            </thead>
+                            <tbody data-bind="foreach:{data:rejectView.rows(),as:'row'}">
+                            <tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'rowindex': $index()} ,click: $parent.event.rowClick">
+                                
+                                <td data-bind="text: row.ref('activityId')"></td>
+                                <td data-bind="text: row.ref('activityName')"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>       
+          
+    </div>
+    <div class="u-msg-footer">
+        <button type="button" id="confirm_select_rejectView" class="u-button u-button-primary pull-right">确定</button>
+        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">取消</button>
+    </div>
+</div>
+
+<div id="dialog_content" style="display:none;">
+	<div class="u-msg-title">
+		<h4>审批</h4>
+	</div>
+	<div class="u-msg-content">
+		<p>请选择你当前的操作...</p>
+	</div>
+	<div class="u-msg-footer">
+		<button id="u-button-xx" class="u-msg-ok u-button" >审批取消<span class="u-button-container"><span class="u-ripple"></span></span></button>
+		<button id="u-button-aa"class="u-msg-cancel u-button" >确认审批<span class="u-button-container"><span class="u-ripple"></span></span></button>
+	</div>
+</div>
+
+<!-- 加签表格展示的弹出层  -->
+<div id="table-signAddView" tabindex="-1" role="dialog" style="display:none">
+    <div class="u-msg-title">
+        <h4 class="tabletitle" id="table-signAdd-title"></h4>
+    </div>
+    <div class="u-msg-content">
+          <div class="table-container">
+                        <table class="u-table" style="width:100%">
+                            <thead>
+                            <tr>
+                            	<th name="userCheckbox" style="display: block;border-top:1px solid transparent;">
+                                    <label class="margin-top-5 u-checkbox only-style u-checkbox-floatl"
+                                           data-bind="click: signAddView.toggleAllSelect.bind(signAddView), css:{'is-checked': signAddView.allSelected()}">
+                                        <input id="checkInput" type="checkbox" class="u-checkbox-input">
+                                        <span class="u-checkbox-label"></span>
+                                    </label>
+                                </th>
+                                <th>人员编码</th>
+                                <th>人员姓名</th>
+                            </tr>
+                            </thead>
+                            <tbody data-bind="foreach:{data:signAddView.rows(),as:'row', afterAdd: event.afterAdd}">
+                            <tr data-bind="css: { 'is-selected' : row.selected() } ,attr:{'rowindex': $index()}, click: $parent.event.rowClick">
+                                <td name="userCheckbox" class="checkbox1">
+                                    <label class="u-checkbox only-style u-checkbox-floatl"
+                                           data-bind="click: row.multiSelect, css:{'is-checked': row.selected()}">
+                                        <input type="checkbox" class="u-checkbox-input">
+                                        <span class="u-checkbox-label"></span>
+                                    </label>
+                                </td>
+                                <td data-bind="text: row.ref('code')"></td>
+                                <td data-bind="text: row.ref('name')"></td>
+                            
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>       
+          
+    </div>
+    <div class="u-msg-footer">
+        <button type="button"  class="u-button u-button-primary pull-right" data-bind="click:event.signAddSubmit">确定</button>
+        <button type="button"  class="u-button u-button-primary pull-right" data-bind="click:event.mdClose">取消</button>
+    </div>
+</div>
