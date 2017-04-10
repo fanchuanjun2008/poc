@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -53,66 +54,6 @@ public class UserPsnController extends BaseController {
     @Autowired
     private UserRoleService roleservice;
     
-    @RequestMapping(value = "/findall", method = RequestMethod.GET)
-    @ResponseBody
-    public Page<UserPsnVO> testfindUserByUserMobile() throws DAOException {
-		Map<String, Object> searchParams = new HashMap<String, Object>();
-		PageRequest pageRequest = new PageRequest(0,10);
-		Page<UserPsnVO> result = service.selectAllByPage(searchParams, pageRequest);
-		return result;
-	}
-    
-    @RequestMapping(value = "/findone", method = RequestMethod.GET)
-    @ResponseBody
-    public Map<String, Object> testfindUserById() throws DAOException {
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	
-    	Map<String, Object> headsearchParams = new HashMap<String, Object>();
-		PageRequest headpageRequest = new PageRequest(0,10);
-		String pk_user = "ed631e6d-921e-46dc-ab3b-6970a3f2a06a";
-		headsearchParams.put("pk_user", pk_user);
-		Page<UserPsnVO> head = service.selectAllByPage(headsearchParams, headpageRequest);
-		
-		Map<String, Object> bodysearchParams = new HashMap<String, Object>();
-		PageRequest bodypageRequest = new PageRequest(0,10);
-		Page<UserRoleVO> body = roleservice.selectAllByPage(bodysearchParams, bodypageRequest);
-		result.put("head", head.getContent().get(0));
-		result.put("body", body);
-		return result;
-	}
-    
-    @RequestMapping(value = "/savelist", method = RequestMethod.GET)
-    @ResponseBody
-    public UserPsnVO testSaveUser() throws DAOException {
-		Map<String, Object> searchParams = new HashMap<String, Object>();
-		PageRequest pageRequest = new PageRequest(1,10);
-		UserPsnVO entity = new UserPsnVO();
-		entity.setUsername("测试用户");
-		entity.setSex("0");
-		entity.setIdcard("xxxxxxxxxxxxxxxxxxxxx");
-		entity.setEdution("大学");
-		entity.setEmail("fanchuanjun2008@163.com");
-		List<UserDeptVO> id_userdept = new ArrayList<UserDeptVO>();
-		for(int i = 0; i<5; i++){
-			UserDeptVO usrrole = new UserDeptVO();
-			usrrole.setDeptname("test"+i);
-			usrrole.setDeptcode("dept"+i);
-			id_userdept.add(usrrole);
-		}
-		entity.setId_userdept(id_userdept);
-		List<UserRoleVO> id_userrole = new ArrayList<UserRoleVO>();
-		for(int i = 0; i<5; i++){
-			UserRoleVO usrrole = new UserRoleVO();
-			usrrole.setRolecode("role"+i);
-			usrrole.setRolename("test"+i);
-			usrrole.setRoletype("测试");
-			id_userrole.add(usrrole);
-		}
-		entity.setId_userrole(id_userrole);
-		UserPsnVO result = service.merge(entity);
-		return result;
-	}
-    
     @RequestMapping(value = "/savecard", method = RequestMethod.POST)
     @ResponseBody
     public Object saveUserPsn(@RequestBody UserPsnVO entity) throws DAOException {
@@ -122,7 +63,7 @@ public class UserPsnController extends BaseController {
 
     /**
      * 前端传入参数，查询数据，列表展示
-     * 
+     * 由于对接mdm，list变化为list
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -137,6 +78,35 @@ public class UserPsnController extends BaseController {
 		PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto");
         Page<UserPsnVO> page = service.selectAllByPage(searchParams, pageRequest);
         return super.buildSuccess(page);
+    }
+    
+    /**
+     * 通过mdm加载主数据展示
+     * listmdm
+     * @return
+     */
+    @RequestMapping(value = "/list2", method = RequestMethod.GET)
+    @ResponseBody
+    public Object listMdm(@RequestParam(value = "page", defaultValue = "0") int pageNumber,
+    		@RequestParam(value = "page.size", defaultValue = "10") int pageSize,
+    		@RequestParam(value = "sortType", defaultValue = "auto") String sortType,
+    		Model model, ServletRequest request) {
+    	logger.debug("execute data search.");
+    	Map<String, Object> searchParams = new HashMap<String, Object>();
+    	searchParams = Servlets.getParametersStartingWith(request, "search_");
+    	PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, "auto");
+    	Page<UserPsnVO> page = service.selectByMdmByPage(searchParams, pageRequest);
+    	return super.buildSuccess(page);
+    }
+    
+    @RequestMapping(value = "/listToMobile", method = {RequestMethod.GET,RequestMethod.POST},produces="application/json;charset=utf-8")
+    public @ResponseBody Object listMdmToMobile( Model model, ServletRequest request,ServletResponse response) {
+    	logger.debug("execute data search.");
+    	Map<String, Object> searchParams = new HashMap<String, Object>();
+    	searchParams = Servlets.getParametersStartingWith(request, "search_");
+    	PageRequest pageRequest = buildPageRequest(0, 10, "auto");
+    	Page<UserPsnVO> page = service.selectByMdmByPage(searchParams, pageRequest);
+    	return super.buildSuccess(page);
     }
     
     /**

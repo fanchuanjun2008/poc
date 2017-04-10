@@ -50,7 +50,8 @@ public class UserRoleDao {
             sql = sql + " where ";
             for (String key : searchParams.keySet()) {
                 sql = sql + FastBeanHelper.getColumn(UserRoleVO.class, key) + " like ? AND ";
-                sqlparam.addParam("%" + searchParams.get(key) + "%");
+                String value = (String) ((searchParams.get(key)==null||searchParams.get(key).equals(""))?null:searchParams.get(key));
+                sqlparam.addParam("%" + value + "%");
             }
             sql = sql.substring(0, sql.length() - 4);
         }

@@ -105,6 +105,12 @@
 				/api/** = anon
 				/cxf/** = anon
 				/jaxrs/** = anon
+				/malogin/** = anon
+				/UserPsn/** = anon
+				/assignee/** = anon
+				/process/** = anon
+				/approve_taskinfo/** = anon
+				/approved/** = anon
 				/** = statelessAuthc
 			</value>
 		</property>

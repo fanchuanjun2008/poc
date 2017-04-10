@@ -1,19 +1,28 @@
 package com.yonyou.iuap.tepoc.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.xml.bind.JAXBElement;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yonyou.itf.mdm07.sharing.IMdSharingCenterService;
+import com.yonyou.itf.mdm07.sharing.MdmRetVO;
 import com.yonyou.iuap.persistence.bs.dao.DAOException;
 import com.yonyou.iuap.persistence.bs.jdbc.meta.access.DASFacade;
 import com.yonyou.iuap.persistence.vo.pub.VOStatus;
@@ -152,6 +161,80 @@ public class UserPsnService {
 				searchParams);
 //		this.setRefName(pageResult);
 		return pageResult;
+	}
+	
+	/**
+	 * 使用主数据提供的webservice接口获取数据
+	 * @param searchParams
+	 * @param pageRequest
+	 * @return
+	 */
+	@BusiLogConfig("UserPsnService_querybymdm")
+	public Page<UserPsnVO> selectByMdmByPage(Map<String, Object> searchParams,
+			PageRequest pageRequest) {
+		MdmRetVO result = new IMdSharingCenterService().getIMdSharingCenterServiceSOAP11PortHttp().queryMdById("mysys", "userid02", "1990", true);
+		JAXBElement<String> retData = result.getData();
+		System.out.println(retData.getValue());
+		String mdmStr = retData.getValue();
+		//对返回数据进行处理
+		List retlist = this.translateMdmStrToUserPsnList(mdmStr);
+		Page<UserPsnVO> pageResult = new PageImpl(retlist);
+		return pageResult;
+	}
+	
+	private List translateMdmStrToUserPsnList(String mdmStr){
+		List retlist = new ArrayList();
+		JSONArray jsonarry = JSONArray.fromObject(mdmStr);
+		if(jsonarry.size()>0){
+			for(int i=0; i<jsonarry.size(); i++){
+				JSONObject json = (JSONObject) jsonarry.get(i);
+				String code = getStrValue(json,"code");
+				String description = getStrValue(json,"description");
+				String mdm_pk = getStrValue(json,"mdm_pk");
+				String id = getStrValue(json,"id");
+				String mdm_seal = getStrValue(json,"mdm_seal");
+				String mdm_duplicate = getStrValue(json,"mdm_duplicate");
+				String mdm_code = getStrValue(json,"mdm_code");
+				String mdm_version = getStrValue(json,"mdm_version");
+				UserPsnVO uservo = new UserPsnVO();
+				String entity_data_status = getStrValue(json,"entity_data_status");
+				if("UNCHANGED".equalsIgnoreCase(entity_data_status)){
+					uservo.setStatus(VOStatus.UNCHANGED);
+				}else if("UPDATED".equalsIgnoreCase(entity_data_status)){
+					uservo.setStatus(VOStatus.UPDATED);
+				}else if("NEW".equalsIgnoreCase(entity_data_status)){
+					uservo.setStatus(VOStatus.NEW);
+				}else if("DELETED".equalsIgnoreCase(entity_data_status)){
+					uservo.setStatus(VOStatus.DELETED);
+				}
+				uservo.setSex(getStrValue(json,"sex"));
+				uservo.setIdcard(getStrValue(json,"idcard"));
+				uservo.setTelphone(getStrValue(json,"telphone"));
+				uservo.setEmail(getStrValue(json,"email"));
+//				try {
+//					String brithdate = getStrValue(json,"brithdate");
+//					uservo.setBrithdate(brithdate!=null?SimpleDateFormat.getInstance().parse(brithdate):null);
+//					String work_date = getStrValue(json,"work_date");
+//					uservo.setWork_date(work_date!=null?SimpleDateFormat.getInstance().parse(work_date):null);
+//				} catch (ParseException e) {
+//					logger.error("日期转换出错");
+//					e.printStackTrace();
+//				}
+				uservo.setEdution(getStrValue(json,"edutoin"));
+				uservo.setMajor(getStrValue(json,"major"));
+				uservo.setPk_corp(getStrValue(json,"pk_corp"));
+				uservo.setPk_dept(getStrValue(json,"pk_dept"));
+				uservo.setUsername(getStrValue(json,"name"));
+				String ts = getStrValue(json,"ts");
+				uservo.setTs(Timestamp.valueOf(ts));
+				retlist.add(uservo);
+			}
+		}
+		return retlist;
+	}
+	
+	private String getStrValue(JSONObject json, String key){
+		return (json.containsKey(key)?json.getString(key):null);
 	}
 	
 	public List<com.yonyou.iuap.example.entity.meta.Org> findAllOrg() {

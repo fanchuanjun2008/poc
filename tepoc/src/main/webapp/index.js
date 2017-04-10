@@ -23,6 +23,7 @@ require(['knockout', 'director',], function(ko) {
     window.router = Router();
     window.ko=ko;
     tepoc_ctx="/tepoc";
+    window.cturl = tepoc_ctx;
     window.ctx = "/uitemplate_web";
     window.ctxfilemng = '/iuap-saas-filesystem-service/';
 

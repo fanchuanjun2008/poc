@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.yonyou.iuap.persistence.bs.dao.BaseDAO;
 import com.yonyou.iuap.persistence.bs.dao.DAOException;
 import com.yonyou.iuap.persistence.jdbc.framework.SQLParameter;
+import com.yonyou.iuap.persistence.jdbc.framework.util.FastBeanHelper;
 import com.yonyou.iuap.persistence.jdbc.framework.util.SQLHelper;
 import com.yonyou.iuap.tepoc.entity.UserDeptVO;
 import com.yonyou.iuap.tepoc.entity.UserPsnVO;
@@ -29,17 +30,15 @@ public class UserDeptDao {
 	
     
     public Page<UserDeptVO> selectAllByPage(PageRequest pageRequest, Map<String, Object> searchParams) {
-        String sql = " select * from user_dept"; 
+        String sql = " select * from user_dept";
         SQLParameter sqlparam = new SQLParameter();
+
         if (!searchParams.isEmpty()) {
             sql = sql + " where ";
             for (String key : searchParams.keySet()) {
-                if (key.equalsIgnoreCase("searchParam")) {
-                    sql =sql + "() AND";
-                    for (int i = 0; i < 2; i++) {
-                        sqlparam.addParam("%" + searchParams.get(key) + "%");
-                    }
-                }
+                sql = sql + FastBeanHelper.getColumn(UserDeptVO.class, key) + " like ? AND ";
+                String value = (String) ((searchParams.get(key)==null||searchParams.get(key).equals(""))?null:searchParams.get(key));
+                sqlparam.addParam("%" + value + "%");
             }
             sql = sql.substring(0, sql.length() - 4);
         }
