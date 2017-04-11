@@ -1,15 +1,15 @@
 define(['text!/whpoc/pages/Invoice/Invoice.html',
     '/whpoc/pages/Invoice/meta.js',
     'css!/whpoc/pages/Invoice/Invoice.css',
-    'config/sys_const',
-    'templetutils',
-    'reflib',
-    'refer',
-    'refGrid',
-    'refGridtree',
-    'refTree',
-    'refcommon',
-    'uiReferComp',
+    '/whpoc/config/sys_const.js',
+    //'templetutils',
+    //'reflib',
+    //'refer',
+    //'refGrid',
+    //'refGridtree',
+    //'refTree',
+    //'refcommon',
+    //'uiReferComp',
     '/whpoc/pages/Invoice/uitemplate/controller.js',
     'css!/uitemplate_web/static/trd/bootstrap-table/src/bootstrap-table.css'
 ], function (template) {
@@ -19,10 +19,10 @@ define(['text!/whpoc/pages/Invoice/Invoice.html',
         var viewModel = {
             draw: 1,//页数(第几页)
             pageSize: 5,
-            searchURL: ctx + '/Invoice/list',
-            addURL: ctx + "/Invoice/add",
-            updateURL: ctx + "/Invoice/update",
-            delURL: ctx + "/Invoice/delBatch",
+            searchURL: whctx + '/Invoice/list',
+            addURL: whctx + "/Invoice/add",
+            updateURL: whctx + "/Invoice/update",
+            delURL: whctx + "/Invoice/delBatch",
             formStatus: _CONST.FORM_STATUS_ADD, 
             InvoiceDa: new u.DataTable(metaDt),
             InvoiceFormDa: new u.DataTable(metaDt),
@@ -193,11 +193,11 @@ define(['text!/whpoc/pages/Invoice/Invoice.html',
                     	viewModel.childdraw = 1;
                     	viewModel.event.getUserJobList();
                     });
-                    viewModel.child_card_pcomp.on('sizeChange', function (arg) {
-                    	viewModel.pageSize = parseInt(arg);
-                    	viewModel.childdraw = 1;
-                    	viewModel.event.getUserJobList();
-                    });
+//                    viewModel.child_card_pcomp.on('sizeChange', function (arg) {
+//                    	viewModel.pageSize = parseInt(arg);
+//                    	viewModel.childdraw = 1;
+//                    	viewModel.event.getUserJobList();
+//                    });
                 },
                 //end sizeChange
 
@@ -383,7 +383,7 @@ define(['text!/whpoc/pages/Invoice/Invoice.html',
                 selectCompany_Invoice: function () {
                     var treeSet = this.treeSetting;
                     var title = '请选择参照值';
-                    var url = ctx + '/Invoice/Company/listall';
+                    var url = whctx + '/Invoice/Company/listall';
                     viewModel.event.showCompanyTreeDiv_Invoice(null, url, title, this.treeSetting);
                 },
                 
@@ -438,7 +438,7 @@ define(['text!/whpoc/pages/Invoice/Invoice.html',
                 selectTsi18n_Invoice: function () {
                     var treeSet = this.treeSetting;
                     var title = '请选择参照值';
-                    var url = ctx + '/Invoice/Tsi18n/listall';
+                    var url = whctx + '/Invoice/Tsi18n/listall';
                     viewModel.event.showTsi18nTreeDiv_Invoice(null, url, title, this.treeSetting);
                 },
                 
@@ -518,7 +518,7 @@ define(['text!/whpoc/pages/Invoice/Invoice.html',
                     jsonData['search_fk_id_invoice_order'] = userId;
                     $.ajax({
                         type: 'GET',
-                        url: ctx + '/invoice_order/list',
+                        url: whctx + '/invoice_order/list',
                         datatype: 'json',
                         data: jsonData,
                         contentType: 'application/json;charset=utf-8',
@@ -539,12 +539,12 @@ define(['text!/whpoc/pages/Invoice/Invoice.html',
                                             currentPage: viewModel.childdraw,
                                             totalCount: totleCount
                                         });
-                                        viewModel.child_card_pcomp.update({ //卡片页子表的分页信息
-                                        	totalPages: totlePage,
-                                        	pageSize: viewModel.pageSize,
-                                        	currentPage: viewModel.childdraw,
-                                        	totalCount: totleCount
-                                        });
+//                                        viewModel.child_card_pcomp.update({ //卡片页子表的分页信息
+//                                        	totalPages: totlePage,
+//                                        	pageSize: viewModel.pageSize,
+//                                        	currentPage: viewModel.childdraw,
+//                                        	totalCount: totleCount
+//                                        });
                                         if(totleCount > viewModel.pageSize ){//根据总条数，来判断是否显示子表的分页层
                                         	$('#child_card_pagination').show();
                                         	$('#child_list_pagination').show();
@@ -590,7 +590,7 @@ define(['text!/whpoc/pages/Invoice/Invoice.html',
                         }
                         $.ajax({
                             type: "post",
-                            url: ctx + "/invoice_order/del",
+                            url: whctx + "/invoice_order/del",
                             contentType: 'application/json;charset=utf-8',
                             data: JSON.stringify(jsonDel[0]),
                             success: function (res) {
@@ -622,10 +622,11 @@ define(['text!/whpoc/pages/Invoice/Invoice.html',
 
 
         $(element).html(template);
-        var app = u.createApp({
-            el: '#content',
-            model: viewModel
-        });
+        //var aaaaaa = document.getElementById("content");
+        app = u.createApp({
+			el: element,
+			model: viewModel
+		});
         require(['/uitemplate_web/static/js/rt/templetutils.js','/whpoc/pages/Invoice/uitemplate/controller.js'],function () {
             var templetUtils = new TempletUtils(app);
             templetUtils.initTemplateComponent('template-invoice', 'invoice', 'invoices','/whpoc/pages/Invoice/uitemplate/controller.js',true);
@@ -637,7 +638,7 @@ define(['text!/whpoc/pages/Invoice/Invoice.html',
         viewModel.comps = new u.pagination({el: paginationDiv, jumppage: true});
         
         viewModel.child_list_pcomp = new u.pagination({el: $(element).find('#child_list_pagination')[0], jumppage: true});
-        viewModel.child_card_pcomp = new u.pagination({el: $(element).find('#child_card_pagination')[0], jumppage: true});
+//        viewModel.child_card_pcomp = new u.pagination({el: $(element).find('#child_card_pagination')[0], jumppage: true});
         viewModel.childdraw=1 ;
 
         viewModel.event.initUerList();

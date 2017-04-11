@@ -150,11 +150,11 @@ define(['text!pages/Invoice/Invoice.html','pages/Invoice/meta','css!pages/Invoic
                     	viewModel.childdraw = 1;
                     	viewModel.event.getUserJobList();
                     });
-                    viewModel.child_card_pcomp.on('sizeChange', function (arg) {
-                    	viewModel.pageSize = parseInt(arg);
-                    	viewModel.childdraw = 1;
-                    	viewModel.event.getUserJobList();
-                    });
+//                    viewModel.child_card_pcomp.on('sizeChange', function (arg) {
+//                    	viewModel.pageSize = parseInt(arg);
+//                    	viewModel.childdraw = 1;
+//                    	viewModel.event.getUserJobList();
+//                    });
                 },
                 //end sizeChange
 
@@ -588,7 +588,7 @@ define(['text!pages/Invoice/Invoice.html','pages/Invoice/meta','css!pages/Invoic
         viewModel.comps = new u.pagination({el: paginationDiv, jumppage: true});
         
         viewModel.child_list_pcomp = new u.pagination({el: $(element).find('#child_list_pagination')[0], jumppage: true});
-        viewModel.child_card_pcomp = new u.pagination({el: $(element).find('#child_card_pagination')[0], jumppage: true});
+//        viewModel.child_card_pcomp = new u.pagination({el: $(element).find('#child_card_pagination')[0], jumppage: true});
         viewModel.childdraw=1 ;
 
         viewModel.event.initUerList();

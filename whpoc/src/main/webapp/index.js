@@ -23,6 +23,7 @@ require(['knockout', 'director',], function(ko) {
     window.router = Router();
     window.ko=ko;
     ctx="/whpoc";
+    whctx="/whpoc";
 
     $(function() {
         $('#menu,#nav-zone').find("a[href*='#']").each(function(e) {
