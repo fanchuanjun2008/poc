@@ -7,8 +7,8 @@ require.config({
 		bootstrap: '/whpoc/vendor/bootstrap/js/bootstrap',
 		knockout: "/whpoc/vendor/knockout/knockout-3.2.0.debug",
 		uui: "/whpoc/vendor/uui/js/u",
-		uuigrid: "/whpoc/vendor/uui/js/u-grid",
-		uuitree: "/whpoc/vendor/uui/js/u-tree",
+		uuigrid1: "/whpoc/vendor/uui/js/u-grid",
+		uuitree1: "/whpoc/vendor/uui/js/u-tree",
 		director:"/whpoc/vendor/director/director",
 		biz: "/whpoc/vendor/uui/js/u.biz",
 		pages:"pages",
@@ -18,13 +18,13 @@ require.config({
 		'uui':{
 			deps:["knockout"]
 		},
-		'uuigrid':{
+		'uuigrid1':{
 			deps:["uui","css!/whpoc/vendor/uui/css/grid.css"]
 		},
 		'bootstrap': {
 			deps: ["jquery"]
 		},
-		'uuitree':{
+		'uuitree1':{
 			deps: ["uui","css!/whpoc/vendor/uui/css/tree.css"]
 		}
 	}

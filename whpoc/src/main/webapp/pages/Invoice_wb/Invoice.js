@@ -1,7 +1,8 @@
-define(['text!/whpoc/pages/Invoice_wb/Invoice.html','/whpoc/pages/Invoice_wb/meta.js','css!/whpoc/pages/Invoice_wb/Invoice.css', '/whpoc/config/sys_const.js'], function (template) {
-	//'uuitree', 'uuigrid'
+define(['text!./Invoice.html','./meta.js','css!./Invoice.css', '/whpoc/config/sys_const.js'], function (template) {
+	//'uuitree', 'uuigrid';'uuitree1', 'uuigrid1'
   //开始初始页面基础数据
     var init =  function (element, params) {
+    	var whctx="/whpoc";
         var viewModel = {
             draw: 1,//页数(第几页)
             pageSize: 5,
@@ -496,12 +497,12 @@ define(['text!/whpoc/pages/Invoice_wb/Invoice.html','/whpoc/pages/Invoice_wb/met
                                             currentPage: viewModel.childdraw,
                                             totalCount: totleCount
                                         });
-                                        viewModel.child_card_pcomp.update({ //卡片页子表的分页信息
-                                        	totalPages: totlePage,
-                                        	pageSize: viewModel.pageSize,
-                                        	currentPage: viewModel.childdraw,
-                                        	totalCount: totleCount
-                                        });
+//                                        viewModel.child_card_pcomp.update({ //卡片页子表的分页信息
+//                                        	totalPages: totlePage,
+//                                        	pageSize: viewModel.pageSize,
+//                                        	currentPage: viewModel.childdraw,
+//                                        	totalCount: totleCount
+//                                        });
                                         if(totleCount > viewModel.pageSize ){//根据总条数，来判断是否显示子表的分页层
                                         	$('#child_card_pagination').show();
                                         	$('#child_list_pagination').show();

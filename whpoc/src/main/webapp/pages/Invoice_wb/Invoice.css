@@ -209,8 +209,19 @@ span.u-form-control-info.uf.uf-exclamationsign {
     -ms-transition: height 0.35s ease;
     -o-transition: height 0.35s ease;
     transition: height 0.35s ease;
-    position: relative;
+    /*position: relative;*/
     overflow: hidden;
     height: 0;
 
 }
+
+.page.side-page>.container-fluid{
+	height:100%;
+}
+.page.side-page>.container-fluid>div{
+	height:100%;
+}
+#content{
+	height:100%;
+}
+
