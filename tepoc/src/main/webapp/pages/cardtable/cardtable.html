@@ -11,6 +11,7 @@
                         id="editButton" data-bind="click: event.editClick">编辑
                 </button>
                 <button class="u-button u-button-primary" id="delButton" data-bind="click: event.delClick">删除</button>
+                <button class="u-button u-button-primary" id="delButton" data-bind="click: event.onOpenInfoUploadWin">上传照片</button><!--data-bind="click:event.onOpenInfoUploadWin"-->
             </div>
         </div>
         <div class="u-col-4" style="float:right;text-align:center;">
@@ -139,4 +140,69 @@
         </div>
     </div>
 </div>
+<div id="countrysubsid_dialog_uploadfileinfo" style="display: none;">
+	<div class="u-msg-title">
+		<h4>个人照片上传</h4>
+	</div>
+	<div class="u-msg-content">
+		<div class="u-row">
+			<div class="u-col-12" style="margin-bottom: 20px;">
+				<div class="u-widget">
+					<div class="menu">
+						<button class="u-button raised primary sub-list1-new" data-bind="click:event.onInfoFileUpload" data-upgraded=",u.Button" style="display: inline-block;">
+							上传<span class="u-button-container"><span class="u-ripple is-animating" style="width: 158px; height: 158px; transform: translate(-50%, -50%) translate(48px, 13px);"></span></span>
+						</button>
 
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="u-row">
+			<div class="u-col-12">
+				<div class="u-widget">
+					<div class="form">
+						<div class="u-col-3 u-col-xs-4 u-col-sm-4 u-col-md-3" style=" width: 330px; padding-left: 0px; ">
+							<div class="u-text u-label-floating-always is-upgraded" data-upgraded=",u.Text">
+								<input class="u-input" accept="image/*"  type="file" name="addfile" id="infofile_id" multiple="multiple">
+								<label class="u-label" for="sample1" style="display:none;">选择附件</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="countrysubsid_dialog_uploadfile" style="display: none;">
+	<div class="u-msg-title">
+		<h4>附件上传</h4>
+	</div>
+	<div class="u-msg-content">
+		<div class="u-row">
+			<div class="u-col-12" style="margin-bottom: 20px;">
+				<div class="u-widget">
+					<div class="menu">
+						<button class="u-button raised primary sub-list2-new" data-bind="click:event.onFileUpload" data-upgraded=",u.Button" style="display: inline-block;">
+							上传<span class="u-button-container"><span class="u-ripple is-animating" style="width: 158px; height: 158px; transform: translate(-50%, -50%) translate(48px, 13px);"></span></span>
+						</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="u-row">
+			<div class="u-col-12">
+				<div class="u-widget">
+					<div class="form">
+						<div class="u-col-3 u-col-xs-4 u-col-sm-4 u-col-md-3" style=" width: 330px; padding-left: 0px; ">
+							<div class="u-text u-label-floating-always is-upgraded" data-upgraded=",u.Text">
+								<input class="u-input" type="file" accept="image/*" name="addfile" id="countrysubsidybatch_id" multiple="multiple">
+								<label class="u-label" for="sample1" style="display:none;">选择附件</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

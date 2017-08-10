@@ -1,4 +1,4 @@
-define(['text!pages/cardtable/cardtable.html','css!pages/cardtable/cardtable','pages/cardtable/cardtablemeta','uuigrid'],function(html){
+define(['text!pages/cardtable/cardtable.html','css!pages/cardtable/cardtable','pages/cardtable/cardtablemeta','uuigrid', 'ajaxfileupload', 'ossupload', 'interfaceFile', 'interfaceFileImpl'],function(html){
 	var init=function(element){
 
 
@@ -245,7 +245,88 @@ define(['text!pages/cardtable/cardtable.html','css!pages/cardtable/cardtable','p
 					},
 					saveCancelClick:function(e){
 							md.close();
-					}
+					},
+					// 打开附件上传界面
+	                onOpenInfoUploadWin: function() {
+	                	var pk = viewModel.dt1.getRow(0).data.code.value;
+	                    if (pk) {//viewModel.dt1.getValue("pk_user")
+	                    	
+	                        window.countrysubsid_md = u.dialog({
+	                            id: 'countrysubsid_testDialg4',
+	                            content: "#countrysubsid_dialog_uploadfileinfo",
+	                            hasCloseMenu: true
+	                        });
+	                        $('.sub-list2-new').css('display', 'inline-block');
+	                    } else {
+	                        u.messageDialog({
+	                            msg: "请先创建用户!",
+	                            title: "提示",
+	                            btnText: "OK"
+	                        });
+	                    }
+
+	                },
+	                // 上传附件
+	                onInfoFileUpload: function() {
+	                    // 获取表单
+	                    //var pk = viewModel.dt1.getValue("pk_user");
+	                	var pk = viewModel.dt1.getRow(0).data.code.value;
+	                    if (pk) {
+	                        var par = {
+	                            fileElementId: "infofile_id", // 【必填】文件上传空间的id属性
+	                            // <input
+	                            // type="file"
+	                            // id="id_file"
+	                            // name="file"
+	                            // />,可以修改，主要看你使用的
+	                            // id是什么
+	                            filepath: pk, // 【必填】单据相关的唯一标示，一般包含单据ID，如果有多个附件的时候由业务自己制定规则
+	                            groupname: "INFOCOUNTRYSUBSIDY", // 【必填】分組名称,未来会提供树节点
+	                            permission: "read", // 【选填】 read是可读=公有
+	                            // private=私有
+	                            // 当这个参数不传的时候会默认private
+	                            url: true, // 【选填】是否返回附件的连接地址，并且会存储到数据库
+	                            thumbnail: "100w", // 【选填】缩略图--可调节大小，和url参数配合使用，不会存储到数据库
+	                            cross_url: window.ctxfilemng // 【选填】跨iuap-saas-fileservice-base
+	                            // 时候必填
+	                        }
+	                        var f = new interface_file();
+	                        f.filesystem_upload(par, function(data) {
+	                            onCloseLoading();
+	                            if (null == data) {
+	                                u.messageDialog({
+	                                    msg: "上传图片不能超过1M，请优化后再上传！",
+	                                    title: "提示",
+	                                    btnText: "OK"
+	                                });
+	                            } else {
+	                                if (1 == data.status) { // 上传成功状态
+	                                    viewModel.UserPsnFormDa.addSimpleData(data.data);
+	                                    u.messageDialog({
+	                                        msg: "上传成功！",
+	                                        title: "提示",
+	                                        btnText: "OK"
+	                                    });
+	                                    //$('#infouser_img').attr('src', imgsrc_tans(data.data[0].url));
+	                                } else { // error 或者加載js錯誤
+	                                    u.messageDialog({
+	                                        msg: "上传失败！" + data.message,
+	                                        title: "提示",
+	                                        btnText: "OK"
+	                                    });
+	                                }
+	                            }
+	                        });
+	                        onLoading();
+	                    } else {
+	                        u.messageDialog({
+	                            msg: "请先创建用户!",
+	                            title: "提示",
+	                            btnText: "OK"
+	                        });
+	                    }
+
+	                }
 				}
 		}
 		$(element).html(html) ;

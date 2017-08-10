@@ -13,6 +13,8 @@ require.config({
 		biz: "vendor/uui/js/u.biz",
 		pages:"pages",
 		scrollbarmin:"vendor/jquery.mCustomScrollbar.concat",
+		
+		
 	},
 	shim: {
 		'uui':{

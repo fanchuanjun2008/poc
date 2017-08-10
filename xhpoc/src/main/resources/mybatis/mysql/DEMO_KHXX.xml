@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yonyou.iuap.poc.dao.DemoKhxxMapper">
+	<resultMap id="BaseResultMap" type="com.yonyou.iuap.poc.entity.DemoKhxx">
+		<result column="pk" property="pk"/>
+		<result column="khbh" property="khbh"/>
+		<result column="khmc" property="khmc"/>
+		<result column="kyzt" property="kyzt"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		KHBH,KHMC,KYZT
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from DEMO_KHXX
+		where ${table.keyAttribute} = #pk
+	</select>
+
+	<select id="selectAllByPage" resultMap="BaseResultMap"
+		resultType="java.util.List">
+		SELECT
+		<include refid="Base_Column_List" />
+		from DEMO_KHXX where 1=1
+		<if test="search != null">
+			<if
+				test="search.searchMap.searchParam!=null and search.searchMap.searchParam!='' ">
+				and 
+			</if>
+		</if>
+		<if test="page != null">
+			<if test="page.sort!=null">
+				order by
+				<foreach collection="page.sort" item="item" separator=" ">
+					${item.property} ${item.direction}
+				</foreach>
+			</if>
+		</if>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from DEMO_KHXX
+		where ${table.keyAttribute} = #pk
+	</delete>
+
+	<delete id="batchDeleteByPrimaryKey" parameterType="java.util.List">
+		delete from DEMO_KHXX
+		where
+		${table.keyAttribute} in
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+		#{item.${table.keyProperty}}
+		</foreach>
+	</delete>
+
+	<insert id="insert" parameterType="com.yonyou.iuap.poc.entity.DemoKhxx">
+		insert into DEMO_KHXX (
+		KHBH,KHMC,KYZT
+		)
+		values (
+		#{khbh},
+		#{khmc},
+		#{kyzt}
+		)
+	</insert>
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into DEMO_KHXX (
+		KHBH,KHMC,KYZT
+		)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+		#{item.khbh},
+		#{item.khmc},
+		#{item.kyzt}
+			)
+		</foreach>
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.yonyou.iuap.poc.entity.DemoKhxx">
+		insert into DEMO_KHXX
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="khbh != null">
+				KHBH,
+			</if>
+			<if test="khmc != null">
+				KHMC,
+			</if>
+			<if test="kyzt != null">
+				KYZT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="khbh != null">
+				#{khbh},
+			</if>
+			<if test="khmc != null">
+				#{khmc},
+			</if>
+			<if test="kyzt != null">
+				#{kyzt},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.yonyou.iuap.poc.entity.DemoKhxx">
+		update DEMO_KHXX
+		<set>
+			<if test="khbh != null">
+				KHBH = #{khbh},
+			</if>
+			<if test="khmc != null">
+				KHMC = #{khmc},
+			</if>
+			<if test="kyzt != null">
+				KYZT = #{kyzt},
+			</if>
+		</set>
+		where ${table.keyAttribute} = #pk 
+		<!--and ts = #ts-->
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.yonyou.iuap.poc.entity.DemoKhxx">
+		update DEMO_KHXX
+		set
+		where ${table.keyAttribute} = #{${table.keyProperty}}
+		<!-- and ts = #ts-->
+	</update>
+
+	<update id="batchUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open=""
+			close="" separator=";">
+			update DEMO_KHXX
+			set
+			where ${table.keyAttribute} = #{item.${table.keyProperty}} 
+			<!--and ts = #{item.ts}-->
+		</foreach>
+	</update>
+</mapper>

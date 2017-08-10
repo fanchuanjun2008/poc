@@ -1,4 +1,4 @@
-define(['text!./saleorder.html','./meta.js','css!./saleorder.css','uuitree','uuigrid','./config/sys_const.js'], function (template) {
+define(['text!./saleorder.html','./meta.js','css!./saleorder.css','./config/sys_const.js'], function (template) {
 	
 	var ctx = "/train";
    
