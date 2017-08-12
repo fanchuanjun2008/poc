@@ -2,7 +2,7 @@ define(['text!pages/BdxxVO/BdxxVO.html','pages/BdxxVO/meta','css!pages/BdxxVO/Bd
 
     var init = function (element, params) {
         var viewModel = {
-    		listurl : '/BdxxVO/list',   
+    		listurl : '/BdxxVO/listfor',   
         	addurl :  '/BdxxVO/createRow',
             saveurl : '/BdxxVO/save',
         	delurl  :  '/BdxxVO/del',

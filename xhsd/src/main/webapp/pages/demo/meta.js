@@ -15,7 +15,11 @@ var KHxxVOmeta = {
                     },   
                     kyzt:{
                     
-                    },   
+                    }, 
+                    zdsl:{
+                        
+                    },
+                   
 	},
     pageSize: 5,
     //启用前端缓存

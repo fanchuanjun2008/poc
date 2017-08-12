@@ -41,6 +41,28 @@ public class KHxxVODao {
      * @return
      */
     public Page<KHxxVO> selectAllByPage(PageRequest pageRequest, Map<String, Object> searchParams) {
+    	 String sql = " SELECT * FROM khxx ";   
+         SQLParameter sqlparam = new SQLParameter();
+         if (null != searchParams && !searchParams.isEmpty()) {
+             sql = sql + " where ";
+             for (String key : searchParams.keySet()) {
+                 sql = sql + FastBeanHelper.getColumn(KHxxVO.class, key) + " like ? AND ";
+                 sqlparam.addParam("%" + searchParams.get(key) + "%");
+             }
+             sql = sql.substring(0, sql.length() - 4);
+         }
+       
+         
+         return dao.queryPage(sql, sqlparam, pageRequest, KHxxVO.class);
+    }
+    
+	  /**
+     * 分页查询方法
+     * @param pageRequest
+     * @param searchParams
+     * @return
+     */
+    public Page<KHxxVO> selectAllByPagekh(PageRequest pageRequest, Map<String, Object> searchParams) {
     	 String sql = " SELECT * FROM demo_khxx ";   
          SQLParameter sqlparam = new SQLParameter();
          if (null != searchParams && !searchParams.isEmpty()) {
@@ -51,6 +73,8 @@ public class KHxxVODao {
              }
              sql = sql.substring(0, sql.length() - 4);
          }
+       
+         
          return dao.queryPage(sql, sqlparam, pageRequest, KHxxVO.class);
     }
 

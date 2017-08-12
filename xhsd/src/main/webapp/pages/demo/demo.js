@@ -151,8 +151,10 @@ define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css',
 		                	window.md = u.dialog({
 		                        id: 'commonShowDialog',
 		                        content: '#table-CityForCustomer',
-		                        hasCloseMenu: true
+		                        hasCloseMenu: true,
 		                    });
+		                	
+		                	$("#commonShowDialog").addClass('bdxx');
 		                	
 		                	 viewModel.event.initbdList(khbh);	
 		                	
@@ -167,6 +169,7 @@ define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css',
 		                        content: '#table-CityForCustomer',
 		                        hasCloseMenu: true
 		                    });
+		                	$("#commonShowDialog").addClass('bdxx');
 		                	 viewModel.event.initbdListforpz(pzbm);
 		                	
 		                },
@@ -204,6 +207,7 @@ define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css',
 		                        content: '#table-search_kh',
 		                        hasCloseMenu: true
 		                    });
+		                	$("#commonShowDialog").addClass('search');
 		                },
 		                //查询品种的点击事件
 		                search_pz:function(){
@@ -212,6 +216,7 @@ define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css',
 		                        content: '#table-search_pz',
 		                        hasCloseMenu: true
 		                    });
+		                	$("#commonShowDialog").addClass('search');
 		                	
 		                },
 		                //行数据选中事件
@@ -228,6 +233,28 @@ define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css',
 		                		   viewModel.event.serachList(khbm);
 		                	}
 		                	viewModel.event.mdClose();
+		                	
+		                },
+		                search_kh_more:function(){
+		                	 viewModel.BdxxVODa.clear();
+		                	var selectedDatas=viewModel.KHxxVODa.getSelectedDatas();
+		                	var queryData = {};
+		                	var kh="";
+		                	for(var i=0;i<selectedDatas.length;i++){
+		                		kh+=selectedDatas[i].data.khbh.value+",";
+		                	}
+		                	console.log(kh);
+		                       queryData["search_zddwbm"] = kh;
+		                        viewModel.BdxxVODa.addParams(queryData);
+		                    app.serverEvent().addDataTable("BdxxVODa").fire({
+	                            url: ctx + viewModel.listbdurl,
+	                            success: function (data) {
+	                            },
+	                            error:function(er){
+	                            	  u.messageDialog({msg: '请求失败，请检查。', title: '请求错误', btnText: '确定'});
+	                            }
+	                        })
+		                	console.log(selectedDatas);
 		                	
 		                },
 		                //根据客户编码搜索客户
@@ -265,11 +292,26 @@ define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css',
 				  }
 		};	
 		$(element).html(template);
+		 var test =function(e){
+			 var temp = '<div class="u-grid-header-multi-select  checkbox check-success" style="width: 40px">\
+					<span id="poccheckbox" class="u-grid-checkbox-outline">\
+						<span class="u-grid-checkbox-tick-outline"></span>\
+					</span>\
+				</div>';
+			 e.element.innerHTML = temp;
+			 if(parseInt(e.value) === 1){
+				 $("#poccheckbox").addClass("is-checked");
+			 }
+		 }
+		 
+		 window.test = test;
 		app = u.createApp({
 			el:element,
 			model:viewModel
 		});
 		 viewModel.event.initList();
+		 
+
 	};
 	return {
        

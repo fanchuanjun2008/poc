@@ -64,10 +64,42 @@ public class BdxxVOController extends BaseController {
 		List<BdxxVO> list=result.getContent();
 		for(int i=0;i<list.size();i++){
 			List<KHxxVO> listkh=khservice.findByKhbh(list.get(i).getZddwbm());
-			
 			List<PZxxVO> listpz= pzService.findByPzbm(list.get(i).getPzbm());
-			
-			if(listkh!=null && listkh.size()>=0){
+			if(listkh!=null && listkh.size()>0){
+				list.get(i).setZddwbm(listkh.get(0).getKhmc());
+				
+			}
+			if(listpz!=null && listpz.size()>0){
+				list.get(i).setPzbm(listpz.get(0).getSm());
+			}
+		}
+
+		dataTable.setPageData(pageNumber, result.getContent(), result.getTotalPages(), result.getTotalElements());
+		return response;
+	}
+	
+	/**
+	 * data table 列表查询
+	 * @param sysDictTypeDataTable
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/listfor", method = RequestMethod.POST)
+	@ResponseBody
+	public EventResponse pagefan(@IWebParameter(id = "BdxxVODa") DataTable<BdxxVO> dataTable, @IWebParameter EventResponse response) {
+		int pageNumber = 0;
+		if (dataTable.getPageIndex() != null) {
+			pageNumber = dataTable.getPageIndex();
+		}
+		Map<String, Object> searchParamMap = createSearchParamsStartingWith(dataTable, "search_");
+
+		Page<BdxxVO> result = service.selectAllByPagefor(new PageRequest(pageNumber, dataTable.getPageSize(), new Sort(Sort.Direction.DESC, "ts")),
+				searchParamMap);
+		List<BdxxVO> list=result.getContent();
+		for(int i=0;i<list.size();i++){
+			List<KHxxVO> listkh=khservice.findByKhbh(list.get(i).getZddwbm());
+			List<PZxxVO> listpz= pzService.findByPzbm(list.get(i).getPzbm());
+			if(listkh!=null && listkh.size()>0){
 				list.get(i).setZddwbm(listkh.get(0).getKhmc());
 				
 			}

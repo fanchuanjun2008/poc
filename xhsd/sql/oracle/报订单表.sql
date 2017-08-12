@@ -92,4 +92,20 @@ comment on column DEMO_BDXX.ts
   is 'TS时间戳';
 comment on column DEMO_BDXX.id_bdxx
   is '报订单主键';
+  
+  
+  --创建放单时的报订单数据视图
+  
+   CREATE OR REPLACE VIEW bdxx as
+ select ywbm, bd.zddwbm as zddwbm, bd.zddh, pz.sm as pzbm,bd.zdsl,'0' as fhsl,bd.zkbj,
+(case when bd.zkbj='0' then bd.fhzk
+      when bd.zkbj='1' then (select kczk from demo_kcb kc where kc.pzbm=bd.pzbm )+bd.fhzk
+       end) fhzk,
+       bd.lrrq,
+       bd.clrq,bd.ts
+  from demo_bdxx bd
+  left join demo_khxx kh
+    on bd.zddwbm = kh.khbh
+  left join demo_pzxx pz
+    on bd.pzbm = pz.pzbm
 

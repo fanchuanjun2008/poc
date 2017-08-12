@@ -1,5 +1,6 @@
 package com.yonyou.iuap.example.web;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.yonyou.iuap.example.entity.BdxxVO;
 import com.yonyou.iuap.example.entity.KHxxVO;
+import com.yonyou.iuap.example.service.BdxxVOService;
 import com.yonyou.iuap.example.service.KHxxVOService;
 import com.yonyou.iuap.example.web.BaseController;
 import com.yonyou.iuap.example.entity.meta.EnumVo;
@@ -36,6 +39,9 @@ public class KHxxVOController extends BaseController {
 
 	@Autowired
 	private KHxxVOService service;
+	
+	@Autowired
+	private BdxxVOService bdservice;
 
 	/**
 	 * data table 列表查询
@@ -51,13 +57,27 @@ public class KHxxVOController extends BaseController {
 			pageNumber = dataTable.getPageIndex();
 		}
 		Map<String, Object> searchParamMap = createSearchParamsStartingWith(dataTable, "search_");
-
 		Page<KHxxVO> result = service.selectAllByPage(new PageRequest(pageNumber, dataTable.getPageSize(), new Sort(Sort.Direction.DESC, "ts")),
 				searchParamMap);
-
 		dataTable.setPageData(pageNumber, result.getContent(), result.getTotalPages(), result.getTotalElements());
 		return response;
 	}
+	
+	@RequestMapping(value = "/listkh", method = RequestMethod.POST)
+	@ResponseBody
+	public EventResponse pagekh(@IWebParameter(id = "KHxxVODa") DataTable<KHxxVO> dataTable, @IWebParameter EventResponse response) {
+		int pageNumber = 0;
+		if (dataTable.getPageIndex() != null) {
+			pageNumber = dataTable.getPageIndex();
+		}
+		Map<String, Object> searchParamMap = createSearchParamsStartingWith(dataTable, "search_");
+		Page<KHxxVO> result = service.selectAllByPagekh(new PageRequest(pageNumber, dataTable.getPageSize(), new Sort(Sort.Direction.DESC, "ts")),
+				searchParamMap);
+		dataTable.setPageData(pageNumber, result.getContent(), result.getTotalPages(), result.getTotalElements());
+		return response;
+	}
+	
+	
 
 	/**
 	 * 行编辑datatable 实现。增删改实现。

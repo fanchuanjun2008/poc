@@ -31,6 +31,17 @@ public class KHxxVOService {
         Page<KHxxVO> pageResult = dao.selectAllByPage(pageRequest, searchParams) ;
 		return pageResult;
     }
+    
+    /**
+     * 分页查询方法
+     * @param pageRequest
+     * @param searchParams
+     * @return
+     */
+    public Page<KHxxVO> selectAllByPagekh(PageRequest pageRequest, Map<String, Object> searchParams) {
+        Page<KHxxVO> pageResult = dao.selectAllByPagekh(pageRequest, searchParams) ;
+		return pageResult;
+    }
 
     /**
      * 批量保存，更新，删除方法
