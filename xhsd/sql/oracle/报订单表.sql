@@ -97,7 +97,7 @@ comment on column DEMO_BDXX.id_bdxx
   --创建放单时的报订单数据视图
   
    CREATE OR REPLACE VIEW bdxx as
- select ywbm, bd.zddwbm as zddwbm, bd.zddh, pz.sm as pzbm,bd.zdsl,'0' as fhsl,bd.zkbj,
+ select ywbm, bd.zddwbm as zddwbm, bd.zddh, pz.pzbm as pzbm,bd.zdsl,'0' as fhsl,bd.zkbj,
 (case when bd.zkbj='0' then bd.fhzk
       when bd.zkbj='1' then (select kczk from demo_kcb kc where kc.pzbm=bd.pzbm )+bd.fhzk
        end) fhzk,
