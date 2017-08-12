@@ -1,7 +1,7 @@
 define(['text!pages/user/user.html', 'pages/user/usermeta','css!pages/user/user', 'uuitree', 'uuigrid', 'config/sys_const'], 
 		function (template,metaModel) {
 
-    //开始初始页面基础数据
+    //开始初始页面基础数据  
     var init = function (element, params) {
         var viewModel = {
             draw: 1,//页数(第几页)
