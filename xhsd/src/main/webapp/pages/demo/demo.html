@@ -1,0 +1,162 @@
+<!-- 页面内容区(HTML片段，不能放置HTML 及 BODY 标签 )-->
+<!-- 若要正常使用实时预览功能，请在首页index.html中添加路由#demo/demo -->
+<div id="demo">
+<div class="u-widget-body">
+    <div class="u-tabs u-tabs-pill">
+        <div class="u-tabs__tab-bar">
+            <a href="#tab-pills-panel-1" class="u-tabs__tab is-active">按店放单</a>
+            <a href="#tab-pills-panel-2" class="u-tabs__tab" data-bind="click:event.pzClick">按品种放单</a>
+        </div>
+        <div class="u-tabs__panel is-active" id="tab-pills-panel-1">
+           <button class="u-button u-button-primary" data-bind="click:event.search_kh">查询客户</button>
+         
+	    <div class="u-mdlayout-page u-navlayout-fixed-header current" id="list">
+            <div class="u-mdlayout-page-section">
+                <div class="user-page-content">
+                    <div class="user-datagrid ">
+                        <div class="table-container">
+                            <div type="text" id="KHxxVO"
+                                 u-meta='{"id":"grid_KHxxVO","data":"KHxxVODa","type":"grid","editable":false,"multiSelect":true,"editType":"default","columnWidth":"150px","onDblClickFun":"event.rowDoubleClick"}'>
+                                        <div options='{"field":"khbh","dataType":"String","title":"客户编码","editType":"string"}'></div>
+                                        <div options='{"field":"khmc","dataType":"String","title":"客户名称","editType":"string"}'></div>
+										<div options='{"field":"kyzt","dataType":"String","title":"客户状态","editType":"string"}'></div>
+                            </div>
+                            <div id='pagination' class='pagination u-pagination pagination-sm '
+                                 u-meta='{"type":"pagination","data":"KHxxVODa","pageChange":"event.pageChange","sizeChange":"event.sizeChange"}'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+        <div class="u-tabs__panel" id="tab-pills-panel-2">
+        	<button class="u-button u-button-primary" data-bind="click:event.search_pz">查询品种</button>
+            <div class="user-datagrid ">
+                        <div class="table-container">
+                            <div type="text" id="PZxxVO"
+                                 u-meta='{"id":"grid_PZxxVO","data":"PZxxVODa","type":"grid","editable":true,"multiSelect":true,"editType":"default","columnWidth":"150px","onDblClickFun":"event.rowpzDoubleClick"}'>
+                                        <div options='{"field":"pzbm","dataType":"String","title":"品种编码","editType":"string"}'></div>
+                                        <div options='{"field":"isbn","dataType":"String","title":"isbn编号","editType":"string"}'></div>
+                                        <div options='{"field":"sm","dataType":"String","title":"书名","editType":"string"}'></div>
+                                        <div options='{"field":"dj","dataType":"String","title":"定价","editType":"string"}'></div>
+										<div options='{"field":"cbrq","dataType":"date","title":"出版日期","editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
+										<div options='{"field":"ysny","dataType":"date","title":"印刷日期","editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
+                            </div>
+                            <div id='pagination' class='pagination u-pagination pagination-sm '
+                                 u-meta='{"type":"pagination","data":"PZxxVODa","pageChange":"event.pagepzChange","sizeChange":"event.sizepzChange"}'></div>
+                        </div>
+                    </div>
+        </div>
+    </div>
+</div>
+
+
+ <div id="table-CityForCustomer" tabindex="-1" role="dialog" style="display:none">
+	    <div class="u-msg-title">
+	        <h4 class="tabletitle" id="table-title">请选择</h4>
+	    </div>
+	    <div class="u-msg-content">
+	            
+	                <div class="user-datagrid ">
+                        <div class="table-container">
+                            <div type="text" id="BdxxVO"
+                                 u-meta='{"id":"grid_BdxxVO","data":"BdxxVODa","type":"grid","editable":true,"multiSelect":true,"editType":"default","columnWidth":"150px","onRowSelected":"event.myrowClick"}'>
+                                        <div options='{"field":"ywbm","dataType":"String","title":"业务部门","editType":"string"}'></div>
+                                        <div options='{"field":"zddwbm","dataType":"String","title":"征订单位编码","editType":"string"}'></div>
+                                        <div options='{"field":"zddh","dataType":"String","title":"征订单号","editType":"string"}'></div>
+                                        <div options='{"field":"pzbm","dataType":"String","title":"品种编码","editType":"string"}'></div>
+                                        <div options='{"field":"zdsl","dataType":"String","title":"征订数量","editType":"string"}'></div>
+                                        <div options='{"field":"fhsl","dataType":"String","title":"发货数量","editType":"string"}'></div>
+                                        <div options='{"field":"fhzk","dataType":"String","title":"发货折扣","editType":"string"}'></div>
+                                        <div options='{"field":"zkbj","dataType":"String","title":"折扣标识","editType":"string"}'></div>
+										<div options='{"field":"lrrq","dataType":"date","title":"录入日期","editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
+										<div options='{"field":"clrq","dataType":"date","title":"处理日期","editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
+                                        <div options='{"field":"bz","dataType":"String","title":"备注","editType":"string"}'></div>
+                            </div>
+                            <div id='pagination' class='pagination u-pagination pagination-sm '
+                                 u-meta='{"type":"pagination","data":"BdxxVODa","pageChange":"event.pagebdChange","sizeChange":"event.sizebdChange"}'></div>
+                        </div>
+                    </div>
+	    </div>
+	    <div class="u-msg-footer">
+	        <button type="button" id="confirm_fangdan" class="u-button u-button-primary pull-right" data-bind="click:event.fangdan">放单</button>
+	        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">取消</button>
+	    </div>
+	</div>
+	
+	 <div id="table-search_kh" tabindex="-1" role="dialog" style="display:none">
+	    <div class="u-msg-title">
+	        <h4 class="tabletitle" id="table-title">客户查询</h4>
+	    </div>
+	    <div class="u-msg-content">
+	    	<div class="u-container-fluid example">
+	<div class="u-row">
+		<div class="u-col-2 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
+                    <label>客户编码</label>
+                </div>
+                <div class="u-col-4 u-col-sm-8 m-b-sm">
+                    <input class="u-form-control sm input_search search-enter" id="khbm" name="search_pzbm"/>
+                </div>
+		
+	</div>
+	
+</div>
+	            
+	               
+	    </div>
+	    <div class="u-msg-footer">
+	        <button type="button" id="confirm_search_kh" class="u-button u-button-primary pull-right" data-bind="click:event.searchKH">确定</button>
+	        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">取消</button>
+	    </div>
+	</div>
+	
+	 <div id="table-search_pz" tabindex="-1" role="dialog" style="display:none;">
+	    <div class="u-msg-title">
+	        <h4 class="tabletitle" id="table-title">品种查询</h4>
+	    </div>
+	    <div class="u-msg-content">
+	    	<div class="u-container-fluid example">
+	    		 <div class=" form-search " style="z-index:0;">
+	<div class="u-row">
+		<div class="u-col-2 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
+                    <label>品种编码</label>
+                </div>
+                <div class="u-col-4 u-col-sm-8 m-b-sm">
+                    <input class="u-form-control sm input_search search-enter" name="search_pzbm"/>
+                </div>
+	    	
+		
+	</div>
+	<div class="u-row margin-top-20">
+		  <div class="u-col-2 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
+                    <label>isbn编号</label>
+                </div>
+                <div class="u-col-4 u-col-sm-8 m-b-sm">
+                    <input class="u-form-control sm input_search search-enter" name="search_isbn"/>
+                </div>
+	    	
+		
+	</div>
+	<div class="u-row margin-top-20">
+		 <div class="u-col-2 u-col-sm-4" style="text-align: right; height: 100%;padding: 5px;">
+                    <label>书名</label>
+                </div>
+                <div class="u-col-4 u-col-sm-8 m-b-sm">
+                    <input class="u-form-control sm input_search search-enter" name="search_sm"/>
+                </div>
+	</div>
+	</div>
+	
+</div>
+	            
+	               
+	    </div>
+	    <div class="u-msg-footer">
+	        <button type="button" id="confirm_search_kh" class="u-button u-button-primary pull-right" data-bind="click:event.searchPZ">确定</button>
+	        <button type="button" class="u-button button-cancel pull-right margin-right-15" data-bind="click:event.mdClose">取消</button>
+	    </div>
+	</div>
+
+
+</div>

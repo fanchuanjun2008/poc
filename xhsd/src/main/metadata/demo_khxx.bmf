@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><component conRouterType="曼哈顿直角" createIndustry="0" createTime="2017-08-10 10:58:35" creator="" description="" displayName="客户信息" fromSourceBmf="true" gencodestyle="标准样式" help="" id="4ddae4bd-c309-4b21-b66f-13fdb28a55f3" industry="0" industryChanged="false" industryIncrease="false" industryName="0" isSource="false" isbizmodel="false" mainEntity="ec733b54-6662-404f-aa84-f407675ef030" metaType=".bmf" modifier="" modifyIndustry="0" modifyTime="2017-08-10 10:59:22" name="demo_khxx" namespace="xhsd" ownModule="xhsd" preLoad="false" programcode="0" resModuleName="demo_khxx" resid="" version="1" versionType="0">
+    <celllist>
+        <entity accessorClassName="nc.md.model.access.javamap.POJOStyle" bizItfImpClassName="" componentID="4ddae4bd-c309-4b21-b66f-13fdb28a55f3" createIndustry="0" createTime="2017-08-10 10:58:38" creator="" czlist="" description="" displayName="客户信息" fullClassName="com.yonyou.xhsd.KHxxVO" height="100" help="" id="ec733b54-6662-404f-aa84-f407675ef030" industryChanged="false" isAuthen="true" isCreateSQL="true" isExtendBean="false" isPrimary="true" isSource="true" keyAttributeId="3dc1122d-2c9c-48d0-a63b-464e2158c452" modInfoClassName="" modifier="" modifyIndustry="0" modifyTime="2017-08-10 11:03:53" name="KHxxVO" resid="" stereoType="" tableName="demo_khxx" userDefClassName="" versionType="0" visibility="public" width="100" x="155" y="90">
+            <attributelist>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="ec733b54-6662-404f-aa84-f407675ef030" createIndustry="0" dataType="BS000010000100001051" dataTypeStyle="SINGLE" dbtype="char" defaultValue="" description="" displayName="客户信息主键" dynamic="false" dynamicTable="" fieldName="id_khxx" fieldType="char" fixedLength="false" forLocale="false" help="" id="3dc1122d-2c9c-48d0-a63b-464e2158c452" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="true" isNullable="false" isReadOnly="false" isShare="false" isSource="true" length="36" maxValue="" minValue="" modifyIndustry="0" name="id_khxx" notSerialize="false" precise="" refModelName="" resid="" sequence="0" typeDisplayName="ID" typeName="ID" versionType="0" visibility="public"/>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="ec733b54-6662-404f-aa84-f407675ef030" createIndustry="0" dataType="BS000010000100001001" dataTypeStyle="SINGLE" dbtype="varchar" defaultValue="" description="" displayName="客户编码" dynamic="false" dynamicTable="" fieldName="khbh" fieldType="varchar" fixedLength="false" forLocale="false" help="" id="a7e112f0-5172-457f-aeff-ce586d92fecd" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="false" isNullable="true" isReadOnly="false" isShare="false" isSource="true" length="50" maxValue="" minValue="" modifyIndustry="0" name="khbh" notSerialize="false" precise="" refModelName="" resid="" sequence="1" typeDisplayName="String" typeName="String" versionType="0" visibility="public"/>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="ec733b54-6662-404f-aa84-f407675ef030" createIndustry="0" dataType="BS000010000100001001" dataTypeStyle="SINGLE" dbtype="varchar" defaultValue="" description="" displayName="客户名称" dynamic="false" dynamicTable="" fieldName="khmc" fieldType="varchar" fixedLength="false" forLocale="false" help="" id="c0c8d82e-46be-4ea7-8e77-073ddfc3a6fb" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="false" isNullable="true" isReadOnly="false" isShare="false" isSource="true" length="50" maxValue="" minValue="" modifyIndustry="0" name="khmc" notSerialize="false" precise="" refModelName="" resid="" sequence="2" typeDisplayName="String" typeName="String" versionType="0" visibility="public"/>
+                <attribute accessStrategy="" accesspower="false" accesspowergroup="" calculation="false" classID="ec733b54-6662-404f-aa84-f407675ef030" createIndustry="0" dataType="BS000010000100001001" dataTypeStyle="SINGLE" dbtype="varchar" defaultValue="" description="" displayName="客户状态" dynamic="false" dynamicTable="" fieldName="kyzt" fieldType="varchar" fixedLength="false" forLocale="false" help="" id="f66f64b3-969a-42f0-b3a9-d52ee9d8a475" industryChanged="false" isActive="true" isAuthorization="true" isDefaultDimensionAttribute="false" isDefaultMeasureAttribute="false" isFeature="false" isGlobalization="false" isHide="false" isKey="false" isNullable="true" isReadOnly="false" isShare="false" isSource="true" length="2" maxValue="" minValue="" modifyIndustry="0" name="kyzt" notSerialize="false" precise="" refModelName="" resid="" sequence="3" typeDisplayName="String" typeName="String" versionType="0" visibility="public"/>
+            </attributelist>
+            <operationlist/>
+            <busiitfs/>
+            <busimaps/>
+            <canzhaolist/>
+            <accessor classFullname="nc.md.model.access.javamap.POJOStyle" displayName="POJO" name="pojo">
+                <properties/>
+            </accessor>
+        </entity>
+    </celllist>
+    <connectlist/>
+    <refdepends/>
+    <refdependLoseIDs/>
+    <cellRemoveLog/>
+    <rulers>
+        <ruler isHorizontal="true" unit="0">
+            <guideList/>
+        </ruler>
+        <ruler isHorizontal="false" unit="0">
+            <guideList/>
+        </ruler>
+    </rulers>
+</component>
