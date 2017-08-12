@@ -1,7 +1,6 @@
 package com.yonyou.iuap.example.web;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,10 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yonyou.iuap.example.entity.BdxxVO;
+import com.yonyou.iuap.example.entity.KHxxVO;
+import com.yonyou.iuap.example.entity.PZxxVO;
 import com.yonyou.iuap.example.service.BdxxVOService;
-import com.yonyou.iuap.example.web.BaseController;
-import com.yonyou.iuap.example.entity.meta.EnumVo;
-import com.yonyou.iuap.example.utils.EnumUtils;
+import com.yonyou.iuap.example.service.KHxxVOService;
+import com.yonyou.iuap.example.service.PZxxVOService;
 import com.yonyou.iuap.iweb.datatable.annotation.IWebParameter;
 import com.yonyou.iuap.iweb.entity.DataTable;
 import com.yonyou.iuap.iweb.entity.Row;
@@ -37,6 +37,12 @@ public class BdxxVOController extends BaseController {
 
 	@Autowired
 	private BdxxVOService service;
+	
+	@Autowired
+	private KHxxVOService khservice;
+	
+	@Autowired
+	private PZxxVOService pzService;
 
 	/**
 	 * data table 列表查询
@@ -55,6 +61,20 @@ public class BdxxVOController extends BaseController {
 
 		Page<BdxxVO> result = service.selectAllByPage(new PageRequest(pageNumber, dataTable.getPageSize(), new Sort(Sort.Direction.DESC, "ts")),
 				searchParamMap);
+		List<BdxxVO> list=result.getContent();
+		for(int i=0;i<list.size();i++){
+			List<KHxxVO> listkh=khservice.findByKhbh(list.get(i).getZddwbm());
+			
+			List<PZxxVO> listpz= pzService.findByPzbm(list.get(i).getPzbm());
+			
+			if(listkh!=null && listkh.size()>=0){
+				list.get(i).setZddwbm(listkh.get(0).getKhmc());
+				
+			}
+			if(listpz!=null && listpz.size()>0){
+				list.get(i).setPzbm(listpz.get(0).getSm());
+			}
+		}
 
 		dataTable.setPageData(pageNumber, result.getContent(), result.getTotalPages(), result.getTotalElements());
 		return response;
