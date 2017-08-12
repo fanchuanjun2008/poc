@@ -31,9 +31,11 @@ define(['text!pages/BdxxVO/BdxxVO.html','pages/BdxxVO/meta','css!pages/BdxxVO/Bd
                         viewModel.BdxxVODa.setCurrentPage(nowPageIndex)
                     } else {
                         var queryData = {};
-                        $(".form-search").find(".input_search").each(function () {
+                       /* $(".form-search").find(".input_search").each(function () {
                             queryData[this.name] = this.value;
-                        });
+                        });*/
+                        queryData["search_pzbm"] = "";
+                        queryData["search_zddwbm"] = "";
                         viewModel.BdxxVODa.addParams(queryData);
                         app.serverEvent().addDataTable("BdxxVODa").fire({
                             url: ctx + viewModel.listurl,
