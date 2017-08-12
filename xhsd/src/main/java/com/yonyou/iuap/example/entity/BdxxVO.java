@@ -64,7 +64,20 @@ public class BdxxVO extends BaseEntity {
 
 	@Column(name = "bz")
 	private String bz;
+	
+	@Column(name = "kcsl")
+	private BigDecimal kcsl;
+	
+	
 
+
+	public BigDecimal getKcsl() {
+		return kcsl;
+	}
+
+	public void setKcsl(BigDecimal kcsl) {
+		this.kcsl = kcsl;
+	}
 
 	@Column(name = "dr")
     private java.lang.Integer dr = 0 ;

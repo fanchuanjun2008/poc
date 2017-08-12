@@ -33,7 +33,7 @@
                                  u-meta='{"id":"grid_PZxxVO","data":"PZxxVODa","type":"grid","editable":false,"multiSelect":true,"editType":"default","columnWidth":"150px","onDblClickFun":"event.rowpzDoubleClick"}'>
                                         <div options='{"field":"pzbm","dataType":"String","title":"品种编码","editType":"string"}'></div>
                                         <div options='{"field":"isbn","dataType":"String","title":"isbn编号","editType":"string"}'></div>
-                                        <div options='{"field":"sm","dataType":"String","title":"书名","editType":"string"}'></div>
+                                        <div options='{"field":"sm","dataType":"String","title":"书名","columnWidth":"200px","editType":"string"}'></div>
                                         <div options='{"field":"dj","dataType":"String","title":"定价","editType":"string"}'></div>
 										<div options='{"field":"cbrq","dataType":"date","title":"出版日期","editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
 										<div options='{"field":"ysny","dataType":"date","title":"印刷日期","editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
@@ -57,17 +57,14 @@
                         <div class="table-container">
                             <div type="text" id="BdxxVO"
                                  u-meta='{"id":"grid_BdxxVO","data":"BdxxVODa","type":"grid","editable":true,"multiSelect":true,"editType":"default","columnWidth":"150px","onRowSelected":"event.myrowClick"}'>
-                                        <div options='{"field":"ywbm","dataType":"String","title":"业务部门","editable":false,"editType":"string"}'></div>
                                         <div options='{"field":"zddwbm","dataType":"String","title":"征订单位","editable":false,"editType":"string"}'></div>
                                         <div options='{"field":"zddh","dataType":"String","title":"征订单号","editable":false,"editType":"string"}'></div>
                                         <div options='{"field":"pzbm","dataType":"String","title":"书名","editable":false,"editType":"string"}'></div>
                                         <div options='{"field":"zdsl","dataType":"String","title":"征订数量","editable":false,"editType":"string"}'></div>
-                                        <div options='{"field":"fhsl","dataType":"String","title":"发货数量","editType":"string"}'></div>
+                                        <div options='{"field":"fhsl","dataType":"String","title":"本次发货数量","editType":"string"}'></div>
+                                        <div options='{"field":"kcsl","dataType":"String","title":"可发库存数","editType":"string"}'></div>
                                         <div options='{"field":"fhzk","dataType":"String","title":"发货折扣","editable":false,"editType":"string"}'></div>
                                         <div options='{"field":"zkbj","dataType":"String","title":"折扣标识","editable":false,"editType":"string","renderType":"test"}'></div>
-										<div options='{"field":"lrrq","dataType":"date","title":"录入日期","editable":false,"editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
-										<div options='{"field":"clrq","dataType":"date","title":"处理日期","editable":false,"editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
-                                        <div options='{"field":"bz","dataType":"String","title":"备注","editable":false,"editType":"string"}'></div>
                             </div>
                             <div id='pagination' class='pagination u-pagination pagination-sm '
                                  u-meta='{"type":"pagination","data":"BdxxVODa","pageChange":"event.pagebdChange","sizeChange":"event.sizebdChange"}'></div>
