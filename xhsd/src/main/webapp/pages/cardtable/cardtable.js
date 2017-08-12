@@ -6,7 +6,7 @@ define(['text!pages/cardtable/cardtable.html','css!pages/cardtable/cardtable','p
 		//var listUrl = ctx+'/cardtablemeta/list';
 		//var delUrl = ctx+'/cardtablemeta/del/';
 		//var saveUrl = ctx+'/cardtablemeta/save';
-
+		//
 		//mybtais持久化方式
 		var listUrl = ctx+'/cardtable/list';
 		var delUrl = ctx+'/cardtable/del/';
