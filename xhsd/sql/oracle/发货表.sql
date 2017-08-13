@@ -13,11 +13,7 @@ create table DEMO_FHB
   bz     VARCHAR2(200),
   ts     DATE,
   id_fhb VARCHAR2(36)
-)
-tablespace NNC_DATA01
-  pctfree 10
-  initrans 1
-  maxtrans 255;
+);
 -- Add comments to the columns 
 comment on column DEMO_FHB.ywbm
   is '业务部门';

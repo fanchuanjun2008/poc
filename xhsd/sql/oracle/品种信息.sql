@@ -48,18 +48,7 @@ create table DEMO_PZXX
   ysny    DATE,
   id_pzxx VARCHAR2(36),
   ts      DATE
-)
-tablespace USERS
-  pctfree 10
-  initrans 1
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+);
 -- Add comments to the columns 
 comment on column DEMO_PZXX.pzbm
   is '品种编码';
