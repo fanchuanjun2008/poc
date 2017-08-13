@@ -1,8 +1,10 @@
 package com.yonyou.iuap.example.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,9 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.iuap.example.entity.BdxxVO;
+import com.yonyou.iuap.example.entity.KCVO;
+import com.yonyou.iuap.example.entity.KHxxVO;
 import com.yonyou.iuap.example.repository.BdxxVODao;
-import com.yonyou.iuap.example.repository.FHVODao;
-import com.yonyou.iuap.persistence.bs.jdbc.meta.access.DASFacade;
+import com.yonyou.iuap.example.utils.ConstanstUtils;
+import com.yonyou.iuap.persistence.vo.pub.BusinessException;
 
 @Service
 public class BdxxVOService {
@@ -22,7 +26,10 @@ public class BdxxVOService {
     private BdxxVODao dao;
 	
 	@Autowired
-    private FHVODao fddao;
+    private KCVOService kcvoServicedao;
+
+    @Autowired
+    private KHxxVOService kHxxVOService;
     
 
 	  /**
@@ -62,7 +69,7 @@ public class BdxxVOService {
 
     /**
      * 用于保存时候的编码重复校验
-     * @param dictTypeCode
+     * @param code
      * @return
      */
     public List<BdxxVO> findByZddh(String code) {
@@ -87,10 +94,36 @@ public class BdxxVOService {
     	return dao.findByPzbm(pzbm);
     }
     
-    public void fangdan(String data){
-    	
-    	
-    }
+    public void fangdan(List<BdxxVO> datas) throws BusinessException{
+        if(CollectionUtils.isNotEmpty(datas)){
+            List<String> pzbms = new ArrayList<String>();
+            List<String> khbhs = new ArrayList<String>();
+            for(BdxxVO bdxxVO : datas){
+                pzbms.add(bdxxVO.getPzbm());
+                khbhs.add(bdxxVO.getZddwbm());
+            }
+            List<KCVO> kcvos = kcvoServicedao.selectAllByPzbms(pzbms);
+            if(CollectionUtils.isNotEmpty(kcvos)){
+                for(KCVO kcvo:kcvos){
+                    String kczt = kcvo.getKczt();
+                    if(ConstanstUtils.KCLOCK.equals(kczt)){
+                        throw new BusinessException("品种锁定，需解锁才能放单");
+                    }
+                }
+            }
+            List<KHxxVO> khvos = kHxxVOService.selectAllByPzbms(khbhs);
+            if(CollectionUtils.isNotEmpty(khvos)){
+                for(KHxxVO khvo:khvos){
+                    String kyzt = khvo.getKyzt();
+                    if(ConstanstUtils.KHDISABLE.equals(kyzt)){
+                        throw new BusinessException("客户状态为不可用，不允许放单");
+                    }
+                }
+            }
 
+            //进行转换为发货单逻辑
+
+        }
+    }
 
 }

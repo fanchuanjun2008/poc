@@ -37,12 +37,14 @@ public class BdxxVO extends BaseEntity {
 
 	@Column(name = "zddwbm")
 	private String zddwbm;
+	private String zddwbmName;
 
 	@Column(name = "zddh")
 	private String zddh;
 
 	@Column(name = "pzbm")
 	private String pzbm;
+	private String pzbmName;
 
 	@Column(name = "zdsl")
 	private BigDecimal zdsl;
@@ -208,6 +210,22 @@ public class BdxxVO extends BaseEntity {
 	public void setTs (java.sql.Timestamp newTs ) {
 	 	this.ts = newTs;
 	} 
+	
+	public String getZddwbmName() {
+		return zddwbmName;
+	}
+
+	public void setZddwbmName(String zddwbmName) {
+		this.zddwbmName = zddwbmName;
+	}
+
+	public String getPzbmName() {
+		return pzbmName;
+	}
+
+	public void setPzbmName(String pzbmName) {
+		this.pzbmName = pzbmName;
+	}
 	
 	@Override
     public String getMetaDefinedName() {

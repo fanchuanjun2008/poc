@@ -1,7 +1,6 @@
 package com.yonyou.iuap.example.web;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,12 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.yonyou.iuap.example.entity.PZxxExtVO;
 import com.yonyou.iuap.example.entity.PZxxVO;
-import com.yonyou.iuap.example.service.BdxxVOService;
 import com.yonyou.iuap.example.service.PZxxVOService;
-import com.yonyou.iuap.example.web.BaseController;
-import com.yonyou.iuap.example.entity.meta.EnumVo;
-import com.yonyou.iuap.example.utils.EnumUtils;
 import com.yonyou.iuap.iweb.datatable.annotation.IWebParameter;
 import com.yonyou.iuap.iweb.entity.DataTable;
 import com.yonyou.iuap.iweb.entity.Row;
@@ -38,9 +34,6 @@ public class PZxxVOController extends BaseController {
 	@Autowired
 	private PZxxVOService service;
 	
-	@Autowired
-	private BdxxVOService bdservice;
-
 	/**
 	 * data table 列表查询
 	 * @param sysDictTypeDataTable
@@ -156,5 +149,25 @@ public class PZxxVOController extends BaseController {
 		return params;
 	}
 	
+	/**
+	 * data table 列表查询
+	 * @param sysDictTypeDataTable
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/listWithBd", method = RequestMethod.POST)
+	@ResponseBody
+	public EventResponse pageDTO(@IWebParameter(id = "PZxxVODa") DataTable<PZxxExtVO> dataTable, @IWebParameter EventResponse response) {
+		int pageNumber = 0;
+		if (dataTable.getPageIndex() != null) {
+			pageNumber = dataTable.getPageIndex();
+		}
+		Map<String, Object> searchParamMap = createSearchParamsStartingWith(dataTable, "search_");
 
+		Page<PZxxExtVO> result = service.selectAllByPageWithBd(new PageRequest(pageNumber, dataTable.getPageSize(), new Sort(Sort.Direction.DESC, "ts")), searchParamMap);
+
+		dataTable.setPageData(pageNumber, result.getContent(), result.getTotalPages(), result.getTotalElements());
+		return response;
+	}
+	
 }

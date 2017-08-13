@@ -3,6 +3,7 @@ package com.yonyou.iuap.example.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.iuap.example.entity.KHxxVO;
 import com.yonyou.iuap.example.repository.KHxxVODao;
-import com.yonyou.iuap.persistence.bs.jdbc.meta.access.DASFacade;
 
 @Service
 public class KHxxVOService {
@@ -71,5 +71,18 @@ public class KHxxVOService {
         return dao.findByKhbh(code);
     }
 
-
+    /**
+     * 查询方法
+     * @param pzbms
+     * @return
+     */
+    public List<KHxxVO> selectAllByPzbms(List<String> khbhs) {
+        if(CollectionUtils.isNotEmpty(khbhs)){
+            String[] khbhstr = khbhs.toArray(new String[khbhs.size()]);
+            List<KHxxVO> list = dao.findByKhbhs(khbhstr);
+            return list;
+        }
+        return null;
+    }
+    
 }

@@ -5,7 +5,7 @@ define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css',
 		 viewModel = {
 				listurl : '/KHxxVO/list', //客户查询
 				listbdurl : '/BdxxVO/list',  //报订单表查询
-				listpzurl : '/PZxxVO/list', //品种信息
+				listpzurl : '/PZxxVO/listWithBd', //品种信息
 				saveurl : '/FHVO/save',
 				fangdanurl : '/BdxxVO/fangdan',
 				KHxxVODa: new u.DataTable(KHxxVOmeta),//客户
@@ -151,7 +151,7 @@ define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css',
 		                	window.md = u.dialog({
 		                        id: 'commonShowDialog',
 		                        content: '#table-CityForCustomer',
-		                        hasCloseMenu: true,
+		                        hasCloseMenu: true
 		                    });
 		                	
 		                	$("#commonShowDialog").addClass('bdxx');
@@ -264,30 +264,38 @@ define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css',
 		                	viewModel.event.mdClose();
 		                	
 		                },
-		                //放单事件
+		              //放单事件
 		                fangdan: function () {
-		               	 $.ajax({
-	                         type: "POST",
-	                         url: ctx + viewModel.fangdanurl,
-	                         contentType: 'application/json;charset=utf-8',
-	                         dataType: 'json',
-	                         data: JSON.stringify({
-	                        		 pk:"dedede"
-	                             
-	                         }),
-	                         success: function (res) {
-	                             if (res) {
-	                            	 //viewModel.event.myRefresh();
-	                             } else {
-	                            	// viewModel.event.initList();
-	                                 u.showMessage({
-	                                     msg: '<i class="fa fa-times-circle margin-r-5"></i>' + res.message,
-	                                     position: "bottom",
-	                                     msgType: "error"
-	                                 });
-	                             }
-	                         } 
-	                     });
+                            var selectArray = viewModel.BdxxVODa.selectedIndices();
+                            var datas = viewModel.BdxxVODa.getSimpleData({type: 'select'});
+                            if(selectArray==undefined || selectArray.length==0){
+								u.showMessageDialog("请选择需要放单的数据");
+							}else{
+                                $.ajax({
+                                    type: "POST",
+                                    url: ctx + viewModel.fangdanurl,
+                                    contentType: 'application/json;charset=utf-8',
+                                    dataType: 'json',
+                                    data: JSON.stringify(datas),
+                                    success: function (res) {
+                                        if (res.success == "success") {
+                                            //viewModel.event.myRefresh();
+											u.showMessage({
+                                                msg: '<i class="fa fa-times-circle margin-r-5"></i>' + res.detailMsg.data,
+                                                position: "bottom",
+                                                msgType: "success"
+                                            });
+                                        } else {
+                                            // viewModel.event.initList();
+                                            u.showMessage({
+                                                msg: '<i class="fa fa-times-circle margin-r-5"></i>' + res.message,
+                                                position: "bottom",
+                                                msgType: "error"
+                                            });
+                                        }
+                                    }
+                                });
+							}
 		                }
 				  }
 		};	

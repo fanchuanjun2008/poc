@@ -27,6 +27,8 @@ import com.yonyou.iuap.iweb.datatable.annotation.IWebParameter;
 import com.yonyou.iuap.iweb.entity.DataTable;
 import com.yonyou.iuap.iweb.entity.Row;
 import com.yonyou.iuap.iweb.event.EventResponse;
+import com.yonyou.iuap.mvc.type.JsonResponse;
+import com.yonyou.iuap.persistence.vo.pub.BusinessException;
 
 /**
  * controller层
@@ -66,11 +68,11 @@ public class BdxxVOController extends BaseController {
 			List<KHxxVO> listkh=khservice.findByKhbh(list.get(i).getZddwbm());
 			List<PZxxVO> listpz= pzService.findByPzbm(list.get(i).getPzbm());
 			if(listkh!=null && listkh.size()>0){
-				list.get(i).setZddwbm(listkh.get(0).getKhmc());
+				list.get(i).setZddwbmName(listkh.get(0).getKhmc());
 				
 			}
 			if(listpz!=null && listpz.size()>0){
-				list.get(i).setPzbm(listpz.get(0).getSm());
+				list.get(i).setPzbmName(listpz.get(0).getSm());
 			}
 		}
 
@@ -100,11 +102,11 @@ public class BdxxVOController extends BaseController {
 			List<KHxxVO> listkh=khservice.findByKhbh(list.get(i).getZddwbm());
 			List<PZxxVO> listpz= pzService.findByPzbm(list.get(i).getPzbm());
 			if(listkh!=null && listkh.size()>0){
-				list.get(i).setZddwbm(listkh.get(0).getKhmc());
+				list.get(i).setZddwbmName(listkh.get(0).getKhmc());
 				
 			}
 			if(listpz!=null && listpz.size()>0){
-				list.get(i).setPzbm(listpz.get(0).getSm());
+				list.get(i).setPzbmName(listpz.get(0).getSm());
 			}
 		}
 
@@ -120,9 +122,13 @@ public class BdxxVOController extends BaseController {
 	 */
 	@RequestMapping(value = "/fangdan", method = RequestMethod.POST)
 	@ResponseBody
-	public String fangdan(@RequestBody String data){
-		service.fangdan(data);
-		return "";
+	public JsonResponse fangdan(@RequestBody List<BdxxVO> datas){
+		try{
+			service.fangdan(datas);
+			return super.buildSuccess("放单成功");
+		}catch (BusinessException e){
+			return super.buildGlobalError(e.getMessage());
+		}
 	}
 	
 

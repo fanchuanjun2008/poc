@@ -52,19 +52,7 @@ create table DEMO_BDXX
   bz      VARCHAR2(200),
   ts      DATE,
   id_bdxx VARCHAR2(36)
-)
-tablespace NNC_DATA01
-  pctfree 10
-  initrans 1
-  maxtrans 255
-  storage
-  (
-    initial 256K
-    next 256K
-    minextents 1
-    maxextents unlimited
-    pctincrease 0
-  );
+);
 -- Add comments to the columns 
 comment on column DEMO_BDXX.ywbm
   is '业务部门';

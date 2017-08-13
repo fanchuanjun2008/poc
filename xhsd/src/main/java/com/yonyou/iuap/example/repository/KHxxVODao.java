@@ -1,20 +1,20 @@
 package com.yonyou.iuap.example.repository;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yonyou.iuap.context.InvocationInfoProxy;
 import com.yonyou.iuap.example.entity.KHxxVO;
+import com.yonyou.iuap.example.utils.InSqlUtil;
 import com.yonyou.iuap.iweb.exception.WebRuntimeException;
-import com.yonyou.iuap.persistence.bs.dao.MetadataDAO;
+import com.yonyou.iuap.persistence.bs.dao.BaseDAO;
 import com.yonyou.iuap.persistence.jdbc.framework.SQLParameter;
 import com.yonyou.iuap.persistence.jdbc.framework.util.FastBeanHelper;
 import com.yonyou.iuap.persistence.vo.pub.VOStatus;
@@ -23,7 +23,8 @@ import com.yonyou.iuap.persistence.vo.pub.VOStatus;
 public class KHxxVODao {
 
 	@Autowired
-	private MetadataDAO dao;
+	@Qualifier(value = "baseDAO")
+    private BaseDAO dao;
 	
 	//根据某一非主键字段查询实体
 	public List<KHxxVO> findByKhbh(String khbh){
@@ -130,5 +131,12 @@ public class KHxxVODao {
         dao.remove(list);
     }
     
+    //根据某一非主键字段查询实体
+    public List<KHxxVO> findByKhbhs(String[] khbhs){
+        String inSql = InSqlUtil.getInSubSql(khbhs);
+        String sql = "select * from demo_khxx where khbh in "+inSql;
+        List<KHxxVO> list = dao.queryByClause(KHxxVO.class, sql);
+        return list;
+    }
 
 }
