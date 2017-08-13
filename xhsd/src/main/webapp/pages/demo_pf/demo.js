@@ -1,5 +1,5 @@
-define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css','uui','uuigrid'], function(template) {
-//define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
+define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
+//define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css','uui','uuigrid'], function(template) {
 	//初始化方法,页面加载后被 调用
 	var init=function  (element) {
 		 viewModel = {
