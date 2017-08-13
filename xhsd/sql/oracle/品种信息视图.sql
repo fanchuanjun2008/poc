@@ -1,0 +1,1 @@
+create view demo_pzxxext as (select pz.*,bd.totalzdsl as zdsl,kcb.kcsl from demo_pzxx pz,demo_kcb kcb,(select sum(zdsl) as totalzdsl, pzbm from demo_bdxx group by pzbm) bd where pz.pzbm = bd.pzbm and pz.pzbm = kcb.pzbm)
