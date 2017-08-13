@@ -3,6 +3,7 @@ package com.yonyou.iuap.example.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -60,5 +61,18 @@ public class KCVOService {
         return dao.findByYwbm(code);
     }
 
+    /**
+     * 查询方法
+     * @param pzbms
+     * @return
+     */
+    public List<KCVO> selectAllByPzbms(List<String> pzbms) {
+        if(CollectionUtils.isNotEmpty(pzbms)){
+            String[] pzbmstr = pzbms.toArray(new String[pzbms.size()]);
+            List<KCVO> list = dao.findByPzbms(pzbmstr);
+            return list;
+        }
+        return null;
+    }
 
 }

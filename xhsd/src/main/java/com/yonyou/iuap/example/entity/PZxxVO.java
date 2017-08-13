@@ -2,15 +2,10 @@ package com.yonyou.iuap.example.entity;
 
 
 
-import java.sql.Timestamp;
-
-import com.yonyou.iuap.persistence.jdbc.framework.annotation.Column;
-import com.yonyou.iuap.persistence.jdbc.framework.annotation.Entity;
-import com.yonyou.iuap.persistence.jdbc.framework.annotation.GeneratedValue;
-import com.yonyou.iuap.persistence.jdbc.framework.annotation.Id;
-import com.yonyou.iuap.persistence.jdbc.framework.annotation.Stragegy;
-import com.yonyou.iuap.persistence.jdbc.framework.annotation.Table;
+import com.yonyou.iuap.persistence.jdbc.framework.annotation.*;
 import com.yonyou.iuap.persistence.vo.BaseEntity;
+
+import java.sql.Timestamp;
 
 
 
@@ -54,7 +49,7 @@ public class PZxxVO extends BaseEntity {
     private java.lang.Integer dr = 0 ;
       
     @Column(name = "ts")
-    private java.sql.Timestamp ts ;    	
+    private java.sql.Timestamp ts ;
 
 	public String getId_pzxx() {
 		return this.id_pzxx;

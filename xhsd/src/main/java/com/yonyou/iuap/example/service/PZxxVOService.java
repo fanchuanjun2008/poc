@@ -1,17 +1,16 @@
 package com.yonyou.iuap.example.service;
 
-import java.util.List;
-import java.util.Map;
-
+import com.yonyou.iuap.example.entity.PZxxExtVO;
+import com.yonyou.iuap.example.entity.PZxxVO;
+import com.yonyou.iuap.example.repository.PZxxVODao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yonyou.iuap.example.entity.PZxxVO;
-import com.yonyou.iuap.example.repository.PZxxVODao;
-import com.yonyou.iuap.persistence.bs.jdbc.meta.access.DASFacade;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class PZxxVOService {
@@ -63,5 +62,15 @@ public class PZxxVOService {
         return dao.findByIsbn(code);
     }
 
+    /**
+     * 分页查询方法
+     * @param pageRequest
+     * @param searchParams
+     * @return
+     */
+    public Page<PZxxExtVO> selectAllByPageWithBd(PageRequest pageRequest, Map<String, Object> searchParams) {
+        Page<PZxxExtVO> pageResult = dao.selectAllByPageWithBd(pageRequest, searchParams) ;
+        return pageResult;
+    }
 
 }

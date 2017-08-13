@@ -1,29 +1,29 @@
 package com.yonyou.iuap.example.repository;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
+import com.yonyou.iuap.example.entity.PZxxExtVO;
+import com.yonyou.iuap.example.entity.PZxxVO;
+import com.yonyou.iuap.iweb.exception.WebRuntimeException;
+import com.yonyou.iuap.persistence.bs.dao.BaseDAO;
+import com.yonyou.iuap.persistence.jdbc.framework.SQLParameter;
+import com.yonyou.iuap.persistence.jdbc.framework.util.FastBeanHelper;
+import com.yonyou.iuap.persistence.vo.pub.VOStatus;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yonyou.iuap.context.InvocationInfoProxy;
-import com.yonyou.iuap.example.entity.PZxxVO;
-import com.yonyou.iuap.iweb.exception.WebRuntimeException;
-import com.yonyou.iuap.persistence.bs.dao.MetadataDAO;
-import com.yonyou.iuap.persistence.jdbc.framework.SQLParameter;
-import com.yonyou.iuap.persistence.jdbc.framework.util.FastBeanHelper;
-import com.yonyou.iuap.persistence.vo.pub.VOStatus;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class PZxxVODao {
 
 	@Autowired
-	private MetadataDAO dao;
+    @Qualifier(value = "baseDAO")
+    private BaseDAO dao;
 	
 	//根据某一非主键字段查询实体
 	public List<PZxxVO> findByPzbm(String pzbm){
@@ -113,6 +113,25 @@ public class PZxxVODao {
         }
         dao.remove(list);
     }
-    
 
+    /**
+     * 分页查询方法
+     * @param pageRequest
+     * @param searchParams
+     * @return
+     */
+    public Page<PZxxExtVO> selectAllByPageWithBd(PageRequest pageRequest, Map<String, Object> searchParams) {
+        String sql = " SELECT * FROM demo_pzxxext ";
+        SQLParameter sqlparam = new SQLParameter();
+        if (null != searchParams && !searchParams.isEmpty()) {
+            sql = sql + " where ";
+            for (String key : searchParams.keySet()) {
+                sql = sql + FastBeanHelper.getColumn(PZxxExtVO.class, key) + " like ? AND ";
+                sqlparam.addParam("%" + searchParams.get(key) + "%");
+            }
+            sql = sql.substring(0, sql.length() - 4);
+        }
+
+        return dao.queryPage(sql, sqlparam, pageRequest, PZxxExtVO.class);
+    }
 }

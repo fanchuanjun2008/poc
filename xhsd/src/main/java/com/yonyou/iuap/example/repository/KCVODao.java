@@ -1,29 +1,29 @@
 package com.yonyou.iuap.example.repository;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
+import com.yonyou.iuap.example.entity.KCVO;
+import com.yonyou.iuap.example.utils.InSqlUtil;
+import com.yonyou.iuap.iweb.exception.WebRuntimeException;
+import com.yonyou.iuap.persistence.bs.dao.BaseDAO;
+import com.yonyou.iuap.persistence.jdbc.framework.SQLParameter;
+import com.yonyou.iuap.persistence.jdbc.framework.util.FastBeanHelper;
+import com.yonyou.iuap.persistence.vo.pub.VOStatus;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yonyou.iuap.context.InvocationInfoProxy;
-import com.yonyou.iuap.example.entity.KCVO;
-import com.yonyou.iuap.iweb.exception.WebRuntimeException;
-import com.yonyou.iuap.persistence.bs.dao.MetadataDAO;
-import com.yonyou.iuap.persistence.jdbc.framework.SQLParameter;
-import com.yonyou.iuap.persistence.jdbc.framework.util.FastBeanHelper;
-import com.yonyou.iuap.persistence.vo.pub.VOStatus;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class KCVODao {
 
 	@Autowired
-	private MetadataDAO dao;
+    @Qualifier(value = "baseDAO")
+    private BaseDAO dao;
 	
 	//根据某一非主键字段查询实体
 	public List<KCVO> findByYwbm(String ywbm){
@@ -33,6 +33,14 @@ public class KCVODao {
         List<KCVO> list = dao.queryByClause(KCVO.class, sql, sqlparam);
         return list;
 	}
+
+    //根据某一非主键字段查询实体
+    public List<KCVO> findByPzbms(String[] pzbms){
+        String inSql = InSqlUtil.getInSubSql(pzbms);
+        String sql = "select * from demo_kcb where pzbm in "+inSql;
+        List<KCVO> list = dao.queryByClause(KCVO.class, sql);
+        return list;
+    }
 
 	  /**
      * 分页查询方法
@@ -105,6 +113,5 @@ public class KCVODao {
         }
         dao.remove(list);
     }
-    
 
 }

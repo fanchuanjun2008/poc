@@ -1,29 +1,28 @@
 package com.yonyou.iuap.example.repository;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
+import com.yonyou.iuap.example.entity.FHVO;
+import com.yonyou.iuap.iweb.exception.WebRuntimeException;
+import com.yonyou.iuap.persistence.bs.dao.BaseDAO;
+import com.yonyou.iuap.persistence.jdbc.framework.SQLParameter;
+import com.yonyou.iuap.persistence.jdbc.framework.util.FastBeanHelper;
+import com.yonyou.iuap.persistence.vo.pub.VOStatus;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yonyou.iuap.context.InvocationInfoProxy;
-import com.yonyou.iuap.example.entity.FHVO;
-import com.yonyou.iuap.iweb.exception.WebRuntimeException;
-import com.yonyou.iuap.persistence.bs.dao.MetadataDAO;
-import com.yonyou.iuap.persistence.jdbc.framework.SQLParameter;
-import com.yonyou.iuap.persistence.jdbc.framework.util.FastBeanHelper;
-import com.yonyou.iuap.persistence.vo.pub.VOStatus;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class FHVODao {
 
 	@Autowired
-	private MetadataDAO dao;
+    @Qualifier(value = "baseDAO")
+    private BaseDAO dao;
 	
 	//根据某一非主键字段查询实体
 	public List<FHVO> findByYwbm(String ywbm){
