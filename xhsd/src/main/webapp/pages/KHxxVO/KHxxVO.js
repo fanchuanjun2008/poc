@@ -2,7 +2,7 @@ define(['text!pages/KHxxVO/KHxxVO.html','pages/KHxxVO/meta','css!pages/KHxxVO/KH
 
     var init = function (element, params) {
         var viewModel = {
-    		listurl : '/KHxxVO/list',   
+    		listurl : '/KHxxVO/listkh',   
         	addurl :  '/KHxxVO/createRow',
             saveurl : '/KHxxVO/save',
         	delurl  :  '/KHxxVO/del',

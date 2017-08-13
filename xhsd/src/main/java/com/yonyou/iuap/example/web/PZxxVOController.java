@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yonyou.iuap.example.entity.PZxxVO;
+import com.yonyou.iuap.example.service.BdxxVOService;
 import com.yonyou.iuap.example.service.PZxxVOService;
 import com.yonyou.iuap.example.web.BaseController;
 import com.yonyou.iuap.example.entity.meta.EnumVo;
@@ -36,6 +37,9 @@ public class PZxxVOController extends BaseController {
 
 	@Autowired
 	private PZxxVOService service;
+	
+	@Autowired
+	private BdxxVOService bdservice;
 
 	/**
 	 * data table 列表查询
@@ -54,6 +58,7 @@ public class PZxxVOController extends BaseController {
 
 		Page<PZxxVO> result = service.selectAllByPage(new PageRequest(pageNumber, dataTable.getPageSize(), new Sort(Sort.Direction.DESC, "ts")),
 				searchParamMap);
+	
 
 		dataTable.setPageData(pageNumber, result.getContent(), result.getTotalPages(), result.getTotalElements());
 		return response;

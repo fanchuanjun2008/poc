@@ -4,3 +4,11 @@
 	height: 1000px;
     width: 1000px;
 }
+
+.u-msg-dialog.bdxx{
+	width: 80%;
+}
+
+.u-msg-dialog.search{
+	width: 40%;
+}

@@ -2,6 +2,8 @@ package com.yonyou.iuap.example.entity;
 
 
 
+import java.math.BigDecimal;
+
 import com.yonyou.iuap.persistence.jdbc.framework.annotation.Column;
 import com.yonyou.iuap.persistence.jdbc.framework.annotation.Entity;
 import com.yonyou.iuap.persistence.jdbc.framework.annotation.GeneratedValue;
@@ -37,7 +39,20 @@ public class KHxxVO extends BaseEntity {
 
 	@Column(name = "kyzt")
 	private String kyzt;
+	
+	@Column(name = "totalzdsl")
+	private BigDecimal zdsl;
+	
+	
 
+
+	public BigDecimal getZdsl() {
+		return zdsl;
+	}
+
+	public void setZdsl(BigDecimal zdsl) {
+		this.zdsl = zdsl;
+	}
 
 	@Column(name = "dr")
     private java.lang.Integer dr = 0 ;

@@ -12,15 +12,16 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sun.tools.internal.ws.processor.model.Model;
 import com.yonyou.iuap.auth.shiro.AuthConstants;
 import com.yonyou.iuap.auth.token.ITokenProcessor;
 import com.yonyou.iuap.auth.token.TokenParameter;
 import com.yonyou.iuap.utils.PropertyUtil;
+
 
 /**
  * 移动端默认登录逻辑示例，项目上根据与用户中心或者自己的用户管理服务进行修改

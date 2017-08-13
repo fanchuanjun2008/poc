@@ -33,6 +33,25 @@ public class BdxxVODao {
         List<BdxxVO> list = dao.queryByClause(BdxxVO.class, sql, sqlparam);
         return list;
 	}
+	
+	//根据征订客户编码查出该客户下的报订单数据
+	public List<BdxxVO> findByKhbm(String khbm){
+		String sql = "select * from demo_bdxx where zddwbm=?";
+        SQLParameter sqlparam = new SQLParameter();
+        sqlparam.addParam(khbm);
+        List<BdxxVO> list = dao.queryByClause(BdxxVO.class, sql, sqlparam);
+        return list;
+	}
+	
+	//根据品种编码查出该品种的报订单数据
+		public List<BdxxVO> findByPzbm(String pzbm){
+			String sql = "select * from demo_bdxx where pzbm=?";
+	        SQLParameter sqlparam = new SQLParameter();
+	        sqlparam.addParam(pzbm);
+	        List<BdxxVO> list = dao.queryByClause(BdxxVO.class, sql, sqlparam);
+	        return list;
+		}
+	
 
 	  /**
      * 分页查询方法
@@ -41,6 +60,26 @@ public class BdxxVODao {
      * @return
      */
     public Page<BdxxVO> selectAllByPage(PageRequest pageRequest, Map<String, Object> searchParams) {
+    	 String sql = " SELECT * FROM bdxx ";   
+         SQLParameter sqlparam = new SQLParameter();
+         if (null != searchParams && !searchParams.isEmpty()) {
+             sql = sql + " where ";
+             for (String key : searchParams.keySet()) {
+                 sql = sql + FastBeanHelper.getColumn(BdxxVO.class, key) + " like ? AND ";
+                 sqlparam.addParam("%" + searchParams.get(key) + "%");
+             }
+             sql = sql.substring(0, sql.length() - 4);
+         }
+         return dao.queryPage(sql, sqlparam, pageRequest, BdxxVO.class);
+    }
+    
+	  /**
+     * 分页查询方法
+     * @param pageRequest
+     * @param searchParams
+     * @return
+     */
+    public Page<BdxxVO> selectAllByPagefor(PageRequest pageRequest, Map<String, Object> searchParams) {
     	 String sql = " SELECT * FROM demo_bdxx ";   
          SQLParameter sqlparam = new SQLParameter();
          if (null != searchParams && !searchParams.isEmpty()) {
