@@ -60,10 +60,11 @@
                             <div type="text" id="KCVO"
                                  u-meta='{"id":"grid_KCVO","data":"KCVODa","type":"grid","editable":false,"multiSelect":true,"editType":"default","columnWidth":"150px"}'>
                                         <div options='{"field":"ywbm","dataType":"String","title":"业务部门","editType":"string"}'></div>
-                                        <div options='{"field":"pzbm","dataType":"String","title":"品种编码","editType":"string"}'></div>
+                                        <!-- <div options='{"field":"pzbm","dataType":"String","title":"品种编码","editType":"string"}'></div> -->
+                                        <div options='{"field":"pzbmName","dataType":"String","title":"品种","editType":"string"}'></div>
                                         <div options='{"field":"kcsl","dataType":"String","title":"库存数量","editType":"string"}'></div>
                                         <div options='{"field":"kczk","dataType":"String","title":"库存折扣","editType":"string"}'></div>
-                                        <div options='{"field":"kczt","dataType":"String","title":"库存状态","editType":"string"}'></div>
+                                        <div options='{"field":"kczt","dataType":"String","title":"库存状态","editType":"combo","editOptions":{"id":"kczt","type":"combo","datasource":"KCVO_kczt"},"renderType":"comboRender"}'></div>
                             </div>
                             <div id='pagination' class='pagination u-pagination pagination-sm '
                                  u-meta='{"type":"pagination","data":"KCVODa","pageChange":"event.pageChange","sizeChange":"event.sizeChange"}'></div>

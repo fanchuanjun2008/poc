@@ -1,24 +1,23 @@
 var KHxxVOmeta = {
-	params: {
-        "cls": "com.yonyou.iuap.example.entity.KHxxVO" 
-    },
-
-    meta: {
-                    id_khxx:{
-                    
-                    },   
-                    khbh:{
-                    
-                    },   
-                    khmc:{
-                    
-                    },   
-                    kyzt:{
-                    
-                    },   
+	params : {
+		"cls" : "com.yonyou.iuap.example.entity.KHxxVO"
 	},
-    pageSize: 5,
-    //启用前端缓存
-    pageCache: true
-}
 
+	meta : {
+		id_khxx : {
+
+		},
+		khbh : {
+
+		},
+		khmc : {
+
+		},
+		kyzt : {
+
+		},
+	},
+	pageSize : 5,
+	// 启用前端缓存
+	pageCache : true
+}

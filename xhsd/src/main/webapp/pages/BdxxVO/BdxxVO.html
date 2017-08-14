@@ -60,13 +60,15 @@
                             <div type="text" id="BdxxVO"
                                  u-meta='{"id":"grid_BdxxVO","data":"BdxxVODa","type":"grid","editable":false,"multiSelect":true,"editType":"default","columnWidth":"150px"}'>
                                         <div options='{"field":"ywbm","dataType":"String","title":"业务部门","editType":"string"}'></div>
-                                        <div options='{"field":"zddwbm","dataType":"String","title":"征订单位编码","editType":"string"}'></div>
+                                        <!-- <div options='{"field":"zddwbm","dataType":"String","title":"征订单位编码","editType":"string"}'></div> -->
+                                        <div options='{"field":"zddwbmName","dataType":"String","title":"征订单位","editType":"string"}'></div>
                                         <div options='{"field":"zddh","dataType":"String","title":"征订单号","editType":"string"}'></div>
-                                        <div options='{"field":"pzbm","dataType":"String","title":"品种编码","editType":"string"}'></div>
+                                        <!-- <div options='{"field":"pzbm","dataType":"String","title":"品种编码","editType":"string"}'></div> -->
+                                        <div options='{"field":"pzbmName","dataType":"String","title":"品种","editType":"string"}'></div>
                                         <div options='{"field":"zdsl","dataType":"String","title":"征订数量","editType":"string"}'></div>
                                         <div options='{"field":"fhsl","dataType":"String","title":"发货数量","editType":"string"}'></div>
                                         <div options='{"field":"fhzk","dataType":"String","title":"发货折扣","editType":"string"}'></div>
-                                        <div options='{"field":"zkbj","dataType":"String","title":"折扣标识","editType":"string"}'></div>
+                                        <div options='{"field":"zkbj","dataType":"String","title":"折扣标识","editType":"combo","editOptions":{"id":"zkbj","type":"combo","datasource":"BdxxVO_zkbj"},"renderType":"comboRender"}'></div>
 										<div options='{"field":"lrrq","dataType":"date","title":"录入日期","editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
 										<div options='{"field":"clrq","dataType":"date","title":"处理日期","editType":"date","renderType":"dateRender","format":"YYYY-MM-DD"}'></div>
                                         <div options='{"field":"bz","dataType":"String","title":"备注","editType":"string"}'></div>

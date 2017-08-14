@@ -1,30 +1,32 @@
 var KCVOmeta = {
-	params: {
-        "cls": "com.yonyou.iuap.example.entity.KCVO" 
-    },
-
-    meta: {
-                    id_kcb:{
-                    
-                    },   
-                    ywbm:{
-                    
-                    },   
-                    pzbm:{
-                    
-                    },   
-                    kcsl:{
-                    
-                    },   
-                    kczk:{
-                    
-                    },   
-                    kczt:{
-                    
-                    },   
+	params : {
+		"cls" : "com.yonyou.iuap.example.entity.KCVO"
 	},
-    pageSize: 5,
-    //启用前端缓存
-    pageCache: true
-}
 
+	meta : {
+		id_kcb : {
+
+		},
+		ywbm : {
+
+		},
+		pzbm : {
+
+		},
+		pzbmName : {
+
+		},
+		kcsl : {
+
+		},
+		kczk : {
+
+		},
+		kczt : {
+
+		},
+	},
+	pageSize : 5,
+	// 启用前端缓存
+	pageCache : true
+}

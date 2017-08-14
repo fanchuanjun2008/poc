@@ -147,7 +147,7 @@ define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css',
 		                	console.log(object);
 		                	console.log(object.rowObj.value);
 		                	var object=object.rowObj.value;//行数据对象；
-		                	var khbh=object.khbh;//客户编号
+		                	var khbh=object.id_khxx;//客户编号
 		                	window.md = u.dialog({
 		                        id: 'commonShowDialog',
 		                        content: '#table-CityForCustomer',
@@ -163,7 +163,7 @@ define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css',
 		                rowpzDoubleClick:function(object){
 		                	console.log(object.rowObj.value);
 		                	var object=object.rowObj.value;//行数据对象
-		                	var pzbm=object.pzbm;//品种编码
+		                	var pzbm=object.id_pzxx;//品种编码
 		                	window.md = u.dialog({
 		                        id: 'commonShowDialog',
 		                        content: '#table-CityForCustomer',
@@ -245,6 +245,7 @@ define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css',
 		                	}
 		                	console.log(kh);
 		                       queryData["search_zddwbm"] = kh;
+	                           queryData["search_pzbm"] = "";
 		                        viewModel.BdxxVODa.addParams(queryData);
 		                    app.serverEvent().addDataTable("BdxxVODa").fire({
 	                            url: ctx + viewModel.listbdurl,

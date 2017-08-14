@@ -7,6 +7,7 @@ define(['text!pages/BdxxVO/BdxxVO.html','pages/BdxxVO/meta','css!pages/BdxxVO/Bd
             saveurl : '/BdxxVO/save',
         	delurl  :  '/BdxxVO/del',
         	
+        	BdxxVO_zkbj:[{value:'1', name:'顺加折扣'},{value:'0', name:'固定折扣'}],
 
 			BdxxVODa: new u.DataTable(BdxxVOmeta),
 			
@@ -72,6 +73,16 @@ define(['text!pages/BdxxVO/BdxxVO.html','pages/BdxxVO/meta','css!pages/BdxxVO/Bd
                     $(ele).unbind('click'); //取消之前的绑定
                     $(ele).bind('click', data, functionevent); //重新绑定
                 }, 
+                
+                /**枚举类型渲染 */
+				changeBdxxVOzkbj: function (id) {
+                    var v = id();
+                    for( var i= 0 ;i< viewModel.BdxxVO_zkbj.length;i++ ){
+                    	if(v == viewModel.BdxxVO_zkbj[i].value ){
+                    		return viewModel.BdxxVO_zkbj[i].name ;
+                    	} 
+                    }
+                },
                 
                 search: function () {
                     viewModel.BdxxVODa.clear();

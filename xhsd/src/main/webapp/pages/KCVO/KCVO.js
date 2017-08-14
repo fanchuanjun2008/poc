@@ -7,6 +7,7 @@ define(['text!pages/KCVO/KCVO.html','pages/KCVO/meta','css!pages/KCVO/KCVO.css',
             saveurl : '/KCVO/save',
         	delurl  :  '/KCVO/del',
         	
+        	KCVO_kczt:[{value:'1', name:'锁定'},{value:'0', name:'未锁定'}],
 
 			KCVODa: new u.DataTable(KCVOmeta),
 			
@@ -70,6 +71,16 @@ define(['text!pages/KCVO/KCVO.html','pages/KCVO/meta','css!pages/KCVO/KCVO.css',
                     $(ele).unbind('click'); //取消之前的绑定
                     $(ele).bind('click', data, functionevent); //重新绑定
                 }, 
+                
+                /**枚举类型渲染 */
+				changeKCVOkczt: function (id) {
+                    var v = id();
+                    for( var i= 0 ;i< viewModel.KCVO_kczt.length;i++ ){
+                    	if(v == viewModel.KCVO_kczt[i].value ){
+                    		return viewModel.KCVO_kczt[i].name ;
+                    	} 
+                    }
+                },
                 
                 search: function () {
                     viewModel.KCVODa.clear();
