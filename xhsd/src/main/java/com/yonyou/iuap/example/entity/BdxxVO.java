@@ -60,10 +60,10 @@ public class BdxxVO extends BaseEntity {
 	private String zkbj;
 
 	@Column(name = "lrrq")
-	private Date lrrq;
+	private java.sql.Timestamp lrrq;
 
 	@Column(name = "clrq")
-	private Date clrq;
+	private java.sql.Timestamp clrq;
 
 	@Column(name = "bz")
 	private String bz;
@@ -181,20 +181,20 @@ public class BdxxVO extends BaseEntity {
 	}
 	
 
-	public Date getLrrq() {
+	public java.sql.Timestamp getLrrq() {
 		return this.lrrq;
 	}
 
-	public void setLrrq(Date lrrq) {
+	public void setLrrq(java.sql.Timestamp lrrq) {
 		this.lrrq = lrrq;
 	}
 	
 
-	public Date getClrq() {
+	public java.sql.Timestamp getClrq() {
 		return this.clrq;
 	}
 
-	public void setClrq(Date clrq) {
+	public void setClrq(java.sql.Timestamp clrq) {
 		this.clrq = clrq;
 	}
 	

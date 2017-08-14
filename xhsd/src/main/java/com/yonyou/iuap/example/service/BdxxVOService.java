@@ -137,10 +137,12 @@ public class BdxxVOService {
 
             //进行转换为发货单逻辑
             List<FHVO> listfh=new ArrayList<FHVO>();
-            List<PZxxVO> updateList=new ArrayList<PZxxVO>();
+            List<KCVO> listupdate=new ArrayList<KCVO>();
+            List<BdxxVO> listBdxxVOs=new ArrayList<BdxxVO>();
             Set<String> pzs=new HashSet<String>();
             for(BdxxVO vo:datas){
             	FHVO fhvo=new FHVO();
+            	BdxxVO bdxxVO= findByZddh(vo.getZddh()).get(0);
             	fhvo.setYwbm(vo.getYwbm());
             	fhvo.setZddwbm(vo.getZddwbm());
             	fhvo.setZddh(vo.getZddh());
@@ -151,12 +153,14 @@ public class BdxxVOService {
             	fhvo.setFdr("admin");
             	fhvo.setClzt("b");
             	fhvo.setBz("新华书店发货");
+            	bdxxVO.setFhsl(bdxxVO.getFhsl().add(vo.getFhsl()));
             	listfh.add(fhvo);
             	pzs.add(vo.getPzbm());
+            	listBdxxVOs.add(bdxxVO);
             }
             for(String pz:pzs){
-            	List<PZxxVO> listpz=pZxxVOService.findByPzbm(pz);
-            	PZxxVO pZxxVO=listpz.get(0);
+            	List<KCVO> listkc=kcvoServicedao.findKCVO(pz);
+            	KCVO kcvo=listkc.get(0);
             	BigDecimal add=new BigDecimal(0);
             	for(BdxxVO vo:datas){
             		if(vo.getPzbm().equalsIgnoreCase(pz)){
@@ -164,9 +168,17 @@ public class BdxxVOService {
             		}
             	}
             	
+            	if(kcvo.getKcsl().compareTo(add)<=0){
+            		 throw new BusinessException("品种编码为"+kcvo.getPzbm()+"的品种发货数量不能大于库存数量");
+            	}else{
+            		kcvo.setKcsl(kcvo.getKcsl().subtract(add));
+            		listupdate.add(kcvo);
+            	}
+            	
             	
             }
-            
+            this.save(null, listBdxxVOs, null);
+            kcvoServicedao.save(null, listupdate, null);
             fhvoService.save(listfh, null, null);
         }
     }

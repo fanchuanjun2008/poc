@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.iuap.example.entity.KCVO;
+import com.yonyou.iuap.example.entity.PZxxVO;
 import com.yonyou.iuap.example.repository.KCVODao;
 import com.yonyou.iuap.persistence.bs.jdbc.meta.access.DASFacade;
 
@@ -74,5 +75,12 @@ public class KCVOService {
         }
         return null;
     }
+    
+    public List<KCVO>  findKCVO(String pzbm){
+    	
+    	return dao.findByPzbm(pzbm);
+    }
+    
+    
 
 }

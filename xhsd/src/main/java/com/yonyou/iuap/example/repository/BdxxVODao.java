@@ -116,7 +116,7 @@ public class BdxxVODao {
             dao.insert(addList) ;
         }
         if (CollectionUtils.isNotEmpty(updateList)) {
-            for (BdxxVO obj : addList) {
+            for (BdxxVO obj : updateList) {
             	obj.setStatus(VOStatus.UPDATED);
 //                // 从InvocationInfoProxy获取值
 //                dictType.setModifier(InvocationInfoProxy.getUsername());
@@ -126,7 +126,7 @@ public class BdxxVODao {
             dao.update(updateList) ;
         }
         if (CollectionUtils.isNotEmpty(removeList)) {
-        	 for (BdxxVO obj : addList) {
+        	 for (BdxxVO obj : removeList) {
              	obj.setStatus(VOStatus.DELETED);
              }
         	 dao.remove(removeList);

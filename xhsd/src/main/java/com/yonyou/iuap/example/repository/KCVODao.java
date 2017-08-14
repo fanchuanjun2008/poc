@@ -41,6 +41,12 @@ public class KCVODao {
         List<KCVO> list = dao.queryByClause(KCVO.class, sql);
         return list;
     }
+    
+    public List<KCVO> findByPzbm(String pzbm){
+    	String sql="select * from demo_kcb where pzbm='"+pzbm+"'";
+        List<KCVO> list = dao.queryByClause(KCVO.class, sql);
+        return list;
+    }
 
 	  /**
      * 分页查询方法
@@ -85,7 +91,7 @@ public class KCVODao {
             dao.insert(addList) ;
         }
         if (CollectionUtils.isNotEmpty(updateList)) {
-            for (KCVO obj : addList) {
+            for (KCVO obj : updateList) {
             	obj.setStatus(VOStatus.UPDATED);
 //                // 从InvocationInfoProxy获取值
 //                dictType.setModifier(InvocationInfoProxy.getUsername());
