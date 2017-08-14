@@ -73,21 +73,20 @@ public class BdxxVOController extends BaseController {
 
 		Page<BdxxVO> result = service.selectAllByPage(new PageRequest(pageNumber, dataTable.getPageSize(), new Sort(Sort.Direction.DESC, "ts")),
 				searchParamMap);
-		List<BdxxVO> list=result.getContent();
-		for(int i=0;i<list.size();i++){
-			List<KHxxVO> listkh=khservice.findByKhbh(list.get(i).getZddwbm());
-			List<PZxxVO> listpz= pzService.findByPzbm(list.get(i).getPzbm());
-			if(listkh!=null && listkh.size()>0){
-				list.get(i).setZddwbmName(listkh.get(0).getKhmc());
-				
-			}
-			if(listpz!=null && listpz.size()>0){
-				list.get(i).setPzbmName(listpz.get(0).getSm());
-			}
-			if(list.get(i).getYfsl()==null){
-				list.get(i).setYfsl(new BigDecimal(0));
-			}
-		}
+//		List<BdxxVO> list=result.getContent();
+//		for(int i=0;i<list.size();i++){
+//			List<KHxxVO> listkh=khservice.findByKhbh(list.get(i).getZddwbm());
+//			List<PZxxVO> listpz= pzService.findByPzbm(list.get(i).getPzbm());
+//			if(listkh!=null && listkh.size()>0){
+//				list.get(i).setZddwbmName(listkh.get(0).getKhmc());
+//			}
+//			if(listpz!=null && listpz.size()>0){
+//				list.get(i).setPzbmName(listpz.get(0).getSm());
+//			}
+//			if(list.get(i).getYfsl()==null){
+//				list.get(i).setYfsl(new BigDecimal(0));
+//			}
+//		}
 
 		dataTable.setPageData(pageNumber, result.getContent(), result.getTotalPages(), result.getTotalElements());
 		return response;
@@ -110,18 +109,18 @@ public class BdxxVOController extends BaseController {
 
 		Page<BdxxVO> result = service.selectAllByPagefor(new PageRequest(pageNumber, dataTable.getPageSize(), new Sort(Sort.Direction.DESC, "ts")),
 				searchParamMap);
-		List<BdxxVO> list=result.getContent();
-		for(int i=0;i<list.size();i++){
-			List<KHxxVO> listkh=khservice.findByKhbh(list.get(i).getZddwbm());
-			List<PZxxVO> listpz= pzService.findByPzbm(list.get(i).getPzbm());
-			if(listkh!=null && listkh.size()>0){
-				list.get(i).setZddwbmName(listkh.get(0).getKhmc());
-				
-			}
-			if(listpz!=null && listpz.size()>0){
-				list.get(i).setPzbmName(listpz.get(0).getSm());
-			}
-		}
+//		List<BdxxVO> list=result.getContent();
+//		for(int i=0;i<list.size();i++){
+//			List<KHxxVO> listkh=khservice.findByKhbh(list.get(i).getZddwbm());
+//			List<PZxxVO> listpz= pzService.findByPzbm(list.get(i).getPzbm());
+//			if(listkh!=null && listkh.size()>0){
+//				list.get(i).setZddwbmName(listkh.get(0).getKhmc());
+//				
+//			}
+//			if(listpz!=null && listpz.size()>0){
+//				list.get(i).setPzbmName(listpz.get(0).getSm());
+//			}
+//		}
 
 		dataTable.setPageData(pageNumber, result.getContent(), result.getTotalPages(), result.getTotalElements());
 		return response;
@@ -138,7 +137,7 @@ public class BdxxVOController extends BaseController {
 	public JsonResponse fangdan(@RequestBody List<BdxxVO> datas){
 		try{
 			service.fangdan(datas);
-		//	this.startBpm();
+			this.startBpm();
 			return super.buildSuccess("放单成功");
 		}catch (BusinessException e){
 			return super.buildGlobalError(e.getMessage());
@@ -254,7 +253,7 @@ public class BdxxVOController extends BaseController {
     	  try {
 			HistoricProcessInstanceResponse json= this.proservice.startProcessByKey("35fa8dc0-6f48-11e6-bcf3-0242ac110003", "XHBOOKFORM-V20170814", "text", variables);
 			
-		System.out.println(JSONObject.fromObject(json));
+			System.out.println(JSONObject.fromObject(json));
 		} catch (RestException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();

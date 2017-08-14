@@ -28,7 +28,8 @@ public class FHVOService {
      * @return
      */
     public Page<FHVO> selectAllByPage(PageRequest pageRequest, Map<String, Object> searchParams) {
-        Page<FHVO> pageResult = dao.selectAllByPage(pageRequest, searchParams) ;
+		Page<FHVO> pageResult = dao.selectAllByPage(pageRequest, searchParams) ;
+        this.setRefName(pageResult);
 		return pageResult;
     }
 
@@ -66,5 +67,24 @@ public class FHVOService {
         return dao.findByZddh(code);
     }
 
+    /**进行code与name翻译**/
+    private Page<FHVO> setRefName(Page<FHVO> pageResult) {
+        if (pageResult != null && pageResult.getContent() != null && pageResult.getContent().size() > 0) {
 
+			Map<String, Map<String, Object>> refMap =
+                    DASFacade.getAttributeValueAsPKMap(new String[] {"zddwbm.khmc", "pzbm.sm"}, pageResult
+                            .getContent().toArray(new FHVO[] {}));
+            for (FHVO fhvo : pageResult.getContent()) {
+                String pk = fhvo.getId_fhb();
+                Map<String, Object> jobRefMap = refMap.get(pk);
+                if (jobRefMap != null) {
+                	fhvo.setZddwbmName((String) jobRefMap.get("zddwbm.khmc"));
+                	fhvo.setPzbmName((String) jobRefMap.get("pzbm.sm"));
+                }
+            }
+        }
+
+
+        return pageResult;
+    }
 }

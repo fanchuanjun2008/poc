@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,9 +19,9 @@ import com.yonyou.iuap.example.entity.BdxxVO;
 import com.yonyou.iuap.example.entity.FHVO;
 import com.yonyou.iuap.example.entity.KCVO;
 import com.yonyou.iuap.example.entity.KHxxVO;
-import com.yonyou.iuap.example.entity.PZxxVO;
 import com.yonyou.iuap.example.repository.BdxxVODao;
 import com.yonyou.iuap.example.utils.ConstanstUtils;
+import com.yonyou.iuap.persistence.bs.jdbc.meta.access.DASFacade;
 import com.yonyou.iuap.persistence.vo.pub.BusinessException;
 
 @Service
@@ -41,10 +40,6 @@ public class BdxxVOService {
     @Autowired
     private FHVOService fhvoService;
     
-    @Autowired
-    private PZxxVOService pZxxVOService;
-    
-
 	  /**
      * 分页查询方法
      * @param pageRequest
@@ -53,11 +48,13 @@ public class BdxxVOService {
      */
     public Page<BdxxVO> selectAllByPage(PageRequest pageRequest, Map<String, Object> searchParams) {
         Page<BdxxVO> pageResult = dao.selectAllByPage(pageRequest, searchParams) ;
+        this.setRefName(pageResult);
 		return pageResult;
     }
     
     public Page<BdxxVO> selectAllByPagefor(PageRequest pageRequest, Map<String, Object> searchParams) {
         Page<BdxxVO> pageResult = dao.selectAllByPagefor(pageRequest, searchParams) ;
+        this.setRefName(pageResult);
 		return pageResult;
     }
 
@@ -181,6 +178,26 @@ public class BdxxVOService {
             kcvoServicedao.save(null, listupdate, null);
             fhvoService.save(listfh, null, null);
         }
+    }
+    
+    /**进行code与name翻译**/
+    private Page<BdxxVO> setRefName(Page<BdxxVO> pageResult) {
+        if (pageResult != null && pageResult.getContent() != null && pageResult.getContent().size() > 0) {
+
+			Map<String, Map<String, Object>> refMap =
+                    DASFacade.getAttributeValueAsPKMap(new String[] {"zddwbm.khmc", "pzbm.sm"}, pageResult
+                            .getContent().toArray(new BdxxVO[] {}));
+            for (BdxxVO bdvo : pageResult.getContent()) {
+                String pk = bdvo.getId_bdxx();
+                Map<String, Object> jobRefMap = refMap.get(pk);
+                if (jobRefMap != null) {
+                	bdvo.setZddwbmName((String) jobRefMap.get("zddwbm.khmc"));
+                	bdvo.setPzbmName((String) jobRefMap.get("pzbm.sm"));
+                }
+            }
+        }
+
+        return pageResult;
     }
 
 }

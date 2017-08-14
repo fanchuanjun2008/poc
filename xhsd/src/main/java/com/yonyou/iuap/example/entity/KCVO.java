@@ -36,6 +36,7 @@ public class KCVO extends BaseEntity {
 
 	@Column(name = "pzbm")
 	private String pzbm;
+	private String pzbmName;
 
 	@Column(name = "kcsl")
 	private BigDecimal kcsl;
@@ -125,11 +126,21 @@ public class KCVO extends BaseEntity {
 	
 	@Override
     public String getMetaDefinedName() {
-	        return "KCVO";
-	    }
+        return "KCVO";
+    }
 
-	    @Override
-	    public String getNamespace() {
-	        return "xhsd";
-	    }
+    @Override
+    public String getNamespace() {
+        return "xhsd";
+    }
+
+	public String getPzbmName() {
+		return pzbmName;
+	}
+
+	public void setPzbmName(String pzbmName) {
+		this.pzbmName = pzbmName;
+	}
+    
+    
 }

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.iuap.example.entity.KCVO;
-import com.yonyou.iuap.example.entity.PZxxVO;
 import com.yonyou.iuap.example.repository.KCVODao;
 import com.yonyou.iuap.persistence.bs.jdbc.meta.access.DASFacade;
 
@@ -31,6 +30,7 @@ public class KCVOService {
      */
     public Page<KCVO> selectAllByPage(PageRequest pageRequest, Map<String, Object> searchParams) {
         Page<KCVO> pageResult = dao.selectAllByPage(pageRequest, searchParams) ;
+        this.setRefName(pageResult);
 		return pageResult;
     }
 
@@ -81,6 +81,24 @@ public class KCVOService {
     	return dao.findByPzbm(pzbm);
     }
     
-    
+    /**进行code与name翻译**/
+    private Page<KCVO> setRefName(Page<KCVO> pageResult) {
+        if (pageResult != null && pageResult.getContent() != null && pageResult.getContent().size() > 0) {
+
+			Map<String, Map<String, Object>> refMap =
+                    DASFacade.getAttributeValueAsPKMap(new String[] {"pzbm.sm"}, pageResult
+                            .getContent().toArray(new KCVO[] {}));
+            for (KCVO kcvo : pageResult.getContent()) {
+                String pk = kcvo.getId_kcb();
+                Map<String, Object> jobRefMap = refMap.get(pk);
+                if (jobRefMap != null) {
+                	kcvo.setPzbmName((String) jobRefMap.get("pzbm.sm"));
+                }
+            }
+        }
+
+
+        return pageResult;
+    }
 
 }
