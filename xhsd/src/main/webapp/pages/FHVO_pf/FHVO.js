@@ -1,5 +1,5 @@
-define(['text!pages/FHVO/FHVO.html','pages/FHVO/meta','css!pages/FHVO/FHVO.css','uuitree','uuigrid'],function(html){
-//define(['text!./FHVO.html','./meta.js','css!./FHVO.css'],function(html){
+define(['text!./FHVO.html','./meta.js','css!./FHVO.css'],function(html){
+//define(['text!pages/FHVO/FHVO.html','pages/FHVO/meta','css!pages/FHVO/FHVO.css','uuitree','uuigrid'],function(html){
     var init = function (element, params) {
         var viewModel = {
     		listurl : '/FHVO/list',   
