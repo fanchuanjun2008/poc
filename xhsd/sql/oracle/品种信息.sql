@@ -1,6 +1,38 @@
-        prompt Importing table demo_pzxx...
-set feedback off
-set define off
+
+-- Create table
+create table DEMO_PZXX
+(
+  pzbm    VARCHAR2(10),
+  isbn    VARCHAR2(20),
+  sm      VARCHAR2(200),
+  dj      NUMBER(7,4),
+  cbrq    DATE,
+  ysny    DATE,
+  id_pzxx VARCHAR2(36),
+  ts      DATE
+);
+-- Add comments to the columns 
+comment on column DEMO_PZXX.pzbm
+  is '品种编码';
+comment on column DEMO_PZXX.isbn
+  is 'ISBN';
+comment on column DEMO_PZXX.sm
+  is '书名';
+comment on column DEMO_PZXX.dj
+  is '定价';
+comment on column DEMO_PZXX.cbrq
+  is '出版日期';
+comment on column DEMO_PZXX.ysny
+  is '印刷年月';
+comment on column DEMO_PZXX.id_pzxx
+  is '品种信息主键';
+comment on column DEMO_PZXX.ts
+  is 'ts时间戳';
+
+
+
+
+
 insert into demo_pzxx (PZBM, ISBN, SM, DJ, CBRQ, YSNY, ID_PZXX, TS)
 values ('1606221', '9787534256295', '鸟奴/动物小说大王沈石溪品藏书系', 17.0000, to_date('01-10-2009', 'dd-mm-yyyy'), to_date('01-01-2013', 'dd-mm-yyyy'), '27a66a9e-8a78-451f-bc30-9424f78c6c0f', null);
 
@@ -34,36 +66,4 @@ values ('3833604', '9787534031335', '智慧七巧板(2岁升级版)/多湖辉新
 insert into demo_pzxx (PZBM, ISBN, SM, DJ, CBRQ, YSNY, ID_PZXX, TS)
 values ('3852451', '9787534045929', '推理(5岁)/头脑开发丛书', 19.8000, to_date('01-05-2017', 'dd-mm-yyyy'), to_date('01-05-2017', 'dd-mm-yyyy'), 'dbbe535f-1362-4523-9877-97c3d216f1d0', null);
 
-prompt Done.
-
-
--- Create table
-create table DEMO_PZXX
-(
-  pzbm    VARCHAR2(10),
-  isbn    VARCHAR2(20),
-  sm      VARCHAR2(200),
-  dj      NUMBER(7,4),
-  cbrq    DATE,
-  ysny    DATE,
-  id_pzxx VARCHAR2(36),
-  ts      DATE
-);
--- Add comments to the columns 
-comment on column DEMO_PZXX.pzbm
-  is '品种编码';
-comment on column DEMO_PZXX.isbn
-  is 'ISBN';
-comment on column DEMO_PZXX.sm
-  is '书名';
-comment on column DEMO_PZXX.dj
-  is '定价';
-comment on column DEMO_PZXX.cbrq
-  is '出版日期';
-comment on column DEMO_PZXX.ysny
-  is '印刷年月';
-comment on column DEMO_PZXX.id_pzxx
-  is '品种信息主键';
-comment on column DEMO_PZXX.ts
-  is 'ts时间戳';
 

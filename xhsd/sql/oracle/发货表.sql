@@ -2,9 +2,9 @@
 create table DEMO_FHB
 (
   ywbm   VARCHAR2(2),
-  zddwbm VARCHAR2(10),
+  zddwbm VARCHAR2(36),
   zddh   VARCHAR2(10),
-  pzbm   VARCHAR2(10),
+  pzbm   VARCHAR2(36),
   fhsl   NUMBER(6),
   fhzk   NUMBER(8,4),
   fdrq   DATE,

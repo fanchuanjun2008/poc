@@ -1,6 +1,36 @@
-prompt Importing table demo_khxx...
-set feedback off
-set define off
+
+-- Create table
+create table DEMO_KHXX
+(
+  khbh    VARCHAR2(10),
+  khmc    VARCHAR2(200),
+  kyzt    CHAR(1),
+  ts      DATE,
+  id_khxx VARCHAR2(36)
+);
+-- Add comments to the columns 
+comment on column DEMO_KHXX.khbh
+  is '客户编号';
+comment on column DEMO_KHXX.khmc
+  is '客户名称';
+comment on column DEMO_KHXX.kyzt
+  is '可用标志 1 可用 0 不可用';
+comment on column DEMO_KHXX.ts
+  is 'TS时间戳';
+comment on column DEMO_KHXX.id_khxx
+  is '客户信息表主键';
+  
+  --创建按店放单客户查询视图
+ CREATE OR REPLACE VIEW khxx as
+select *
+  from demo_khxx k
+  left join (select sum(zdsl) as totalzdsl, zddwbm
+               from demo_bdxx
+              group by zddwbm) zdsl
+    on k.id_khxx = zdsl.zddwbm where totalzdsl is not null 
+  
+  
+
 insert into demo_khxx (KHBH, KHMC, KYZT, TS, ID_KHXX)
 values ('3300000011', '馆藏', '1', null, '192b9c02-8cf6-4ecb-bbe9-6d5ee7a23520');
 
@@ -165,38 +195,7 @@ values ('3310240001', '浙仙居县店', '1', null, 'd7b9296e-e40c-4ef1-9966-5fd
 insert into demo_khxx (KHBH, KHMC, KYZT, TS, ID_KHXX)
 values ('3325270001', '浙遂昌县店', '1', null, 'c4aeb31a-9449-4197-b610-78808309e975');
 
-prompt Done.
 
 
--- Create table
-create table DEMO_KHXX
-(
-  khbh    VARCHAR2(10),
-  khmc    VARCHAR2(200),
-  kyzt    CHAR(1),
-  ts      DATE,
-  id_khxx VARCHAR2(36)
-);
--- Add comments to the columns 
-comment on column DEMO_KHXX.khbh
-  is '客户编号';
-comment on column DEMO_KHXX.khmc
-  is '客户名称';
-comment on column DEMO_KHXX.kyzt
-  is '可用标志 1 可用 0 不可用';
-comment on column DEMO_KHXX.ts
-  is 'TS时间戳';
-comment on column DEMO_KHXX.id_khxx
-  is '客户信息表主键';
-  
-  --创建按店放单客户查询视图
- CREATE OR REPLACE VIEW khxx as
-select *
-  from demo_khxx k
-  left join (select sum(zdsl) as totalzdsl, zddwbm
-               from demo_bdxx
-              group by zddwbm) zdsl
-    on k.khbh = zdsl.zddwbm where totalzdsl is not null 
-  
-  
+
 
