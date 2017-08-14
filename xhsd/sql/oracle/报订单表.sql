@@ -85,19 +85,38 @@ comment on column DEMO_BDXX.id_bdxx
   --创建放单时的报订单数据视图
   
 create or replace view bdxx as
-select bd.ywbm, bd.zddwbm as zddwbm, bd.zddh, pz.pzbm as pzbm,bd.zdsl,'0' as fhsl,bd.zkbj,
-(case when bd.zkbj='0' then bd.fhzk
-      when bd.zkbj='1' then (select kczk from demo_kcb kc where kc.pzbm=bd.pzbm )+bd.fhzk
+select bd.ywbm,
+       bd.zddwbm as zddwbm,
+       bd.zddh,
+       pz.pzbm as pzbm,
+       bd.zdsl,
+       '0' as fhsl,
+       bd.zkbj,
+       (case
+         when bd.zkbj = '0' then
+          bd.fhzk
+         when bd.zkbj = '1' then
+          (select kczk from demo_kcb kc where kc.pzbm = bd.pzbm) + bd.fhzk
        end) fhzk,
        bd.lrrq,
        bd.clrq,
        bd.ts,
        kc.kcsl,
-       yfsl
+       (case when yfsl is null then 0
+             when yfsl is not null then yfsl
+               end
+       ) yfsl
   from demo_bdxx bd
   left join demo_khxx kh
     on bd.zddwbm = kh.khbh
   left join demo_pzxx pz
     on bd.pzbm = pz.pzbm
-    left join demo_kcb kc on kc.pzbm=bd.pzbm left join ( select sum(f.fhsl) as yfsl,b.zddh from demo_bdxx b left join demo_fhb f on b.zddh=f.zddh group by b.zddh) a on a.zddh=bd.zddh;
+  left join demo_kcb kc
+    on kc.pzbm = bd.pzbm
+  left join (select sum(f.fhsl) as yfsl, b.zddh
+               from demo_bdxx b
+               left join demo_fhb f
+                 on b.zddh = f.zddh
+              group by b.zddh) a
+    on a.zddh = bd.zddh;
 
