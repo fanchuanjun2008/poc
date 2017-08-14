@@ -24,6 +24,13 @@
     </properties>
 
     <dependencies>
+    
+    
+    <dependency>
+  <groupId>com.yonyou.uap.bpm</groupId>
+  <artifactId>ubpm-rest-sdk</artifactId>
+  <version>2.5</version>
+	</dependency>
         <!-- 元数据相关 -->
         <dependency>
             <groupId>com.yonyou.iuap</groupId>

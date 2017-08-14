@@ -3,6 +3,7 @@ package com.yonyou.iuap.example.entity;
 
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import com.yonyou.iuap.persistence.jdbc.framework.annotation.Column;
@@ -59,19 +60,31 @@ public class BdxxVO extends BaseEntity {
 	private String zkbj;
 
 	@Column(name = "lrrq")
-	private Timestamp lrrq;
+	private Date lrrq;
 
 	@Column(name = "clrq")
-	private Timestamp clrq;
+	private Date clrq;
 
 	@Column(name = "bz")
 	private String bz;
 	
 	@Column(name = "kcsl")
 	private BigDecimal kcsl;
+	@Column(name = "yfsl")
+	private BigDecimal yfsl;
+	
+	
 	
 	
 
+
+	public BigDecimal getYfsl() {
+		return yfsl;
+	}
+
+	public void setYfsl(BigDecimal yfsl) {
+		this.yfsl = yfsl;
+	}
 
 	public BigDecimal getKcsl() {
 		return kcsl;
@@ -168,20 +181,20 @@ public class BdxxVO extends BaseEntity {
 	}
 	
 
-	public Timestamp getLrrq() {
+	public Date getLrrq() {
 		return this.lrrq;
 	}
 
-	public void setLrrq(Timestamp lrrq) {
+	public void setLrrq(Date lrrq) {
 		this.lrrq = lrrq;
 	}
 	
 
-	public Timestamp getClrq() {
+	public Date getClrq() {
 		return this.clrq;
 	}
 
-	public void setClrq(Timestamp clrq) {
+	public void setClrq(Date clrq) {
 		this.clrq = clrq;
 	}
 	

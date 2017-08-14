@@ -1,7 +1,9 @@
 package com.yonyou.iuap.example.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 	
+
 
 import com.yonyou.iuap.persistence.jdbc.framework.annotation.Column;
 import com.yonyou.iuap.persistence.jdbc.framework.annotation.Entity;
@@ -43,10 +45,10 @@ public class FHVO extends BaseEntity {
 	private String pzbm;
 
 	@Column(name = "fhsl")
-	private Double fhsl;
+	private BigDecimal fhsl;
 
 	@Column(name = "fhzk")
-	private Double fhzk;
+	private BigDecimal fhzk;
 
 	@Column(name = "fdrq")
 	private Date fdrq;
@@ -112,20 +114,20 @@ public class FHVO extends BaseEntity {
 	}
 	
 
-	public Double getFhsl() {
+	public BigDecimal getFhsl() {
 		return this.fhsl;
 	}
 
-	public void setFhsl(Double fhsl) {
+	public void setFhsl(BigDecimal fhsl) {
 		this.fhsl = fhsl;
 	}
 	
 
-	public Double getFhzk() {
+	public BigDecimal getFhzk() {
 		return this.fhzk;
 	}
 
-	public void setFhzk(Double fhzk) {
+	public void setFhzk(BigDecimal fhzk) {
 		this.fhzk = fhzk;
 	}
 	

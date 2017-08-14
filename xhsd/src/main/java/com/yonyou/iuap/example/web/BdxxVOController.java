@@ -1,11 +1,14 @@
 package com.yonyou.iuap.example.web;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import yonyou.bpm.rest.exception.RestException;
+import yonyou.bpm.rest.request.RestVariable;
+import yonyou.bpm.rest.response.historic.HistoricProcessInstanceResponse;
+
+import com.yonyou.iuap.bpm.service.ProcessService;
 import com.yonyou.iuap.example.entity.BdxxVO;
 import com.yonyou.iuap.example.entity.KHxxVO;
 import com.yonyou.iuap.example.entity.PZxxVO;
@@ -45,6 +53,8 @@ public class BdxxVOController extends BaseController {
 	
 	@Autowired
 	private PZxxVOService pzService;
+	@Autowired
+	private ProcessService proservice;
 
 	/**
 	 * data table 列表查询
@@ -73,6 +83,9 @@ public class BdxxVOController extends BaseController {
 			}
 			if(listpz!=null && listpz.size()>0){
 				list.get(i).setPzbmName(listpz.get(0).getSm());
+			}
+			if(list.get(i).getYfsl()==null){
+				list.get(i).setYfsl(new BigDecimal(0));
 			}
 		}
 
@@ -125,6 +138,7 @@ public class BdxxVOController extends BaseController {
 	public JsonResponse fangdan(@RequestBody List<BdxxVO> datas){
 		try{
 			service.fangdan(datas);
+		//	this.startBpm();
 			return super.buildSuccess("放单成功");
 		}catch (BusinessException e){
 			return super.buildGlobalError(e.getMessage());
@@ -222,6 +236,29 @@ public class BdxxVOController extends BaseController {
 			}
 		}
 		return params;
+	}
+	
+	
+	
+	private void startBpm(){
+		List<RestVariable> variables=new ArrayList<RestVariable>();
+    	  RestVariable customerStatus = new RestVariable();
+    	  customerStatus.setName("customerStatus");
+    	  customerStatus.setValue(true);
+    	  RestVariable storeStatus = new RestVariable();
+    	  storeStatus.setName("storeStatus");
+    	  storeStatus.setValue(true);
+    	  variables.add(storeStatus);
+    	  variables.add(customerStatus);
+    	  
+    	  try {
+			HistoricProcessInstanceResponse json= this.proservice.startProcessByKey("35fa8dc0-6f48-11e6-bcf3-0242ac110003", "XHBOOKFORM-V20170814", "text", variables);
+			
+		System.out.println(JSONObject.fromObject(json));
+		} catch (RestException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
 	
 

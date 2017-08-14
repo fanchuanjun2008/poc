@@ -25,9 +25,6 @@ public class IndexController {
 		model.addAttribute("cusername", cuser==null?"":cuser);
 		logger.debug("current user is {}",cuser);
 		
-		//如果有多语环境，跳转到指定语种的静态资源
-		//return "forward:/index." + InvocationInfoProxy.getLocale()+".html";
-		
 		return "forward:/index.html";
 	}
 }

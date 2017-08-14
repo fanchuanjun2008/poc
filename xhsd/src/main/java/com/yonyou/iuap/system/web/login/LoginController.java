@@ -47,21 +47,17 @@ public class LoginController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String login(Model model) {
-		
-		//return "login." + InvocationInfoProxy.getLocale()+".html";
 		return "login";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST,value="formLogin")
 	public String formLogin(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
-        
 		/**
 		 * 注意，此示例中简单验证了用户的登录过程，正规上线环境，需要考虑
 		 * 前端用ras算法加密，此处用iuap-security组件中的RsaUtils解密，前端需要做输入校验
 		 */
-		String userName = request.getParameter("username");
+        String userName = request.getParameter("username");
         String passWord = request.getParameter("password");
-		
 		MgrUser user = accountService.findUserByLoginName(userName);
 		if (passWord!=null && user != null) {
 			byte[] hashPassword = Digests.sha1(passWord.getBytes(), Encodes.decodeHex(user.getSalt()), HASH_INTERATIONS);

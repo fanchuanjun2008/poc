@@ -1,8 +1,13 @@
 package com.yonyou.iuap.example.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +17,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yonyou.iuap.example.entity.BdxxVO;
+import com.yonyou.iuap.example.entity.FHVO;
 import com.yonyou.iuap.example.entity.KCVO;
 import com.yonyou.iuap.example.entity.KHxxVO;
+import com.yonyou.iuap.example.entity.PZxxVO;
 import com.yonyou.iuap.example.repository.BdxxVODao;
 import com.yonyou.iuap.example.utils.ConstanstUtils;
 import com.yonyou.iuap.persistence.vo.pub.BusinessException;
@@ -30,6 +37,12 @@ public class BdxxVOService {
 
     @Autowired
     private KHxxVOService kHxxVOService;
+    
+    @Autowired
+    private FHVOService fhvoService;
+    
+    @Autowired
+    private PZxxVOService pZxxVOService;
     
 
 	  /**
@@ -94,6 +107,7 @@ public class BdxxVOService {
     	return dao.findByPzbm(pzbm);
     }
     
+    @Transactional
     public void fangdan(List<BdxxVO> datas) throws BusinessException{
         if(CollectionUtils.isNotEmpty(datas)){
             List<String> pzbms = new ArrayList<String>();
@@ -122,7 +136,38 @@ public class BdxxVOService {
             }
 
             //进行转换为发货单逻辑
-
+            List<FHVO> listfh=new ArrayList<FHVO>();
+            List<PZxxVO> updateList=new ArrayList<PZxxVO>();
+            Set<String> pzs=new HashSet<String>();
+            for(BdxxVO vo:datas){
+            	FHVO fhvo=new FHVO();
+            	fhvo.setYwbm(vo.getYwbm());
+            	fhvo.setZddwbm(vo.getZddwbm());
+            	fhvo.setZddh(vo.getZddh());
+            	fhvo.setPzbm(vo.getPzbm());
+            	fhvo.setFhsl(vo.getFhsl());
+            	fhvo.setFhzk(vo.getFhzk());
+            	fhvo.setFdrq(new Date());
+            	fhvo.setFdr("admin");
+            	fhvo.setClzt("b");
+            	fhvo.setBz("新华书店发货");
+            	listfh.add(fhvo);
+            	pzs.add(vo.getPzbm());
+            }
+            for(String pz:pzs){
+            	List<PZxxVO> listpz=pZxxVOService.findByPzbm(pz);
+            	PZxxVO pZxxVO=listpz.get(0);
+            	BigDecimal add=new BigDecimal(0);
+            	for(BdxxVO vo:datas){
+            		if(vo.getPzbm().equalsIgnoreCase(pz)){
+            			add=add.add(vo.getFhsl());
+            		}
+            	}
+            	
+            	
+            }
+            
+            fhvoService.save(listfh, null, null);
         }
     }
 
