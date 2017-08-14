@@ -1,4 +1,4 @@
-package com.yonyou.iuap.example.entity;
+package com.yonyou.iuap.poc.entity;
 
 
 
@@ -26,6 +26,11 @@ import com.yonyou.iuap.persistence.vo.BaseEntity;
 @Table(name="demo_kcb")
 public class KCVO extends BaseEntity {
 	  
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=Stragegy.UUID,moudle="")
 	@Column(name = "id_kcb")

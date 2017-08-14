@@ -1,8 +1,9 @@
-package com.yonyou.iuap.example.service;
+package com.yonyou.iuap.poc.service;
 
-import com.yonyou.iuap.example.entity.PZxxExtVO;
-import com.yonyou.iuap.example.entity.PZxxVO;
-import com.yonyou.iuap.example.repository.PZxxVODao;
+import com.yonyou.iuap.poc.entity.PZxxExtVO;
+import com.yonyou.iuap.poc.entity.PZxxVO;
+import com.yonyou.iuap.poc.repository.PZxxVODao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -1,12 +1,12 @@
-package com.yonyou.iuap.example.repository;
+package com.yonyou.iuap.poc.repository;
 
-import com.yonyou.iuap.example.entity.KCVO;
-import com.yonyou.iuap.example.utils.InSqlUtil;
 import com.yonyou.iuap.iweb.exception.WebRuntimeException;
 import com.yonyou.iuap.persistence.bs.dao.BaseDAO;
 import com.yonyou.iuap.persistence.jdbc.framework.SQLParameter;
 import com.yonyou.iuap.persistence.jdbc.framework.util.FastBeanHelper;
 import com.yonyou.iuap.persistence.vo.pub.VOStatus;
+import com.yonyou.iuap.poc.entity.FHVO;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,34 +19,36 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class KCVODao {
+public class FHVODao {
 
 	@Autowired
     @Qualifier(value = "baseDAO")
     private BaseDAO dao;
 	
 	//根据某一非主键字段查询实体
-	public List<KCVO> findByYwbm(String ywbm){
-		String sql = "select * from demo_kcb where ywbm=?";
+	public List<FHVO> findByYwbm(String ywbm){
+		String sql = "select * from demo_fhb where ywbm=?";
         SQLParameter sqlparam = new SQLParameter();
         sqlparam.addParam(ywbm);
-        List<KCVO> list = dao.queryByClause(KCVO.class, sql, sqlparam);
+        List<FHVO> list = dao.queryByClause(FHVO.class, sql, sqlparam);
         return list;
 	}
-
-    //根据某一非主键字段查询实体
-    public List<KCVO> findByPzbms(String[] pzbms){
-        String inSql = InSqlUtil.getInSubSql(pzbms);
-        String sql = "select * from demo_kcb where pzbm in "+inSql;
-        List<KCVO> list = dao.queryByClause(KCVO.class, sql);
+	//根据某一非主键字段查询实体
+	public List<FHVO> findByZddwbm(String zddwbm){
+		String sql = "select * from demo_fhb where zddwbm=?";
+        SQLParameter sqlparam = new SQLParameter();
+        sqlparam.addParam(zddwbm);
+        List<FHVO> list = dao.queryByClause(FHVO.class, sql, sqlparam);
         return list;
-    }
-    
-    public List<KCVO> findByPzbm(String pzbm){
-    	String sql="select * from demo_kcb where pzbm='"+pzbm+"'";
-        List<KCVO> list = dao.queryByClause(KCVO.class, sql);
+	}
+	//根据某一非主键字段查询实体
+	public List<FHVO> findByZddh(String zddh){
+		String sql = "select * from demo_fhb where zddh=?";
+        SQLParameter sqlparam = new SQLParameter();
+        sqlparam.addParam(zddh);
+        List<FHVO> list = dao.queryByClause(FHVO.class, sql, sqlparam);
         return list;
-    }
+	}
 
 	  /**
      * 分页查询方法
@@ -54,18 +56,18 @@ public class KCVODao {
      * @param searchParams
      * @return
      */
-    public Page<KCVO> selectAllByPage(PageRequest pageRequest, Map<String, Object> searchParams) {
-    	 String sql = " SELECT * FROM demo_kcb ";   
+    public Page<FHVO> selectAllByPage(PageRequest pageRequest, Map<String, Object> searchParams) {
+    	 String sql = " SELECT * FROM demo_fhb ";   
          SQLParameter sqlparam = new SQLParameter();
          if (null != searchParams && !searchParams.isEmpty()) {
              sql = sql + " where ";
              for (String key : searchParams.keySet()) {
-                 sql = sql + FastBeanHelper.getColumn(KCVO.class, key) + " like ? AND ";
+                 sql = sql + FastBeanHelper.getColumn(FHVO.class, key) + " like ? AND ";
                  sqlparam.addParam("%" + searchParams.get(key) + "%");
              }
              sql = sql.substring(0, sql.length() - 4);
          }
-         return dao.queryPage(sql, sqlparam, pageRequest, KCVO.class);
+         return dao.queryPage(sql, sqlparam, pageRequest, FHVO.class);
     }
 
     /**
@@ -75,9 +77,9 @@ public class KCVODao {
      * @param removeList
      */
     @Transactional
-    public void save(List<KCVO> addList, List<KCVO> updateList, List<KCVO> removeList) {
+    public void save(List<FHVO> addList, List<FHVO> updateList, List<FHVO> removeList) {
         if (CollectionUtils.isNotEmpty(addList)) {
-            for (KCVO obj : addList) {
+            for (FHVO obj : addList) {
             	obj.setStatus(VOStatus.NEW);
             	obj.setDr(0); 
 //            	if(obj.getCreateTime() == null ){
@@ -91,7 +93,7 @@ public class KCVODao {
             dao.insert(addList) ;
         }
         if (CollectionUtils.isNotEmpty(updateList)) {
-            for (KCVO obj : updateList) {
+            for (FHVO obj : addList) {
             	obj.setStatus(VOStatus.UPDATED);
 //                // 从InvocationInfoProxy获取值
 //                dictType.setModifier(InvocationInfoProxy.getUsername());
@@ -101,7 +103,7 @@ public class KCVODao {
             dao.update(updateList) ;
         }
         if (CollectionUtils.isNotEmpty(removeList)) {
-        	 for (KCVO obj : addList) {
+        	 for (FHVO obj : addList) {
              	obj.setStatus(VOStatus.DELETED);
              }
         	 dao.remove(removeList);
@@ -113,11 +115,12 @@ public class KCVODao {
      * 批量删除
      * @param list
      */
-    public void batchDeleteByPrimaryKey(List<KCVO> list) {
+    public void batchDeleteByPrimaryKey(List<FHVO> list) {
         if (CollectionUtils.isEmpty(list)) {
             throw new WebRuntimeException("当前没有选中数据!");
         }
         dao.remove(list);
     }
+    
 
 }

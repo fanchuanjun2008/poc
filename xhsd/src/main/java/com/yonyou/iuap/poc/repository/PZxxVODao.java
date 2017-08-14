@@ -1,7 +1,12 @@
-package com.yonyou.iuap.example.repository;
+package com.yonyou.iuap.poc.repository;
 
-import java.util.List;
-import java.util.Map;
+import com.yonyou.iuap.iweb.exception.WebRuntimeException;
+import com.yonyou.iuap.persistence.bs.dao.BaseDAO;
+import com.yonyou.iuap.persistence.jdbc.framework.SQLParameter;
+import com.yonyou.iuap.persistence.jdbc.framework.util.FastBeanHelper;
+import com.yonyou.iuap.persistence.vo.pub.VOStatus;
+import com.yonyou.iuap.poc.entity.PZxxExtVO;
+import com.yonyou.iuap.poc.entity.PZxxVO;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,27 +16,30 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yonyou.iuap.example.entity.KHxxVO;
-import com.yonyou.iuap.example.utils.InSqlUtil;
-import com.yonyou.iuap.iweb.exception.WebRuntimeException;
-import com.yonyou.iuap.persistence.bs.dao.BaseDAO;
-import com.yonyou.iuap.persistence.jdbc.framework.SQLParameter;
-import com.yonyou.iuap.persistence.jdbc.framework.util.FastBeanHelper;
-import com.yonyou.iuap.persistence.vo.pub.VOStatus;
+import java.util.List;
+import java.util.Map;
 
 @Repository
-public class KHxxVODao {
+public class PZxxVODao {
 
 	@Autowired
-	@Qualifier(value = "baseDAO")
+    @Qualifier(value = "baseDAO")
     private BaseDAO dao;
 	
 	//根据某一非主键字段查询实体
-	public List<KHxxVO> findByKhbh(String khbh){
-		String sql = "select * from demo_khxx where khbh=?";
+	public List<PZxxVO> findByPzbm(String pzbm){
+		String sql = "select * from demo_pzxx where pzbm=?";
         SQLParameter sqlparam = new SQLParameter();
-        sqlparam.addParam(khbh);
-        List<KHxxVO> list = dao.queryByClause(KHxxVO.class, sql, sqlparam);
+        sqlparam.addParam(pzbm);
+        List<PZxxVO> list = dao.queryByClause(PZxxVO.class, sql, sqlparam);
+        return list;
+	}
+	//根据某一非主键字段查询实体
+	public List<PZxxVO> findByIsbn(String isbn){
+		String sql = "select * from demo_pzxx where isbn=?";
+        SQLParameter sqlparam = new SQLParameter();
+        sqlparam.addParam(isbn);
+        List<PZxxVO> list = dao.queryByClause(PZxxVO.class, sql, sqlparam);
         return list;
 	}
 
@@ -41,42 +49,18 @@ public class KHxxVODao {
      * @param searchParams
      * @return
      */
-    public Page<KHxxVO> selectAllByPage(PageRequest pageRequest, Map<String, Object> searchParams) {
-    	 String sql = " SELECT * FROM khxx ";   
+    public Page<PZxxVO> selectAllByPage(PageRequest pageRequest, Map<String, Object> searchParams) {
+    	 String sql = " SELECT * FROM demo_pzxx ";   
          SQLParameter sqlparam = new SQLParameter();
          if (null != searchParams && !searchParams.isEmpty()) {
              sql = sql + " where ";
              for (String key : searchParams.keySet()) {
-                 sql = sql + FastBeanHelper.getColumn(KHxxVO.class, key) + " like ? AND ";
+                 sql = sql + FastBeanHelper.getColumn(PZxxVO.class, key) + " like ? AND ";
                  sqlparam.addParam("%" + searchParams.get(key) + "%");
              }
              sql = sql.substring(0, sql.length() - 4);
          }
-       
-         
-         return dao.queryPage(sql, sqlparam, pageRequest, KHxxVO.class);
-    }
-    
-	  /**
-     * 分页查询方法
-     * @param pageRequest
-     * @param searchParams
-     * @return
-     */
-    public Page<KHxxVO> selectAllByPagekh(PageRequest pageRequest, Map<String, Object> searchParams) {
-    	 String sql = " SELECT * FROM demo_khxx ";   
-         SQLParameter sqlparam = new SQLParameter();
-         if (null != searchParams && !searchParams.isEmpty()) {
-             sql = sql + " where ";
-             for (String key : searchParams.keySet()) {
-                 sql = sql + FastBeanHelper.getColumn(KHxxVO.class, key) + " like ? AND ";
-                 sqlparam.addParam("%" + searchParams.get(key) + "%");
-             }
-             sql = sql.substring(0, sql.length() - 4);
-         }
-       
-         
-         return dao.queryPage(sql, sqlparam, pageRequest, KHxxVO.class);
+         return dao.queryPage(sql, sqlparam, pageRequest, PZxxVO.class);
     }
 
     /**
@@ -86,9 +70,9 @@ public class KHxxVODao {
      * @param removeList
      */
     @Transactional
-    public void save(List<KHxxVO> addList, List<KHxxVO> updateList, List<KHxxVO> removeList) {
+    public void save(List<PZxxVO> addList, List<PZxxVO> updateList, List<PZxxVO> removeList) {
         if (CollectionUtils.isNotEmpty(addList)) {
-            for (KHxxVO obj : addList) {
+            for (PZxxVO obj : addList) {
             	obj.setStatus(VOStatus.NEW);
             	obj.setDr(0); 
 //            	if(obj.getCreateTime() == null ){
@@ -102,7 +86,7 @@ public class KHxxVODao {
             dao.insert(addList) ;
         }
         if (CollectionUtils.isNotEmpty(updateList)) {
-            for (KHxxVO obj : addList) {
+            for (PZxxVO obj : addList) {
             	obj.setStatus(VOStatus.UPDATED);
 //                // 从InvocationInfoProxy获取值
 //                dictType.setModifier(InvocationInfoProxy.getUsername());
@@ -112,7 +96,7 @@ public class KHxxVODao {
             dao.update(updateList) ;
         }
         if (CollectionUtils.isNotEmpty(removeList)) {
-        	 for (KHxxVO obj : addList) {
+        	 for (PZxxVO obj : addList) {
              	obj.setStatus(VOStatus.DELETED);
              }
         	 dao.remove(removeList);
@@ -124,19 +108,31 @@ public class KHxxVODao {
      * 批量删除
      * @param list
      */
-    public void batchDeleteByPrimaryKey(List<KHxxVO> list) {
+    public void batchDeleteByPrimaryKey(List<PZxxVO> list) {
         if (CollectionUtils.isEmpty(list)) {
             throw new WebRuntimeException("当前没有选中数据!");
         }
         dao.remove(list);
     }
-    
-    //根据某一非主键字段查询实体
-    public List<KHxxVO> findByKhbhs(String[] khbhs){
-        String inSql = InSqlUtil.getInSubSql(khbhs);
-        String sql = "select * from demo_khxx where khbh in "+inSql;
-        List<KHxxVO> list = dao.queryByClause(KHxxVO.class, sql);
-        return list;
-    }
 
+    /**
+     * 分页查询方法
+     * @param pageRequest
+     * @param searchParams
+     * @return
+     */
+    public Page<PZxxExtVO> selectAllByPageWithBd(PageRequest pageRequest, Map<String, Object> searchParams) {
+        String sql = " SELECT * FROM demo_pzxxext ";
+        SQLParameter sqlparam = new SQLParameter();
+        if (null != searchParams && !searchParams.isEmpty()) {
+            sql = sql + " where ";
+            for (String key : searchParams.keySet()) {
+                sql = sql + FastBeanHelper.getColumn(PZxxExtVO.class, key) + " like ? AND ";
+                sqlparam.addParam("%" + searchParams.get(key) + "%");
+            }
+            sql = sql.substring(0, sql.length() - 4);
+        }
+
+        return dao.queryPage(sql, sqlparam, pageRequest, PZxxExtVO.class);
+    }
 }

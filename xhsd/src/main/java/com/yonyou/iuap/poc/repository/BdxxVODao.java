@@ -1,4 +1,4 @@
-package com.yonyou.iuap.example.repository;
+package com.yonyou.iuap.poc.repository;
 
 import java.util.List;
 import java.util.Map;
@@ -11,12 +11,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yonyou.iuap.example.entity.BdxxVO;
 import com.yonyou.iuap.iweb.exception.WebRuntimeException;
 import com.yonyou.iuap.persistence.bs.dao.BaseDAO;
 import com.yonyou.iuap.persistence.jdbc.framework.SQLParameter;
 import com.yonyou.iuap.persistence.jdbc.framework.util.FastBeanHelper;
 import com.yonyou.iuap.persistence.vo.pub.VOStatus;
+import com.yonyou.iuap.poc.entity.BdxxVO;
 
 @Repository
 public class BdxxVODao {

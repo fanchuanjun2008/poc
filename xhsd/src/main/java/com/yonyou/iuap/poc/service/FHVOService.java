@@ -1,4 +1,4 @@
-package com.yonyou.iuap.example.service;
+package com.yonyou.iuap.poc.service;
 
 import java.util.List;
 import java.util.Map;
@@ -9,9 +9,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yonyou.iuap.example.entity.FHVO;
-import com.yonyou.iuap.example.repository.FHVODao;
 import com.yonyou.iuap.persistence.bs.jdbc.meta.access.DASFacade;
+import com.yonyou.iuap.poc.entity.FHVO;
+import com.yonyou.iuap.poc.repository.FHVODao;
 
 @Service
 public class FHVOService {

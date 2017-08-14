@@ -1,4 +1,4 @@
-package com.yonyou.iuap.example.service;
+package com.yonyou.iuap.poc.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,14 +15,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yonyou.iuap.example.entity.BdxxVO;
-import com.yonyou.iuap.example.entity.FHVO;
-import com.yonyou.iuap.example.entity.KCVO;
-import com.yonyou.iuap.example.entity.KHxxVO;
-import com.yonyou.iuap.example.repository.BdxxVODao;
-import com.yonyou.iuap.example.utils.ConstanstUtils;
 import com.yonyou.iuap.persistence.bs.jdbc.meta.access.DASFacade;
 import com.yonyou.iuap.persistence.vo.pub.BusinessException;
+import com.yonyou.iuap.poc.entity.BdxxVO;
+import com.yonyou.iuap.poc.entity.FHVO;
+import com.yonyou.iuap.poc.entity.KCVO;
+import com.yonyou.iuap.poc.entity.KHxxVO;
+import com.yonyou.iuap.poc.repository.BdxxVODao;
+import com.yonyou.iuap.poc.utils.ConstanstUtils;
 
 @Service
 public class BdxxVOService {

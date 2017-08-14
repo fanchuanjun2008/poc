@@ -1,4 +1,4 @@
-package com.yonyou.iuap.example.service;
+package com.yonyou.iuap.poc.service;
 
 import java.util.List;
 import java.util.Map;
@@ -10,8 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yonyou.iuap.example.entity.KHxxVO;
-import com.yonyou.iuap.example.repository.KHxxVODao;
+import com.yonyou.iuap.poc.entity.KHxxVO;
+import com.yonyou.iuap.poc.repository.KHxxVODao;
 
 @Service
 public class KHxxVOService {

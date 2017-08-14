@@ -1,7 +1,8 @@
-package com.yonyou.iuap.example.entity;
+package com.yonyou.iuap.poc.entity;
+
+
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import com.yonyou.iuap.persistence.jdbc.framework.annotation.Column;
 import com.yonyou.iuap.persistence.jdbc.framework.annotation.Entity;
@@ -11,23 +12,29 @@ import com.yonyou.iuap.persistence.jdbc.framework.annotation.Stragegy;
 import com.yonyou.iuap.persistence.jdbc.framework.annotation.Table;
 import com.yonyou.iuap.persistence.vo.BaseEntity;
 
+
+
 /**
  * <b> 此处简要描述此类功能 </b>
  * <p>
- * 此处添加类的描述信息
+ *   此处添加类的描述信息
  * </p>
- * 
- * @author
- * @version
+ * @author 
+ * @version 
  */
-@Entity(namespace = "xhsd", name = "FHVO")
-@Table(name = "demo_fhb")
-public class FHVO extends BaseEntity {
+@Entity(namespace = "xhsd",name = "BdxxVO")
+@Table(name="demo_bdxx")
+public class BdxxVO extends BaseEntity {
+	  
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = Stragegy.UUID, moudle = "")
-	@Column(name = "id_fhb")
-	private String id_fhb;
+	@GeneratedValue(strategy=Stragegy.UUID,moudle="")
+	@Column(name = "id_bdxx")
+	private String id_bdxx;
 
 	@Column(name = "ywbm")
 	private String ywbm;
@@ -43,37 +50,67 @@ public class FHVO extends BaseEntity {
 	private String pzbm;
 	private String pzbmName;
 
+	@Column(name = "zdsl")
+	private BigDecimal zdsl;
+
 	@Column(name = "fhsl")
 	private BigDecimal fhsl;
 
 	@Column(name = "fhzk")
 	private BigDecimal fhzk;
 
-	@Column(name = "fdrq")
-	private Date fdrq;
+	@Column(name = "zkbj")
+	private String zkbj;
 
-	@Column(name = "fdr")
-	private String fdr;
+	@Column(name = "lrrq")
+	private java.sql.Timestamp lrrq;
 
-	@Column(name = "clzt")
-	private String clzt;
+	@Column(name = "clrq")
+	private java.sql.Timestamp clrq;
 
 	@Column(name = "bz")
 	private String bz;
+	
+	@Column(name = "kcsl")
+	private BigDecimal kcsl;
+	@Column(name = "yfsl")
+	private BigDecimal yfsl;
+	
+	
+	
+	
+
+
+	public BigDecimal getYfsl() {
+		return yfsl;
+	}
+
+	public void setYfsl(BigDecimal yfsl) {
+		this.yfsl = yfsl;
+	}
+
+	public BigDecimal getKcsl() {
+		return kcsl;
+	}
+
+	public void setKcsl(BigDecimal kcsl) {
+		this.kcsl = kcsl;
+	}
 
 	@Column(name = "dr")
-	private java.lang.Integer dr = 0;
+    private java.lang.Integer dr = 0 ;
+      
+    @Column(name = "ts")
+    private java.sql.Timestamp ts ;    	
 
-	@Column(name = "ts")
-	private java.sql.Timestamp ts;
-
-	public String getId_fhb() {
-		return this.id_fhb;
+	public String getId_bdxx() {
+		return this.id_bdxx;
 	}
 
-	public void setId_fhb(String id_fhb) {
-		this.id_fhb = id_fhb;
+	public void setId_bdxx(String id_bdxx) {
+		this.id_bdxx = id_bdxx;
 	}
+	
 
 	public String getYwbm() {
 		return this.ywbm;
@@ -82,6 +119,7 @@ public class FHVO extends BaseEntity {
 	public void setYwbm(String ywbm) {
 		this.ywbm = ywbm;
 	}
+	
 
 	public String getZddwbm() {
 		return this.zddwbm;
@@ -90,6 +128,7 @@ public class FHVO extends BaseEntity {
 	public void setZddwbm(String zddwbm) {
 		this.zddwbm = zddwbm;
 	}
+	
 
 	public String getZddh() {
 		return this.zddh;
@@ -98,6 +137,7 @@ public class FHVO extends BaseEntity {
 	public void setZddh(String zddh) {
 		this.zddh = zddh;
 	}
+	
 
 	public String getPzbm() {
 		return this.pzbm;
@@ -106,6 +146,16 @@ public class FHVO extends BaseEntity {
 	public void setPzbm(String pzbm) {
 		this.pzbm = pzbm;
 	}
+	
+
+	public BigDecimal getZdsl() {
+		return this.zdsl;
+	}
+
+	public void setZdsl(BigDecimal zdsl) {
+		this.zdsl = zdsl;
+	}
+	
 
 	public BigDecimal getFhsl() {
 		return this.fhsl;
@@ -114,6 +164,7 @@ public class FHVO extends BaseEntity {
 	public void setFhsl(BigDecimal fhsl) {
 		this.fhsl = fhsl;
 	}
+	
 
 	public BigDecimal getFhzk() {
 		return this.fhzk;
@@ -122,30 +173,34 @@ public class FHVO extends BaseEntity {
 	public void setFhzk(BigDecimal fhzk) {
 		this.fhzk = fhzk;
 	}
+	
 
-	public Date getFdrq() {
-		return this.fdrq;
+	public String getZkbj() {
+		return this.zkbj;
 	}
 
-	public void setFdrq(Date fdrq) {
-		this.fdrq = fdrq;
+	public void setZkbj(String zkbj) {
+		this.zkbj = zkbj;
+	}
+	
+
+	public java.sql.Timestamp getLrrq() {
+		return this.lrrq;
 	}
 
-	public String getFdr() {
-		return this.fdr;
+	public void setLrrq(java.sql.Timestamp lrrq) {
+		this.lrrq = lrrq;
+	}
+	
+
+	public java.sql.Timestamp getClrq() {
+		return this.clrq;
 	}
 
-	public void setFdr(String fdr) {
-		this.fdr = fdr;
+	public void setClrq(java.sql.Timestamp clrq) {
+		this.clrq = clrq;
 	}
-
-	public String getClzt() {
-		return this.clzt;
-	}
-
-	public void setClzt(String clzt) {
-		this.clzt = clzt;
-	}
+	
 
 	public String getBz() {
 		return this.bz;
@@ -154,33 +209,24 @@ public class FHVO extends BaseEntity {
 	public void setBz(String bz) {
 		this.bz = bz;
 	}
-
-	public java.lang.Integer getDr() {
+	
+	    	
+	public java.lang.Integer getDr () {
 		return dr;
 	}
-
-	public void setDr(java.lang.Integer newDr) {
-		this.dr = newDr;
-	}
-
-	public java.sql.Timestamp getTs() {
+	
+	public void setDr (java.lang.Integer newDr ) {
+	 	this.dr = newDr;
+	} 	
+	
+	public java.sql.Timestamp getTs () {
 		return ts;
 	}
-
-	public void setTs(java.sql.Timestamp newTs) {
-		this.ts = newTs;
-	}
-
-	@Override
-	public String getMetaDefinedName() {
-		return "FHVO";
-	}
-
-	@Override
-	public String getNamespace() {
-		return "xhsd";
-	}
-
+	
+	public void setTs (java.sql.Timestamp newTs ) {
+	 	this.ts = newTs;
+	} 
+	
 	public String getZddwbmName() {
 		return zddwbmName;
 	}
@@ -196,5 +242,14 @@ public class FHVO extends BaseEntity {
 	public void setPzbmName(String pzbmName) {
 		this.pzbmName = pzbmName;
 	}
+	
+	@Override
+    public String getMetaDefinedName() {
+	        return "BdxxVO";
+	    }
 
+	    @Override
+	    public String getNamespace() {
+	        return "xhsd";
+	    }
 }

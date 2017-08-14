@@ -1,14 +1,11 @@
-package com.yonyou.iuap.example.web;
+package com.yonyou.iuap.poc.web;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-
-import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,23 +17,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import yonyou.bpm.rest.exception.RestException;
-import yonyou.bpm.rest.request.RestVariable;
-import yonyou.bpm.rest.response.historic.HistoricProcessInstanceResponse;
-
 import com.yonyou.iuap.bpm.service.ProcessService;
-import com.yonyou.iuap.example.entity.BdxxVO;
-import com.yonyou.iuap.example.entity.KHxxVO;
-import com.yonyou.iuap.example.entity.PZxxVO;
-import com.yonyou.iuap.example.service.BdxxVOService;
-import com.yonyou.iuap.example.service.KHxxVOService;
-import com.yonyou.iuap.example.service.PZxxVOService;
+import com.yonyou.iuap.example.web.BaseController;
 import com.yonyou.iuap.iweb.datatable.annotation.IWebParameter;
 import com.yonyou.iuap.iweb.entity.DataTable;
 import com.yonyou.iuap.iweb.entity.Row;
 import com.yonyou.iuap.iweb.event.EventResponse;
 import com.yonyou.iuap.mvc.type.JsonResponse;
 import com.yonyou.iuap.persistence.vo.pub.BusinessException;
+import com.yonyou.iuap.poc.entity.BdxxVO;
+import com.yonyou.iuap.poc.service.BdxxVOService;
+
+import net.sf.json.JSONObject;
+import yonyou.bpm.rest.exception.RestException;
+import yonyou.bpm.rest.request.RestVariable;
+import yonyou.bpm.rest.response.historic.HistoricProcessInstanceResponse;
 
 /**
  * controller层
@@ -48,11 +43,6 @@ public class BdxxVOController extends BaseController {
 	@Autowired
 	private BdxxVOService service;
 	
-	@Autowired
-	private KHxxVOService khservice;
-	
-	@Autowired
-	private PZxxVOService pzService;
 	@Autowired
 	private ProcessService proservice;
 
@@ -73,20 +63,6 @@ public class BdxxVOController extends BaseController {
 
 		Page<BdxxVO> result = service.selectAllByPage(new PageRequest(pageNumber, dataTable.getPageSize(), new Sort(Sort.Direction.DESC, "ts")),
 				searchParamMap);
-//		List<BdxxVO> list=result.getContent();
-//		for(int i=0;i<list.size();i++){
-//			List<KHxxVO> listkh=khservice.findByKhbh(list.get(i).getZddwbm());
-//			List<PZxxVO> listpz= pzService.findByPzbm(list.get(i).getPzbm());
-//			if(listkh!=null && listkh.size()>0){
-//				list.get(i).setZddwbmName(listkh.get(0).getKhmc());
-//			}
-//			if(listpz!=null && listpz.size()>0){
-//				list.get(i).setPzbmName(listpz.get(0).getSm());
-//			}
-//			if(list.get(i).getYfsl()==null){
-//				list.get(i).setYfsl(new BigDecimal(0));
-//			}
-//		}
 
 		dataTable.setPageData(pageNumber, result.getContent(), result.getTotalPages(), result.getTotalElements());
 		return response;
@@ -109,18 +85,6 @@ public class BdxxVOController extends BaseController {
 
 		Page<BdxxVO> result = service.selectAllByPagefor(new PageRequest(pageNumber, dataTable.getPageSize(), new Sort(Sort.Direction.DESC, "ts")),
 				searchParamMap);
-//		List<BdxxVO> list=result.getContent();
-//		for(int i=0;i<list.size();i++){
-//			List<KHxxVO> listkh=khservice.findByKhbh(list.get(i).getZddwbm());
-//			List<PZxxVO> listpz= pzService.findByPzbm(list.get(i).getPzbm());
-//			if(listkh!=null && listkh.size()>0){
-//				list.get(i).setZddwbmName(listkh.get(0).getKhmc());
-//				
-//			}
-//			if(listpz!=null && listpz.size()>0){
-//				list.get(i).setPzbmName(listpz.get(0).getSm());
-//			}
-//		}
 
 		dataTable.setPageData(pageNumber, result.getContent(), result.getTotalPages(), result.getTotalElements());
 		return response;

@@ -1,4 +1,4 @@
-package com.yonyou.iuap.example.entity;
+package com.yonyou.iuap.poc.entity;
 
 
 
@@ -21,6 +21,11 @@ import java.sql.Timestamp;
 @Table(name="demo_pzxx")
 public class PZxxVO extends BaseEntity {
 	  
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=Stragegy.UUID,moudle="")
 	@Column(name = "id_pzxx")
