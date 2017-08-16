@@ -82,6 +82,7 @@ header > .u-container > .u-row {
 
 div#list {
     background: #fff;
+    position: static;
 }
 
 /*表格最前方单选按钮*/
@@ -199,8 +200,11 @@ div#grid_dicttype {
     -ms-transition: height 0.35s ease;
     -o-transition: height 0.35s ease;
     transition: height 0.35s ease;
-    position: relative;
+    /* position: relative; */
     overflow: hidden;
     height: 0;
+}
 
+.fhvo-section{
+    position: static;
 }
