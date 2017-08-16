@@ -1,6 +1,6 @@
 var KHxxVOmeta = {
     params: {
-        "cls": "com.yonyou.iuap.example.entity.KHxxVO"
+        "cls": "com.yonyou.iuap.poc.entity.KHxxVO"
     },
 
     meta: {
@@ -18,7 +18,7 @@ var KHxxVOmeta = {
 
 var BdxxVOmeta = {
     params: {
-        "cls": "com.yonyou.iuap.example.entity.BdxxVO"
+        "cls": "com.yonyou.iuap.poc.entity.BdxxVO"
     },
 
     meta: {
@@ -44,7 +44,7 @@ var BdxxVOmeta = {
 
 var FHVOmeta = {
     params: {
-        "cls": "com.yonyou.iuap.example.entity.FHVO"
+        "cls": "com.yonyou.iuap.poc.entity.FHVO"
     },
 
     meta: {
@@ -67,7 +67,7 @@ var FHVOmeta = {
 
 var PZxxVOmeta = {
     params: {
-        "cls": "com.yonyou.iuap.example.entity.PZxxVO"
+        "cls": "com.yonyou.iuap.poc.entity.PZxxVO"
     },
 
     meta: {

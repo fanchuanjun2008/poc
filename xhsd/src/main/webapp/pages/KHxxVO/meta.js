@@ -1,6 +1,6 @@
 var KHxxVOmeta = {
 	params : {
-		"cls" : "com.yonyou.iuap.example.entity.KHxxVO"
+		"cls" : "com.yonyou.iuap.poc.entity.KHxxVO"
 	},
 
 	meta : {

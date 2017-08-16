@@ -1,6 +1,6 @@
 var FHVOmeta = {
 	params : {
-		"cls" : "com.yonyou.iuap.example.entity.FHVO"
+		"cls" : "com.yonyou.iuap.poc.entity.FHVO"
 	},
 
 	meta : {

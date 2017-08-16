@@ -1,5 +1,7 @@
 define(['text!./FHVO.html','./meta.js','css!./FHVO.css'],function(html){
 //define(['text!pages/FHVO/FHVO.html','pages/FHVO/meta','css!pages/FHVO/FHVO.css','uuitree','uuigrid'],function(html){
+	
+	var appctx = '/xhsd';
     var init = function (element, params) {
         var viewModel = {
     		listurl : '/FHVO/list',   
@@ -36,7 +38,7 @@ define(['text!./FHVO.html','./meta.js','css!./FHVO.css'],function(html){
                         });
                         viewModel.FHVODa.addParams(queryData);
                         app.serverEvent().addDataTable("FHVODa").fire({
-                            url: ctx + viewModel.listurl,
+                            url: appctx + viewModel.listurl,
                             success: function (data) {
 
                             },
@@ -79,7 +81,7 @@ define(['text!./FHVO.html','./meta.js','css!./FHVO.css'],function(html){
                     });
                     viewModel.FHVODa.addParams(queryData);
                     app.serverEvent().addDataTable("FHVODa").fire({
-                        url: ctx + viewModel.listurl,
+                        url: appctx + viewModel.listurl,
                         success: function (data) {
 
                         },
@@ -93,7 +95,7 @@ define(['text!./FHVO.html','./meta.js','css!./FHVO.css'],function(html){
                 },
                 addClick: function () {
                     app.serverEvent().addDataTable("FHVODa").fire({
-                        url: ctx + viewModel.addurl,
+                        url: appctx + viewModel.addurl,
                         error:function(er){
                         	  u.messageDialog({msg: '请求失败，请检查。', title: '请求错误', btnText: '确定'});
                          }
@@ -115,7 +117,7 @@ define(['text!./FHVO.html','./meta.js','css!./FHVO.css'],function(html){
                     }
 
                     app.serverEvent().addDataTable("FHVODa", 'change').fire({
-                        url: ctx + viewModel.saveurl,
+                        url: appctx + viewModel.saveurl,
                         success: function (data) {
                             u.showMessage({msg: '操作完成'})
                         },
@@ -135,7 +137,7 @@ define(['text!./FHVO.html','./meta.js','css!./FHVO.css'],function(html){
                         title: '警告',
                         onOk: function () {
                             app.serverEvent().addDataTable("FHVODa", 'allSelect').fire({
-                                url: ctx + viewModel.delurl,
+                                url: appctx + viewModel.delurl,
                                 success: function (data) {
                                    /* u.showMessage({msg: '操作完成'})*/
                                 },

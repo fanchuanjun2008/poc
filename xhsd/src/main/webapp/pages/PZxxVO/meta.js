@@ -1,6 +1,6 @@
 var PZxxVOmeta = {
 	params: {
-        "cls": "com.yonyou.iuap.example.entity.PZxxVO" 
+        "cls": "com.yonyou.iuap.poc.entity.PZxxVO" 
     },
 
     meta: {

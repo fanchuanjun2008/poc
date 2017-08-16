@@ -1,6 +1,6 @@
 var BdxxVOmeta = {
 	params : {
-		"cls" : "com.yonyou.iuap.example.entity.BdxxVO"
+		"cls" : "com.yonyou.iuap.poc.entity.BdxxVO"
 	},
 
 	meta : {

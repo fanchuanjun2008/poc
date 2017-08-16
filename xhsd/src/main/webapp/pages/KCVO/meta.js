@@ -1,6 +1,6 @@
 var KCVOmeta = {
 	params : {
-		"cls" : "com.yonyou.iuap.example.entity.KCVO"
+		"cls" : "com.yonyou.iuap.poc.entity.KCVO"
 	},
 
 	meta : {

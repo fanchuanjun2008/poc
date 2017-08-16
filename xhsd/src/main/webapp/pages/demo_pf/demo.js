@@ -1,6 +1,8 @@
 define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
 //define(['text!pages/demo/demo.html','pages/demo/meta','css!pages/demo/demo.css','uui','uuigrid'], function(template) {
 	//初始化方法,页面加载后被 调用
+	
+	var appctx='/xhsd';
 	var init=function  (element) {
 		 viewModel = {
 				listurl : '/KHxxVO/list', //客户查询
@@ -23,7 +25,7 @@ define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
 		                        queryData["search_khbh"]="";
 		                        viewModel.KHxxVODa.addParams(queryData);
 		                        app.serverEvent().addDataTable("KHxxVODa").fire({
-		                            url: ctx + viewModel.listurl,
+		                            url: appctx + viewModel.listurl,
 		                            success: function (data) {
 		                            },
 		                            error:function(er){
@@ -60,7 +62,7 @@ define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
 		                        });
 		                        viewModel.PZxxVODa.addParams(queryData);
 		                        app.serverEvent().addDataTable("PZxxVODa").fire({
-		                            url: ctx + viewModel.listpzurl,
+		                            url: appctx + viewModel.listpzurl,
 		                            success: function (data) {
 
 		                            },
@@ -83,7 +85,7 @@ define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
 		                        });
 		                        viewModel.PZxxVODa.addParams(queryData);
 		                        app.serverEvent().addDataTable("PZxxVODa").fire({
-		                            url: ctx + viewModel.listpzurl,
+		                            url: appctx + viewModel.listpzurl,
 		                            success: function (data) {
 
 		                            },
@@ -100,7 +102,7 @@ define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
 		                	  queryData["search_khbh"]=khbm;
 		                        viewModel.KHxxVODa.addParams(queryData);
 		                        app.serverEvent().addDataTable("KHxxVODa").fire({
-		                            url: ctx + viewModel.listurl,
+		                            url: appctx + viewModel.listurl,
 		                            success: function (data) {
 		                            },
 		                            error:function(er){
@@ -117,7 +119,7 @@ define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
 		                        queryData["search_pzbm"] = "";
 		                        viewModel.BdxxVODa.addParams(queryData);
 		                        app.serverEvent().addDataTable("BdxxVODa").fire({
-		                            url: ctx + viewModel.listbdurl,
+		                            url: appctx + viewModel.listbdurl,
 		                            success: function (data) {
 		                            },
 		                            error:function(er){
@@ -134,7 +136,7 @@ define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
 		                        queryData["search_zddwbm"] = "";
 		                        viewModel.BdxxVODa.addParams(queryData);
 		                        app.serverEvent().addDataTable("BdxxVODa").fire({
-		                            url: ctx + viewModel.listbdurl,
+		                            url: appctx + viewModel.listbdurl,
 		                            success: function (data) {
 		                            },
 		                            error:function(er){
@@ -248,7 +250,7 @@ define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
 	                           queryData["search_pzbm"] = "";
 		                        viewModel.BdxxVODa.addParams(queryData);
 		                    app.serverEvent().addDataTable("BdxxVODa").fire({
-	                            url: ctx + viewModel.listbdurl,
+	                            url: appctx + viewModel.listbdurl,
 	                            success: function (data) {
 	                            },
 	                            error:function(er){
@@ -274,7 +276,7 @@ define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
 							}else{
                                 $.ajax({
                                     type: "POST",
-                                    url: ctx + viewModel.fangdanurl,
+                                    url: appctx + viewModel.fangdanurl,
                                     contentType: 'application/json;charset=utf-8',
                                     dataType: 'json',
                                     data: JSON.stringify(datas),
