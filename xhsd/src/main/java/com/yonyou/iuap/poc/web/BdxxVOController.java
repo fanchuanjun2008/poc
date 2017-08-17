@@ -215,7 +215,9 @@ public class BdxxVOController extends BaseController {
     	  variables.add(customerStatus);
     	  
     	  try {
-			HistoricProcessInstanceResponse json= this.proservice.startProcessByKey("35fa8dc0-6f48-11e6-bcf3-0242ac110003", "XHBOOKFORM-V20170814", "text", variables);
+    		//1.云审用户id
+    		//2.流程key
+			HistoricProcessInstanceResponse json= this.proservice.startProcessByKey("35fa8dc0-6f48-11e6-bcf3-0242ac110003", "XHBOOKFORM-V20170814", "新华报订单流程", variables);
 			
 			System.out.println(JSONObject.fromObject(json));
 		} catch (RestException e) {

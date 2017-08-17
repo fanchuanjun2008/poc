@@ -272,8 +272,26 @@ define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
                             var selectArray = viewModel.BdxxVODa.selectedIndices();
                             var datas = viewModel.BdxxVODa.getSimpleData({type: 'select'});
                             if(selectArray==undefined || selectArray.length==0){
-								u.showMessageDialog("请选择需要放单的数据");
+								u.messageDialog({msg: '请选择需要放单的数据', title: '提示', btnText: '确定'});
 							}else{
+								var arr = viewModel.BdxxVODa.getSimpleData({type:"select"});
+								if(arr!=undefined && arr.length>0){
+									var pass = true;
+									for(var i=0;i<arr.length;i++){
+										var obj = arr[i];
+										var flag = obj.fhsl >0;
+										pass = pass && flag;
+									}
+								}
+//								var pass = arr.some(function(e){
+//													if(e.fhsl){
+//														parseInt(e.fhsl) >0;
+//													}
+//													});
+								if(!pass){
+									u.messageDialog({msg: '请检查发货数量，发货数量不允许为零。', title: '错误', btnText: '确定'});
+									return;
+								}
                                 $.ajax({
                                     type: "POST",
                                     url: appctx + viewModel.fangdanurl,
@@ -283,18 +301,20 @@ define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
                                     success: function (res) {
                                         if (res.success == "success") {
                                             //viewModel.event.myRefresh();
-											u.showMessage({
-                                                msg: '<i class="fa fa-times-circle margin-r-5"></i>' + res.detailMsg.data,
-                                                position: "bottom",
-                                                msgType: "success"
-                                            });
+                                            message(res.detailMsg.data,"success","2000");
+											// u.showMessage({
+           //                                      msg: '<i class="fa fa-times-circle margin-r-5"></i>' + res.detailMsg.data,
+           //                                      position: "bottom",
+           //                                      msgType: "success"
+           //                                  });
                                         } else {
                                             // viewModel.event.initList();
-                                            u.showMessage({
-                                                msg: '<i class="fa fa-times-circle margin-r-5"></i>' + res.message,
-                                                position: "bottom",
-                                                msgType: "error"
-                                            });
+                                            message(res.message,"error","2000");
+                                            // u.showMessage({
+                                            //     msg: '<i class="fa fa-times-circle margin-r-5"></i>' + res.message,
+                                            //     position: "bottom",
+                                            //     msgType: "error"
+                                            // });
                                         }
                                     }
                                 });
@@ -304,14 +324,14 @@ define(['text!./demo.html','./meta.js','css!./demo.css'], function(template) {
 		};	
 		$(element).html(template);
 		 var test =function(e){
-			 var temp = '<div class="u-grid-header-multi-select  checkbox check-success" style="width: 40px">\
-					<span id="poccheckbox" class="u-grid-checkbox-outline">\
+			 var temp = '<div class="u-grid-header-multi-select  checkbox check-success demo-reduce" style="width: 40px">\
+					<span class="u-grid-checkbox-outline">\
 						<span class="u-grid-checkbox-tick-outline"></span>\
 					</span>\
 				</div>';
 			 e.element.innerHTML = temp;
 			 if(parseInt(e.value) === 1){
-				 $("#poccheckbox").addClass("is-checked");
+			 	$(temp).find(".u-grid-checkbox-outline").addClass('is-checked');
 			 }
 		 }
 		 

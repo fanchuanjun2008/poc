@@ -119,7 +119,8 @@ define(['text!./FHVO.html','./meta.js','css!./FHVO.css'],function(html){
                     app.serverEvent().addDataTable("FHVODa", 'change').fire({
                         url: appctx + viewModel.saveurl,
                         success: function (data) {
-                            u.showMessage({msg: '操作完成'})
+                            message("操作完成","success","2000");
+                            // u.showMessage({msg: '操作完成'})
                         },
 	                    error:function(er){
 	                  	  u.messageDialog({msg: '请求失败，请检查。', title: '请求错误', btnText: '确定'});
